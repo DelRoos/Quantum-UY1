@@ -237,4 +237,4 @@ Ce projet est sous licence [MIT](LICENSE). Vous êtes libre de le réutiliser, m
 
 ## **Contact**
 
-Pour toute question ou suggestion, contactez-nous via l'adresse email suivante : **delanoroosvelt733@gmail.com**.
+Pour toute question ou suggestion, contactez-nous via l'adresse email suivante : **delanoroosvelt733@gmail.com**
