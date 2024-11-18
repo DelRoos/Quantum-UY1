@@ -24,8 +24,8 @@ Le projet est divisé en plusieurs applications **Django** :
 
 ### **Prérequis**
 
-- Python 3.10 ou supérieur
-- Django 4.2 ou supérieur
+- Python 3.12 ou supérieur
+- Django 5 ou supérieur
 - PostgreSQL ou SQLite pour la base de données
 - Pip (gestionnaire de packages Python)
 - Un environnement virtuel Python (recommandé)
@@ -34,8 +34,8 @@ Le projet est divisé en plusieurs applications **Django** :
 
 1. **Cloner le Référentiel**
    ```bash
-   git clone https://github.com/votre-repo/laboratoire-physique.git
-   cd laboratoire-physique
+   git clone https://github.com/DelRoos/Quantum-UY1.git
+   cd Quantum-UY1
    ```
 
 2. **Créer et Activer un Environnement Virtuel**
