@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.container {
+    display: flex;
+}
+
+.content {
+    margin-right: 270px; /* pour laisser de l'espace pour la sidebar */
+    padding: 20px;
+    flex: 1;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1e1e1e; /* Fond de la sidebar */
+    padding: 20px;
+    height: 100vh; /* Hauteur pleine */
+    position: fixed;
+    right: 0;
+    top: 0;
+    overflow-y: auto; /* Permet de faire défiler la sidebar si le contenu est trop long */
+    border-left: 2px solid #bb86fc; /* Bordure à gauche pour un effet élégant */
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    color: #bb86fc; /* Couleur des titres */
+    font-size: 24px;
+    text-align: center; /* Centrer le titre */
+}
+
+.sidebar ul {
+    list-style-type: none; /* Supprimer les puces */
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0; /* Espace entre les liens */
+}
+
+.sidebar ul li a {
+    text-decoration: none; /* Supprimer le soulignement */
+    color: #bb86fc; /* Couleur des liens */
+    padding: 10px 15px; /* Padding pour un meilleur clic */
+    border-radius: 5px; /* Coins arrondis */
+    transition: background-color 0.3s, color 0.3s; /* Transition douce */
+    display: block; /* Rendre le lien cliquable sur toute la largeur */
+}
+
+.sidebar ul li a:hover {
+    background-color: rgba(187, 134, 252, 0.2); /* Couleur de fond au survol */
+    color: #e2e1e6; /* Couleur au survol */
+}
+
+.latest-articles {
+    margin-bottom: 20px;
+}
+
+.latest-articles article {
+    margin-bottom: 20px;
+    border: 1px solid #0e0c10;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff; /* Fond blanc pour les articles récents */
+    transition: box-shadow 0.3s;
+}
+
+.latest-articles article:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre au survol */
+}
+
+.latest-articles h3 {
+    margin: 0 0 10px;
+}
+
+.latest-articles p {
+    margin: 0 0 5px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #6200ea;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #3700b3;
+}
+
+.article {
+    display: none; /* Par défaut, tous les articles sont cachés */
+    background-color: #090909; /* Fond blanc pour les articles */
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.article h1 {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.article h2 {
+    font-size: 20px;
+}
+
+.article p {
+    font-size: 16px;
+    line-height: 1.5;
+}
