@@ -1,0 +1,101 @@
+{% load static %}
+<footer id="newsletter">
+    <div class="container">
+        <div class="card footer">
+            <div class="section footer-top">
+
+                <div class="footer-brand">
+                    <a href="{% url 'core:home' %}" class="logo">
+                        <img src="{% static 'images/logo.svg' %}" width="119" height="37" loading="lazy" alt="{{ site_name }}">
+                    </a>
+
+                    <p class="footer-text">
+                        Le laboratoire Quantum UY1 est un centre d'excellence dédié à la recherche fondamentale en physique quantique.
+                        Notre mission est d'explorer les frontières de la science et de former la prochaine génération de chercheurs.
+                    </p>
+
+                    <p class="footer-list-title">Adresse</p>
+  
+                    <address class="footer-text address">
+                        Université de Yaoundé 1 <br>
+                        Faculté des Sciences <br>
+                        Département de Physique <br>
+                        Yaoundé, Cameroun
+                    </address>
+                </div>
+
+                <div class="footer-list">
+                    <p class="footer-list-title">Navigation</p>
+                    <ul  class="footer-links">
+                        <li><a href="{% url 'core:home' %}">Accueil</a></li>
+                        {% comment %} <li><a href="#">Notre Équipe</a></li> {% endcomment %}
+                        {% comment %} <li><a href="#">Nos Travaux</a></li> {% endcomment %}
+                        {% comment %} <li><a href="#">Blog</a></li> {% endcomment %}
+                        <li><a href="{% url 'core:contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-list">
+                    <p class="footer-list-title">Newsletter</p>
+                    <p class="footer-text">
+                        Restez informé de nos dernières découvertes scientifiques, publications et événements en vous inscrivant à notre newsletter.
+                    </p>
+
+                    <form action="{% url 'core:newsletter_signup' %}" method="post">
+                        {% csrf_token %}
+
+                        <div class="input-wrapper">
+                            <input type="text" name="name" placeholder="Votre nom" required class="input-field" autocomplete="off">
+                            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                        </div>
+    
+                        <div class="input-wrapper">
+                            <input type="email" name="email" placeholder="Votre addresse email" required class="input-field" autocomplete="off">
+                            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <span class="span">Rejoignez-nous</span>
+                            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                        </button>
+                    </form>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="card-tag">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">
+                    © {% now "Y" %} {{ site_name }} - Laboratoire de Recherche Quantique
+                </p>
+
+                <ul class="social-list">
+                    <li>
+                        <a href="{{ social_links.twitter }}" class="social-link">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                            <span class="span">Twitter</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ social_links.linkedin }}" class="social-link">
+                            <ion-icon name="logo-linkedin"></ion-icon>
+                            <span class="span">LinkedIn</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ social_links.researchgate }}" class="social-link">
+                            <ion-icon name="library-outline"></ion-icon>
+                            <span class="span">ResearchGate</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

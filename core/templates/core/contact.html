@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact - {{ site_name }}{% endblock %}
+
+{% block content %}
+<style>
+
+    :root {
+        --primary-color: #0ea5ea;
+        --secondary-color: #0bd1d1;
+        --bg-dark: #101826;
+        --text-light: #e0e6ed;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --transition: all 0.3s ease;
+        --radius: 8px;
+      }
+  
+      .contact-section {
+        padding: 80px 0;
+        min-height: 100vh;
+        background: var(--bg-dark);
+        color: var(--text-light);
+      }
+  
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+  
+      .hero-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 60px;
+      }
+  
+      .hero-content h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+  
+      .hero-content p {
+        font-size: 1.2rem;
+        opacity: 0.8;
+      }
+  
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+  
+      .contact-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: var(--radius);
+        padding: 30px;
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+      }
+  
+      .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+  
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+  
+      .info-item:last-child {
+        border-bottom: none;
+      }
+  
+      .info-item ion-icon {
+        font-size: 24px;
+        color: var(--primary-color);
+      }
+  
+      .info-content h3 {
+        margin: 0 0 5px;
+        font-size: 1.2rem;
+      }
+  
+      .info-content p, .info-content a {
+        color: var(--text-light);
+        opacity: 0.8;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+  
+      .info-content a:hover {
+        color: var(--primary-color);
+        opacity: 1;
+      }
+  
+      .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+  
+      {% comment %} .social-link {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: var(--text-light);
+        text-decoration: none;
+        transition: var(--transition);
+      } {% endcomment %}
+{% comment %}   
+      .social-link:hover {
+        background: var(--primary-color);
+        transform: translateY(-3px);
+      } {% endcomment %}
+  
+      .contact-form {
+        display: grid;
+        gap: 20px;
+      }
+  
+      .form-group {
+        position: relative;
+      }
+  
+      .form-control {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        color: var(--text-light);
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+  
+      .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(14, 165, 234, 0.2);
+      }
+  
+      .form-group ion-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-color);
+      }
+  
+      textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+      }
+  
+      .submit-btn {
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: var(--radius);
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+  
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(14, 165, 234, 0.4);
+      }
+  
+      .alert {
+        padding: 15px;
+        border-radius: var(--radius);
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-color);
+      }
+  
+      .alert-success {
+        border-color: var(--secondary-color);
+        color: var(--secondary-color);
+      }
+  
+      @media (max-width: 768px) {
+        .hero-content h1 {
+          font-size: 2.5rem;
+        }
+  
+        .contact-section {
+          padding: 60px 0;
+        }
+        
+        .info-item {
+          padding: 12px 0;
+        }
+        
+        .contact-card {
+          padding: 20px;
+        }
+      }
+  
+      @media (max-width: 480px) {
+        .hero-content h1 {
+          font-size: 2rem;
+        }
+        
+        .hero-content p {
+          font-size: 1rem;
+        }
+        
+        .submit-btn {
+          width: 100%;
+        }
+      }
+</style>
+
+<section class="contact-section">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Contactez Nous</h1>
+        <p>Notre équipe est là pour répondre à vos questions et discuter de possibles collaborations. N'hésitez pas à nous contacter.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="info-item">
+            <ion-icon name="location-outline"></ion-icon>
+            <div class="info-content">
+              <h3>Notre Adresse</h3>
+              <p>{{ site_config.address }}</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <ion-icon name="call-outline"></ion-icon>
+            <div class="info-content">
+              <h3>Téléphone</h3>
+              <a href="tel:{{ site_config.phone }}">{{ site_config.phone }}</a>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <ion-icon name="mail-outline"></ion-icon>
+            <div class="info-content">
+              <h3>Email</h3>
+              <a href="mailto:{{ site_config.contact_email }}">{{ site_config.contact_email }}</a>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-content">
+              <h3>Suivez-nous</h3>
+              <div class="social-links">
+                {% if social_links.twitter %}
+                <a href="{{ social_links.twitter }}" class="social-link">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+                {% endif %}
+
+                {% if social_links.linkedin %}
+                <a href="{{ social_links.linkedin }}" class="social-link">
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+                {% endif %}
+
+                {% if social_links.researchgate %}
+                <a href="{{ social_links.researchgate }}" class="social-link">
+                  <ion-icon name="library-outline"></ion-icon>
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h2>Envoyez-nous un message</h2>
+
+          {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success">
+              {{ message }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          <form method="post" class="contact-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+              <ion-icon name="person-outline"></ion-icon>
+              {{ form.name }}
+              {% if form.name.errors %}
+              <div class="alert">{{ form.name.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <ion-icon name="mail-outline"></ion-icon>
+              {{ form.email }}
+              {% if form.email.errors %}
+              <div class="alert">{{ form.email.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <ion-icon name="chatbubble-outline"></ion-icon>
+              {{ form.subject }}
+              {% if form.subject.errors %}
+              <div class="alert">{{ form.subject.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <ion-icon name="create-outline"></ion-icon>
+              {{ form.message }}
+              {% if form.message.errors %}
+              <div class="alert">{{ form.message.errors }}</div>
+              {% endif %}
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <ion-icon name="send-outline"></ion-icon>
+              <span>Envoyer le message</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}
