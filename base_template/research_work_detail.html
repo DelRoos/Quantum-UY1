@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>Quantum UY1</title>
+  <meta name="title" content="Quantum UY1">
+  <meta name="description" content="This is a blog for Quantum UY1 comunity">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    /* Styles spécifiques pour la page de détail */
+    .research-hero {
+      padding-block-start: calc(var(--section-padding) + 60px);
+      background-color: var(--bg-prussian-blue);
+      margin-bottom: 2rem;
+    }
+
+    .research-banner {
+      position: relative;
+      border-radius: var(--radius-16);
+      overflow: hidden;
+      margin-block: 3rem;
+    }
+
+    .research-banner img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 21/9;
+      object-fit: cover;
+    }
+
+    .research-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-block: 2rem;
+      padding: 1.5rem;
+      background-color: var(--bg-oxford-blue);
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-wild-blue-yonder);
+    }
+
+    .meta-item ion-icon {
+      color: var(--text-carolina-blue);
+      font-size: 1.2em;
+    }
+
+    .research-content {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .content-main {
+      background-color: var(--bg-oxford-blue);
+      padding: 2rem;
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+    }
+
+    .content-section {
+      margin-block: 3rem;
+    }
+
+    .content-section:first-child {
+      margin-block-start: 0;
+    }
+
+    .section-title {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-2);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-prussian-blue);
+    }
+
+    .research-text {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .content-sidebar {
+      position: sticky;
+      top: 2rem;
+    }
+
+    .sidebar-card {
+      background-color: var(--bg-oxford-blue);
+      padding: 2rem;
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+      margin-bottom: 2rem;
+    }
+
+    .team-member {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-prussian-blue);
+    }
+
+    .team-member:last-child {
+      border-bottom: none;
+    }
+
+    .member-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-circle);
+      object-fit: cover;
+    }
+
+    .member-info {
+      flex: 1;
+    }
+
+    .member-name {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-6);
+      margin-bottom: 0.25rem;
+    }
+
+    .member-role {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background-color: var(--bg-prussian-blue);
+      border-radius: var(--radius-8);
+    }
+
+    .stat-number {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-1);
+      font-weight: var(--weight-bold);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+    }
+
+    .fun-fact {
+      background-color: var(--bg-carolina-blue);
+      color: var(--text-white);
+      padding: 2rem;
+      border-radius: var(--radius-8);
+      margin-block: 2rem;
+    }
+
+    .fun-fact-title {
+      font-size: var(--fontSize-5);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 992px) {
+      .research-content {
+        grid-template-columns: 1fr;
+      }
+
+      .content-sidebar {
+        position: static;
+      }
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-question {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-5);
+      margin-bottom: 0.75rem;
+      font-weight: var(--weight-semiBold);
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-6);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-link:hover {
+      color: var(--text-wild-blue-yonder);
+    }
+
+    .question-form {
+        margin-top: 1rem;
+      }
+    
+      .form-field {
+        margin-bottom: 1rem;
+      }
+    
+      .form-label {
+        display: block;
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        margin-bottom: 0.5rem;
+      }
+    
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background-color: var(--bg-prussian-blue);
+        border: 1px solid var(--border-prussian-blue);
+        border-radius: var(--radius-6);
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        transition: border-color var(--transition-1);
+      }
+    
+      .form-input:focus,
+      .form-textarea:focus {
+        border-color: var(--bg-carolina-blue);
+        outline: none;
+      }
+    
+      .form-textarea {
+        height: 120px;
+        resize: vertical;
+      }
+    
+      .question-card {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        background-color: var(--bg-prussian-blue);
+        border-radius: var(--radius-8);
+      }
+    
+      .question-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+    
+      .question-author {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    
+      .author-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-circle);
+      }
+    
+      .author-name {
+        color: var(--text-carolina-blue);
+        font-size: var(--fontSize-6);
+      }
+    
+      .question-date {
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-7);
+      }
+    
+      .question-text {
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        margin-bottom: 1rem;
+      }
+    
+      .question-response {
+        margin-left: 2rem;
+        padding: 1rem;
+        background-color: var(--bg-oxford-blue);
+        border-radius: var(--radius-8);
+      }
+    
+      .response-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+    
+      .response-badge {
+        background-color: var(--bg-carolina-blue);
+        color: var(--text-white);
+        font-size: var(--fontSize-7);
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--radius-pill);
+      }
+    
+      .tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+    
+      .tab-btn {
+        padding: 0.5rem 1rem;
+        background: none;
+        border: none;
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: all var(--transition-1);
+      }
+    
+      .tab-btn.active {
+        color: var(--text-carolina-blue);
+        border-bottom-color: var(--bg-carolina-blue);
+      }
+    
+      .success-message {
+        display: none;
+        color: #4CAF50;
+        font-size: var(--fontSize-6);
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: rgba(76, 175, 80, 0.1);
+        border-radius: var(--radius-6);
+      }
+    
+      .success-message.show {
+        display: block;
+      }
+  </style>
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./assets/images/hero-banner.png">
+  <link rel="preload" as="image" href="./assets/images/pattern-2.svg">
+  <link rel="preload" as="image" href="./assets/images/pattern-3.svg">
+
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="./assets/images/logo.svg" width="119" height="37" alt="Quantum UY1">
+      </a>
+
+      <nav class="navbar" data-navbar>
+
+        <div class="navbar-top">
+          <a href="#" class="logo">
+            <img src="./assets/images/logo.svg" width="119" height="37" alt="Quantum UY1">
+          </a>
+
+          <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+
+        <ul class="navbar-list">
+
+          <li>
+            <a href="#home" class="navbar-link hover-1" data-nav-toggler>Home</a>
+          </li>
+
+          <li>
+            <a href="#team" class="navbar-link hover-1" data-nav-toggler>Notre equipe</a>
+          </li>
+
+          <li>
+            <a href="#research_topic" class="navbar-link hover-1" data-nav-toggler>Nos travaux</a>
+          </li>
+
+          <li>
+            <a href="#recent" class="navbar-link hover-1" data-nav-toggler>Blog</a>
+          </li>
+
+          <li>
+            <a href="#contact" class="navbar-link hover-1" data-nav-toggler>Contact</a>
+          </li>
+
+        </ul>
+
+        <p class="copyright-text">
+            
+            © 2024 Quantum UY1. Tous droits réservés.
+            Developed by codewithsadee
+        </p>
+
+      </nav>
+
+      <a href="#" class="btn btn-primary">Rejoignez-nous</a>
+
+      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+        <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+      </button>
+
+    </div>
+  </header>
+
+
+
+
+  <main>
+    <!-- Hero Section -->
+    <section class="research-hero">
+      <div class="container">
+        <h1 class="headline-1 section-title">
+          Étude des <span class="span">Particules Subatomiques</span>
+        </h1>
+
+        <div class="research-meta">
+          <div class="meta-item">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>2022-2025</span>
+          </div>
+          <div class="meta-item">
+            <ion-icon name="people-outline"></ion-icon>
+            <span>8 Chercheurs</span>
+          </div>
+          <div class="meta-item">
+            <ion-icon name="document-text-outline"></ion-icon>
+            <span>15 Publications</span>
+          </div>
+          <div class="meta-item">
+            <ion-icon name="git-network-outline"></ion-icon>
+            <span>3 Collaborations</span>
+          </div>
+        </div>
+
+        <figure class="research-banner">
+          <img src="/api/placeholder/1200/600" alt="Particules subatomiques" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <!-- Contenu Principal -->
+    <section class="section">
+      <div class="container">
+        <div class="research-content">
+          <!-- Colonne Principale -->
+          <div class="content-main">
+            <!-- Introduction -->
+            <div class="content-section">
+              <h2 class="section-title">Pourquoi Ce Sujet Est-Il Important ?</h2>
+              <p class="research-text">
+                Les particules subatomiques sont les blocs de construction fondamentaux de tout ce qui existe. 
+                Comprendre comment elles interagissent dans des conditions extrêmes peut nous aider à percer 
+                les mystères de l'univers, de sa création à son évolution future.
+              </p>
+              <p class="research-text">
+                Ce projet de recherche vise à explorer les frontières de notre compréhension de la matière 
+                et de ses interactions fondamentales.
+              </p>
+            </div>
+
+            <!-- Méthodes et Approches -->
+            <div class="content-section">
+              <h2 class="section-title">Méthodes et Approches</h2>
+              <p class="research-text">
+                Pour explorer ces mystères, nous utilisons des accélérateurs de particules de dernière 
+                génération. Ces machines nous permettent de recréer des conditions similaires à celles 
+                de l'univers primordial.
+              </p>
+
+              <!-- Anecdote -->
+              <div class="fun-fact">
+                <h3 class="fun-fact-title">
+                  <ion-icon name="bulb-outline"></ion-icon>
+                  Le Saviez-Vous ?
+                </h3>
+                <p>
+                  Les particules que nous étudions ont parcouru tout l'univers en une fraction de 
+                  seconde après le Big Bang. Ces particules minuscules détiennent des secrets qui 
+                  remontent à des milliards d'années.
+                </p>
+              </div>
+            </div>
+
+            <!-- Résultats et Découvertes -->
+            <div class="content-section">
+              <h2 class="section-title">Résultats et Découvertes</h2>
+              <p class="research-text">
+                Nos recherches ont révélé que certaines particules se comportent différemment 
+                lorsqu'elles sont soumises à des énergies très élevées, révélant des propriétés 
+                inconnues qui pourraient redéfinir notre compréhension de la matière.
+              </p>
+            </div>
+
+            <!-- FAQ -->
+            <div class="content-section">
+              <h2 class="section-title">Questions Fréquentes</h2>
+              <div class="faq-item">
+                <h3 class="faq-question">Pourquoi étudier les particules subatomiques ?</h3>
+                <p class="research-text">
+                  L'étude des particules subatomiques nous permet de comprendre les mécanismes 
+                  fondamentaux qui régissent notre univers et pourrait mener à des applications 
+                  technologiques révolutionnaires.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3 class="faq-question">Comment ces recherches impactent notre vie quotidienne ?</h3>
+                <p class="research-text">
+                  Les découvertes en physique des particules ont déjà mené à des avancées majeures 
+                  en médecine, en informatique et en technologies de l'énergie.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="content-sidebar">
+            <!-- Équipe de Recherche -->
+            <div class="sidebar-card">
+              <h3 class="section-title">Équipe de Recherche</h3>
+              
+              <div class="team-member">
+                <img src="/api/placeholder/50/50" alt="Dr. Alice Doe" class="member-avatar">
+                <div class="member-info">
+                  <h4 class="member-name">Dr. Alice Doe</h4>
+                  <p class="member-role">Chercheuse Principale</p>
+                </div>
+              </div>
+
+              <div class="team-member">
+                <img src="/api/placeholder/50/50" alt="Dr. Bob Smith" class="member-avatar">
+                <div class="member-info">
+                  <h4 class="member-name">Dr. Bob Smith</h4>
+                  <p class="member-role">Chercheur Senior</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="sidebar-card">
+              <h3 class="section-title">Impact du Projet</h3>
+              <div class="stat-grid">
+                <div class="stat-item">
+                  <div class="stat-number">15</div>
+                  <div class="stat-label">Publications</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">8</div>
+                  <div class="stat-label">Chercheurs</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">3</div>
+                  <div class="stat-label">Prix Reçus</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">12</div>
+                  <div class="stat-label">Conférences</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="sidebar-card">
+              <h3 class="section-title">Contact</h3>
+              <a href="mailto:contact@quantum.com" class="contact-link">
+                <ion-icon name="mail-outline"></ion-icon>
+                contact@quantum.com
+              </a>
+              <a href="tel:+123456789" class="contact-link">
+                <ion-icon name="call-outline"></ion-icon>
+                +123 456 789
+              </a>
+            </div>
+
+          </aside>
+        </div>
+      </div>
+    </section>
+            
+    <section class="section">
+
+        <div class="container">
+            <h3 class="section-title">Questions & Réponses</h3>
+            
+            <div class="tabs">
+            <button class="tab-btn active" data-tab="recent">Questions Récentes</button>
+            <button class="tab-btn" data-tab="ask">Poser une Question</button>
+            </div>
+        
+            <div class="tab-content" id="recent-questions">
+            <!-- Question Exemple 1 -->
+            <div class="question-card">
+                <div class="question-header">
+                <div class="question-author">
+                    <img src="/api/placeholder/32/32" alt="User" class="author-avatar">
+                    <span class="author-name">Jean Dupont</span>
+                </div>
+                <span class="question-date">Il y a 2 jours</span>
+                </div>
+                <p class="question-text">
+                Comment les résultats de cette recherche pourraient-ils être appliqués dans l'industrie ?
+                </p>
+                <div class="question-response">
+                <div class="response-header">
+                    <span class="response-badge">Réponse</span>
+                    <span class="author-name">Dr. Alice Doe</span>
+                </div>
+                <p class="research-text">
+                    Nos découvertes pourraient mener à des avancées significatives dans le développement 
+                    de nouveaux matériaux et technologies quantiques.
+                </p>
+                </div>
+            </div>
+        
+            <!-- Question Exemple 2 -->
+            <div class="question-card">
+                <div class="question-header">
+                <div class="question-author">
+                    <img src="/api/placeholder/32/32" alt="User" class="author-avatar">
+                    <span class="author-name">Marie Martin</span>
+                </div>
+                <span class="question-date">Il y a 4 jours</span>
+                </div>
+                <p class="question-text">
+                Est-il possible de visiter votre laboratoire dans un cadre éducatif ?
+                </p>
+                <div class="question-response">
+                <div class="response-header">
+                    <span class="response-badge">Réponse</span>
+                    <span class="author-name">Dr. Bob Smith</span>
+                </div>
+                <p class="research-text">
+                    Oui, nous organisons régulièrement des visites pour les groupes scolaires et universitaires.
+                    Contactez-nous pour planifier une visite.
+                </p>
+                </div>
+            </div>
+            </div>
+        
+            <div class="tab-content" id="ask-question" style="display: none;">
+            <form class="question-form">
+                <div class="form-field">
+                <label for="name" class="form-label">Votre nom</label>
+                <input type="text" id="name" class="form-input" required>
+                </div>
+        
+                <div class="form-field">
+                <label for="email" class="form-label">Votre email</label>
+                <input type="email" id="email" class="form-input" required>
+                </div>
+        
+                <div class="form-field">
+                <label for="question" class="form-label">Votre question</label>
+                <textarea id="question" class="form-textarea" required></textarea>
+                </div>
+        
+                <button type="submit" class="btn btn-primary w-100">Envoyer la question</button>
+            </form>
+        
+            <div class="success-message">
+                Votre question a été envoyée avec succès ! Nous vous répondrons dans les plus brefs délais.
+            </div>
+            </div>
+        </div>
+    </section>
+      
+      <!-- Ajoutez ce script avant la fermeture de body -->
+      <script>
+        // Gestion des onglets
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+      
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            // Mise à jour des onglets actifs
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+      
+            // Affichage du contenu correspondant
+            const targetId = tab.dataset.tab === 'recent' ? 'recent-questions' : 'ask-question';
+            contents.forEach(content => {
+              content.style.display = content.id === targetId ? 'block' : 'none';
+            });
+          });
+        });
+      
+        // Gestion du formulaire
+        const questionForm = document.querySelector('.question-form');
+        const successMessage = document.querySelector('.success-message');
+      
+        questionForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          // Simulation d'envoi de question
+          setTimeout(() => {
+            questionForm.reset();
+            successMessage.classList.add('show');
+            
+            // Cacher le message après 3 secondes
+            setTimeout(() => {
+              successMessage.classList.remove('show');
+            }, 3000);
+          }, 1000);
+        });
+      </script>
+    
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+<footer id="contact">
+  <div class="container">
+      <div class="card footer">
+          <div class="section footer-top">
+
+              <div class="footer-brand">
+                  <a href="#" class="logo">
+                      <img src="./assets/images/logo.svg" width="119" height="37" loading="lazy" alt="Quantum UY1">
+                  </a>
+
+                  <p class="footer-text">
+                      Le laboratoire Quantum UY1 est un centre d'excellence dédié à la recherche fondamentale en physique quantique. 
+                      Notre mission est d'explorer les frontières de la science et de former la prochaine génération de chercheurs.
+                  </p>
+
+                  <p class="footer-list-title">Adresse</p>
+
+                  <address class="footer-text address">
+                      Université de Yaoundé 1 <br>
+                      Faculté des Sciences <br>
+                      Département de Physique <br>
+                      Yaoundé, Cameroun
+                  </address>
+              </div>
+
+            <div class="footer-list">
+                <p class="footer-list-title">Navigation</p>
+
+                <ul class="footer-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="#team">Notre Équipe</a></li>
+                    <li><a href="#research_topic">Nos Travaux</a></li>
+                    <li><a href="#recent">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+              <div class="footer-list">
+                  <p class="footer-list-title">Newsletter</p>
+
+                  <p class="footer-text">
+                      Restez informé de nos dernières découvertes scientifiques, publications et événements en vous inscrivant à notre newsletter.
+                  </p>
+
+                  <div class="input-wrapper">
+                      <input type="text" name="name" placeholder="Votre nom" required class="input-field" autocomplete="off">
+                      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                  </div>
+
+                  <div class="input-wrapper">
+                      <input type="email" name="email_address" placeholder="Adresse email" required class="input-field" autocomplete="off">
+                      <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                  </div>
+
+                  <a href="#" class="btn btn-primary">
+                      <span class="span">Rejoignez-nous</span>
+                      <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                  </a>
+              </div>
+
+          </div>
+
+          <div class="footer-bottom">
+              <p class="copyright">
+                  © 2024 Quantum UY1 - Laboratoire de Recherche Quantique
+              </p>
+
+              <ul class="social-list">
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-twitter"></ion-icon>
+                          <span class="span">Twitter</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-linkedin"></ion-icon>
+                          <span class="span">LinkedIn</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-researchgate"></ion-icon>
+                          <span class="span">ResearchGate</span>
+                      </a>
+                  </li>
+
+              </ul>
+          </div>
+
+      </div>
+  </div>
+  
+</footer>
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

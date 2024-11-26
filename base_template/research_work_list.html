@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>Quantum UY1</title>
+  <meta name="title" content="Quantum UY1">
+  <meta name="description" content="This is a blog for Quantum UY1 comunity">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <style>
+    /* Styles spécifiques pour la page des travaux */
+    .hero {
+      padding-block-start: calc(var(--section-padding) + 60px);
+      background-color: var(--bg-prussian-blue);
+      margin-bottom: 2rem;
+    }
+
+    .research-metrics {
+      margin-block: 3rem;
+      background-color: var(--bg-oxford-blue);
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-item {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--bg-oxford-blue-2);
+      border-radius: var(--radius-8);
+      transition: transform var(--transition-1);
+    }
+
+    .metric-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .metric-item .number {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-1);
+      font-weight: var(--weight-bold);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-item .label {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+    }
+
+    .research-topic {
+      padding-block: 3rem;
+    }
+
+    .research-topic-card {
+      margin-bottom: 4rem;
+    }
+
+    .research-topic-title {
+      color: var(--text-alice-blue);
+      font-size: var(--fontSize-2);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-prussian-blue);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background-color: var(--bg-oxford-blue);
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+      overflow: hidden;
+      transition: transform var(--transition-1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-banner {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+
+    .project-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-2);
+    }
+
+    .project-card:hover .project-banner img {
+      transform: scale(1.05);
+    }
+
+    .project-content {
+      padding: 2rem;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .project-tag {
+      background-color: var(--bg-carolina-blue);
+      color: var(--text-white);
+      font-size: var(--fontSize-7);
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-pill);
+    }
+
+    .project-date {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .project-title {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-3);
+      margin-bottom: 1rem;
+      transition: color var(--transition-1);
+    }
+
+    .project-card:hover .project-title {
+      color: var(--text-alice-blue);
+    }
+
+    .project-description {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .project-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding: 1.5rem;
+      background-color: var(--bg-prussian-blue);
+      border-radius: var(--radius-8);
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-3);
+      font-weight: var(--weight-bold);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+    }
+
+    .collaborations {
+      margin-top: 4rem;
+      padding: 2rem;
+      background-color: var(--bg-oxford-blue);
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+    }
+
+    .collaborations-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .collaborations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      justify-items: center;
+    }
+
+    .collaboration-item {
+      text-align: center;
+    }
+
+    .collaboration-logo {
+      width: 120px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+      filter: grayscale(1) brightness(0.8);
+      transition: filter var(--transition-1);
+    }
+
+    .collaboration-item:hover .collaboration-logo {
+      filter: grayscale(0) brightness(1);
+    }
+
+    .collaboration-name {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+    }
+
+    @media (max-width: 576px) {
+      .metrics-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-content {
+        padding: 1.5rem;
+      }
+
+      .project-stats {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+      }
+    }
+
+  .featured-projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .featured-project-card {
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+    overflow: hidden;
+    transition: transform var(--transition-1);
+  }
+
+  .featured-project-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .featured-project-banner {
+    position: relative;
+    aspect-ratio: 16/9;
+  }
+
+  .featured-project-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-pill);
+    font-size: var(--fontSize-7);
+    font-weight: var(--weight-bold);
+  }
+
+  /* Styles pour les projets secondaires */
+  .secondary-projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .secondary-project-card {
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+    overflow: hidden;
+    transition: transform var(--transition-1);
+  }
+
+  .secondary-project-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .secondary-project-banner {
+    position: relative;
+    aspect-ratio: 16/9;
+  }
+
+  .secondary-project-content {
+    padding: 1.25rem;
+  }
+
+  .secondary-project-title {
+    font-size: var(--fontSize-5);
+    margin-bottom: 0.5rem;
+  }
+
+  .secondary-project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .research-category {
+    margin: 3rem 0;
+  }
+
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-prussian-blue);
+    padding-bottom: 1rem;
+  }
+
+  .view-all-btn {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-6);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color var(--transition-1);
+  }
+
+  .view-all-btn:hover {
+    color: var(--text-wild-blue-yonder);
+  }
+
+  @media (max-width: 1200px) {
+    .secondary-projects {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 992px) {
+    .featured-projects {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .secondary-projects {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pagination-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .pagination-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-prussian-blue);
+    border-radius: var(--radius-circle);
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    transition: all var(--transition-1);
+  }
+
+  .pagination-btn:hover {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+  }
+
+  .pagination-btn.active {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+  }
+
+  .pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Ajustement du grid pour les projets secondaires */
+  .secondary-projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .secondary-project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .secondary-project-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-description {
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 1200px) {
+    .secondary-projects {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .secondary-projects {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .collaborations-section {
+    margin-top: 4rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border-prussian-blue);
+  }
+
+  .collaborations-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .collaborations-header .section-subtitle {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    margin-bottom: 1rem;
+  }
+
+  .collaborations-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .collaboration-card {
+    background-color: var(--bg-oxford-blue);
+    border: 1px solid var(--border-prussian-blue);
+    border-radius: var(--radius-8);
+    padding: 2rem;
+    text-align: center;
+    transition: transform var(--transition-1);
+  }
+
+  .collaboration-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .collaboration-logo {
+    width: 120px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    object-fit: contain;
+    filter: brightness(0.8);
+    transition: filter var(--transition-1);
+  }
+
+  .collaboration-card:hover .collaboration-logo {
+    filter: brightness(1);
+  }
+
+  .collaboration-name {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-6);
+    font-weight: var(--weight-semiBold);
+    margin-bottom: 0.5rem;
+  }
+
+  .collaboration-type {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+  }
+
+  .collaboration-stats {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-prussian-blue);
+    font-size: var(--fontSize-7);
+    color: var(--text-wild-blue-yonder);
+  }
+
+  @media (max-width: 1200px) {
+    .collaborations-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 992px) {
+    .collaborations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .collaborations-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  </style>
+
+
+
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./assets/images/hero-banner.png">
+  <link rel="preload" as="image" href="./assets/images/pattern-2.svg">
+  <link rel="preload" as="image" href="./assets/images/pattern-3.svg">
+
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="./assets/images/logo.svg" width="119" height="37" alt="Quantum UY1">
+      </a>
+
+      <nav class="navbar" data-navbar>
+
+        <div class="navbar-top">
+          <a href="#" class="logo">
+            <img src="./assets/images/logo.svg" width="119" height="37" alt="Quantum UY1">
+          </a>
+
+          <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+
+        <ul class="navbar-list">
+
+          <li>
+            <a href="#home" class="navbar-link hover-1" data-nav-toggler>Home</a>
+          </li>
+
+          <li>
+            <a href="#team" class="navbar-link hover-1" data-nav-toggler>Notre equipe</a>
+          </li>
+
+          <li>
+            <a href="#research_topic" class="navbar-link hover-1" data-nav-toggler>Nos travaux</a>
+          </li>
+
+          <li>
+            <a href="#recent" class="navbar-link hover-1" data-nav-toggler>Blog</a>
+          </li>
+
+          <li>
+            <a href="#contact" class="navbar-link hover-1" data-nav-toggler>Contact</a>
+          </li>
+
+        </ul>
+
+        <p class="copyright-text">
+            
+            © 2024 Quantum UY1. Tous droits réservés.
+            Developed by codewithsadee
+        </p>
+
+      </nav>
+
+      <a href="#" class="btn btn-primary">Rejoignez-nous</a>
+
+      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+        <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+      </button>
+
+    </div>
+  </header>
+
+
+
+
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="headline-1 section-title">
+          Nos <span class="span">Travaux</span> de Recherche
+        </h1>
+        <p class="section-text">
+          Découvrez nos axes de recherche et projets innovants en physique quantique, 
+          de la théorie fondamentale aux applications pratiques.
+        </p>
+
+        <!-- Research Metrics -->
+        <div class="research-metrics">
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <div class="number">4</div>
+              <div class="label">Axes de Recherche</div>
+            </div>
+            <div class="metric-item">
+              <div class="number">12</div>
+              <div class="label">Projets Actifs</div>
+            </div>
+            <div class="metric-item">
+              <div class="number">25+</div>
+              <div class="label">Publications/An</div>
+            </div>
+            <div class="metric-item">
+              <div class="number">8</div>
+              <div class="label">Collaborations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research Topics Section -->
+    <section class="section research-topic">
+        <div class="container">
+            <!-- Projets Vedettes -->
+            <div class="research-category">
+            <div class="category-header">
+                <h2 class="headline-2">Projets Principaux</h2>
+                <a href="#" class="view-all-btn">
+                Voir tout <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+            </div>
+
+            <div class="featured-projects">
+                <!-- Projet Vedette 1 -->
+                <article class="featured-project-card">
+                <figure class="featured-project-banner">
+                    <img src="/api/placeholder/600/400" alt="Particules subatomiques" loading="lazy">
+                    <span class="featured-badge">Projet Phare</span>
+                </figure>
+                
+                <div class="project-content">
+                    <div class="project-meta">
+                    <div class="project-tags">
+                        <span class="project-tag">Physique Quantique</span>
+                        <span class="project-tag">Innovation</span>
+                    </div>
+                    
+                    <div class="project-date">
+                        <ion-icon name="time-outline"></ion-icon>
+                        <span>2023-2026</span>
+                    </div>
+                    </div>
+
+                    <h3 class="project-title">
+                    <a href="#">Développement d'un Ordinateur Quantique</a>
+                    </h3>
+
+                    <p class="project-description">
+                    Projet révolutionnaire visant à créer un ordinateur quantique stable 
+                    utilisant une nouvelle approche de correction d'erreurs quantiques.
+                    </p>
+
+                    <div class="project-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Chercheurs</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Publications</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Brevets</div>
+                    </div>
+                    </div>
+
+                    <a href="#" class="btn btn-primary w-100">En savoir plus</a>
+                </div>
+                </article>
+
+                <!-- Projet Vedette 2 -->
+                <article class="featured-project-card">
+                <figure class="featured-project-banner">
+                    <img src="/api/placeholder/600/400" alt="Théorie des cordes" loading="lazy">
+                    <span class="featured-badge">Projet Phare</span>
+                </figure>
+                
+                <div class="project-content">
+                    <div class="project-meta">
+                    <div class="project-tags">
+                        <span class="project-tag">Physique Théorique</span>
+                        <span class="project-tag">Fondamental</span>
+                    </div>
+                    
+                    <div class="project-date">
+                        <ion-icon name="time-outline"></ion-icon>
+                        <span>2024-2027</span>
+                    </div>
+                    </div>
+
+                    <h3 class="project-title">
+                    <a href="#">Unification des Forces Fondamentales</a>
+                    </h3>
+
+                    <p class="project-description">
+                    Recherche théorique sur l'unification des forces fondamentales de l'univers,
+                    avec des implications majeures pour notre compréhension de la physique.
+                    </p>
+
+                    <div class="project-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Chercheurs</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label">Publications</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Prix</div>
+                    </div>
+                    </div>
+
+                    <a href="#" class="btn btn-primary w-100">En savoir plus</a>
+                </div>
+                </article>
+            </div>
+            </div>
+
+            <div class="research-category">
+                <div class="category-header">
+                  <h2 class="headline-2">Autres Projets</h2>
+                </div>
+              
+                <div class="secondary-projects">
+                  <!-- Projet Secondaire 1 -->
+                  <article class="secondary-project-card">
+                    <figure class="secondary-project-banner">
+                      <img src="/api/placeholder/400/300" alt="Projet 1" loading="lazy">
+                    </figure>
+                    
+                    <div class="secondary-project-content">
+                      <div class="secondary-project-meta">
+                        <span class="project-tag">Physique Appliquée</span>
+                        <span class="project-date">2024</span>
+                      </div>
+              
+                      <h3 class="secondary-project-title">
+                        <a href="#">Détecteurs Quantiques</a>
+                      </h3>
+              
+                      <p class="project-description">
+                        Développement de nouveaux détecteurs ultra-sensibles basés sur les principes quantiques.
+                      </p>
+                    </div>
+                  </article>
+              
+                  <!-- Projet Secondaire 2 -->
+                  <article class="secondary-project-card">
+                    <figure class="secondary-project-banner">
+                      <img src="/api/placeholder/400/300" alt="Projet 2" loading="lazy">
+                    </figure>
+                    
+                    <div class="secondary-project-content">
+                      <div class="secondary-project-meta">
+                        <span class="project-tag">Cryptographie</span>
+                        <span class="project-date">2024</span>
+                      </div>
+              
+                      <h3 class="secondary-project-title">
+                        <a href="#">Communication Quantique</a>
+                      </h3>
+              
+                      <p class="project-description">
+                        Sécurisation des communications grâce à l'intrication quantique.
+                      </p>
+                    </div>
+                  </article>
+              
+                  <!-- Projet Secondaire 3 -->
+                  <article class="secondary-project-card">
+                    <figure class="secondary-project-banner">
+                      <img src="/api/placeholder/400/300" alt="Projet 3" loading="lazy">
+                    </figure>
+                    
+                    <div class="secondary-project-content">
+                      <div class="secondary-project-meta">
+                        <span class="project-tag">Matériaux</span>
+                        <span class="project-date">2024</span>
+                      </div>
+              
+                      <h3 class="secondary-project-title">
+                        <a href="#">Supraconducteurs</a>
+                      </h3>
+              
+                      <p class="project-description">
+                        Étude de nouveaux matériaux supraconducteurs à haute température.
+                      </p>
+                    </div>
+                  </article>
+              
+                  <!-- Projet Secondaire 4 -->
+                  <article class="secondary-project-card">
+                    <figure class="secondary-project-banner">
+                      <img src="/api/placeholder/400/300" alt="Projet 4" loading="lazy">
+                    </figure>
+                    
+                    <div class="secondary-project-content">
+                      <div class="secondary-project-meta">
+                        <span class="project-tag">Optique Quantique</span>
+                        <span class="project-date">2024</span>
+                      </div>
+              
+                      <h3 class="secondary-project-title">
+                        <a href="#">Lasers Ultra-précis</a>
+                      </h3>
+              
+                      <p class="project-description">
+                        Développement de systèmes laser pour la métrologie quantique.
+                      </p>
+                    </div>
+                  </article>
+              
+                  <!-- Projet Secondaire 5 -->
+                  <article class="secondary-project-card">
+                    <figure class="secondary-project-banner">
+                      <img src="/api/placeholder/400/300" alt="Projet 5" loading="lazy">
+                    </figure>
+                    
+                    <div class="secondary-project-content">
+                      <div class="secondary-project-meta">
+                        <span class="project-tag">Informatique Quantique</span>
+                        <span class="project-date">2024</span>
+                      </div>
+              
+                      <h3 class="secondary-project-title">
+                        <a href="#">Algorithmes Quantiques</a>
+                      </h3>
+              
+                      <p class="project-description">
+                        Optimisation des algorithmes pour l'informatique quantique.
+                      </p>
+                    </div>
+                  </article>
+              
+                  <!-- Projet Secondaire 6 -->
+                  <article class="secondary-project-card">
+                    <figure class="secondary-project-banner">
+                      <img src="/api/placeholder/400/300" alt="Projet 6" loading="lazy">
+                    </figure>
+                    
+                    <div class="secondary-project-content">
+                      <div class="secondary-project-meta">
+                        <span class="project-tag">Théorie Quantique</span>
+                        <span class="project-date">2024</span>
+                      </div>
+              
+                      <h3 class="secondary-project-title">
+                        <a href="#">Fondements Quantiques</a>
+                      </h3>
+              
+                      <p class="project-description">
+                        Exploration des principes fondamentaux de la mécanique quantique.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              
+                <!-- Pagination -->
+                <div class="pagination-container">
+                  <button class="pagination-btn disabled" aria-label="Previous page">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                  </button>
+              
+                  <button class="pagination-btn active">1</button>
+                  <button class="pagination-btn">2</button>
+                  <button class="pagination-btn">3</button>
+                  <span class="pagination-ellipsis">...</span>
+                  <button class="pagination-btn">8</button>
+              
+                  <button class="pagination-btn" aria-label="Next page">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                  </button>
+                </div>
+              </div>
+            
+        </div>
+        
+    </section>
+
+
+
+<!-- Ajoutez cette section après la pagination -->
+<section class="collaborations-section">
+    <div class="container">
+      <div class="collaborations-header">
+        <p class="section-subtitle">Nos Partenaires de Recherche</p>
+        <h2 class="headline-2">Collaborations Internationales</h2>
+      </div>
+  
+      <div class="collaborations-grid">
+        <!-- CERN -->
+        <div class="collaboration-card">
+          <img src="/api/placeholder/120/60" alt="CERN" class="collaboration-logo">
+          <h3 class="collaboration-name">CERN</h3>
+          <p class="collaboration-type">Partenaire Recherche</p>
+          <div class="collaboration-stats">
+            <p>8 Projets Communs</p>
+            <p>12 Publications Conjointes</p>
+          </div>
+        </div>
+  
+        <!-- CNRS -->
+        <div class="collaboration-card">
+          <img src="/api/placeholder/120/60" alt="CNRS" class="collaboration-logo">
+          <h3 class="collaboration-name">CNRS</h3>
+          <p class="collaboration-type">Partenaire Académique</p>
+          <div class="collaboration-stats">
+            <p>5 Projets Communs</p>
+            <p>15 Publications Conjointes</p>
+          </div>
+        </div>
+  
+        <!-- ESA -->
+        <div class="collaboration-card">
+          <img src="/api/placeholder/120/60" alt="ESA" class="collaboration-logo">
+          <h3 class="collaboration-name">ESA</h3>
+          <p class="collaboration-type">Partenaire Spatial</p>
+          <div class="collaboration-stats">
+            <p>3 Projets Communs</p>
+            <p>7 Publications Conjointes</p>
+          </div>
+        </div>
+  
+        <!-- MIT -->
+        <div class="collaboration-card">
+          <img src="/api/placeholder/120/60" alt="MIT" class="collaboration-logo">
+          <h3 class="collaboration-name">MIT</h3>
+          <p class="collaboration-type">Partenaire Universitaire</p>
+          <div class="collaboration-stats">
+            <p>4 Projets Communs</p>
+            <p>10 Publications Conjointes</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  
+  </main>
+
+  <!-- 
+    - #FOOTER
+  -->
+<footer id="contact">
+  <div class="container">
+      <div class="card footer">
+          <div class="section footer-top">
+
+              <div class="footer-brand">
+                  <a href="#" class="logo">
+                      <img src="./assets/images/logo.svg" width="119" height="37" loading="lazy" alt="Quantum UY1">
+                  </a>
+
+                  <p class="footer-text">
+                      Le laboratoire Quantum UY1 est un centre d'excellence dédié à la recherche fondamentale en physique quantique. 
+                      Notre mission est d'explorer les frontières de la science et de former la prochaine génération de chercheurs.
+                  </p>
+
+                  <p class="footer-list-title">Adresse</p>
+
+                  <address class="footer-text address">
+                      Université de Yaoundé 1 <br>
+                      Faculté des Sciences <br>
+                      Département de Physique <br>
+                      Yaoundé, Cameroun
+                  </address>
+              </div>
+
+            <div class="footer-list">
+                <p class="footer-list-title">Navigation</p>
+
+                <ul class="footer-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="#team">Notre Équipe</a></li>
+                    <li><a href="#research_topic">Nos Travaux</a></li>
+                    <li><a href="#recent">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+              <div class="footer-list">
+                  <p class="footer-list-title">Newsletter</p>
+
+                  <p class="footer-text">
+                      Restez informé de nos dernières découvertes scientifiques, publications et événements en vous inscrivant à notre newsletter.
+                  </p>
+
+                  <div class="input-wrapper">
+                      <input type="text" name="name" placeholder="Votre nom" required class="input-field" autocomplete="off">
+                      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                  </div>
+
+                  <div class="input-wrapper">
+                      <input type="email" name="email_address" placeholder="Adresse email" required class="input-field" autocomplete="off">
+                      <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                  </div>
+
+                  <a href="#" class="btn btn-primary">
+                      <span class="span">Rejoignez-nous</span>
+                      <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                  </a>
+              </div>
+
+          </div>
+
+          <div class="footer-bottom">
+              <p class="copyright">
+                  © 2024 Quantum UY1 - Laboratoire de Recherche Quantique
+              </p>
+
+              <ul class="social-list">
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-twitter"></ion-icon>
+                          <span class="span">Twitter</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-linkedin"></ion-icon>
+                          <span class="span">LinkedIn</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-researchgate"></ion-icon>
+                          <span class="span">ResearchGate</span>
+                      </a>
+                  </li>
+
+              </ul>
+          </div>
+
+      </div>
+  </div>
+</footer>
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
