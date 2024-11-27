@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Members{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/members.css' %}">
+{% endblock %}
+{% block content %}
+
+  
+<h1>Members</h1>
+<ul class="member-list">
+    {% for member in members %}
+        <li>
+            <figure class="fir-image-figure">
+                <a class="fir-imageover" rel="noopener" target="_blank"  href="{{ member.id }}/">
+                    <img src="{{ member.profile_picture.url }}" alt="Image" />
+                    <div class="fir-imageover-color"></div>
+                </a>
+              
+                <figcaption>
+                  <div class="fig-author-figure-title">{{ member.title.name }} {{ member.first_name }} {{ member.last_name }}</div>
+                  
+    
+                  <div class="fig-author-figure-title">
+                    <ul>
+                        {% for expertise in member.expertise.all %}
+                            <li>{{ expertise.name }}</li>
+                        {% empty %}
+                            <li> </li>
+                        {% endfor %}
+                    </ul> 
+                  </div>
+                </figcaption>
+            </figure>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

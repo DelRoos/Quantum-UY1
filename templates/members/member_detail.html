@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Member Details{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/members.css' %}">
+{% endblock %}
+{% block content %}
+<h1>Member: {{ member.first_name }} {{ member.last_name }}</h1>
+<p><strong>Title:</strong> {{ member.title.name }}</p>
+<p><strong>Email:</strong> {{ member.email }}</p>
+<p><strong>Expertise:</strong> 
+    {% for expertise in member.expertise.all %}
+        {{ expertise.name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</p>
+<a href="{{ member.id }}/update/" class="btn">Edit</a>
+<a href="{{ member.id }}/delete/" class="btn btn-danger">Delete</a>
+{% endblock %}
