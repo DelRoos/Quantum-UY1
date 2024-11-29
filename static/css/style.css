@@ -1382,3 +1382,81 @@ body.nav-active { overflow: hidden; }
  
  
  
+
+ /*-----------------------------------*\
+  #NOTIFICATIONS
+\*-----------------------------------*/
+
+/* Notifications dans le formulaire */
+.form-notification {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: var(--radius-8);
+  background: var(--bg-oxford-blue);
+  border: 1px solid var(--border-prussian-blue);
+}
+
+.form-notification.success {
+  border-color: #34d399;
+  background: rgba(52, 211, 153, 0.1);
+}
+
+.form-notification.error {
+  border-color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.form-notification .notification-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-alice-blue);
+}
+
+.form-notification .notification-close {
+  background: none;
+  border: none;
+  color: var(--text-wild-blue-yonder);
+  cursor: pointer;
+  padding: 0 4px;
+  font-size: 20px;
+  opacity: 0.6;
+  transition: opacity var(--transition-1);
+}
+
+.form-notification .notification-close:hover {
+  opacity: 1;
+}
+
+.error-message {
+  color: #f87171;
+  font-size: var(--fontSize-7);
+  margin-top: 4px;
+}
+
+/* Loader dans le bouton */
+.button-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-loader ion-icon {
+  font-size: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Désactiver le bouton pendant le chargement */
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

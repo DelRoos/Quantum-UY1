@@ -1,0 +1,60 @@
+{% load static %}
+
+<section class="team" id="team" aria-labelledby="team-label">
+    <div class="container">
+
+    <div class="card team-card">
+        <div class="card-content">
+        <h2 class="headline headline-2 section-title card-title" id="team-label">
+            Notre Équipe
+        </h2>
+
+        <p class="card-text">
+            Découvrez les chercheurs passionnés derrière la communauté Quantum_UY1. Chacun contribue avec son expertise
+            unique pour explorer les mystères de la physique quantique.
+        </p>
+
+        <div class="team-footer">
+            <a href="{% url 'team:team_list' %}" class="btn btn-primary btn-secondary">
+            Voir tous les membres
+            </a>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-icon" aria-label="previous" data-slider-prev>
+            <ion-icon name="arrow-back" aria-hidden="true"></ion-icon>
+            </button>
+
+            <button class="btn-icon" aria-label="next" data-slider-next>
+            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </button>
+        </div>
+        </div>
+
+        <div class="slider" data-slider>
+        <ul class="slider-list" data-slider-container>
+            {% for member in team_members %}
+            <li class="slider-item">
+            <a href="{% url 'team:member_detail' member.slug %}" class="slider-card">
+                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
+
+                    <img src="{% if member.photo %}{{ member.photo.url }}{% else %}{% static 'images/topic-4.png' %}{% endif %}" 
+                    width="507" 
+                    height="618" 
+                    loading="lazy"
+                    alt="{{ member.first_name }} {{ member.last_name }}" 
+                    class="img-cover">
+                </figure>
+                <div class="slider-content">
+                <span class="slider-title">{{ member.title }} {{ member.first_name }} {{ member.last_name }}</span>
+                <p class="slider-subtitle">{{ member.bio_short }}</p>
+                </div>
+            </a>
+            </li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+    </div>
+</section>
+

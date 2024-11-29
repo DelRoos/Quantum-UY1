@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Notre Équipe - {{ site_name }}{% endblock %}
+
+{% block content %}
+{% load static %}
+<style>
+    /* Grille des membres */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+  gap: 30px; /* Espace entre les éléments */
+  margin-top: 20px;
+}
+
+.team-card {
+  background-color: var(--bg-oxford-blue);
+  border: 1px solid var(--border-prussian-blue);
+  padding: 16px;
+  border-radius: var(--radius-8);
+  text-align: center;
+}
+
+.team-card .card-banner {
+  margin-bottom: 16px;
+}
+
+.team-card .card-content h3 {
+  font-size: var(--fontSize-4);
+  color: var(--text-columbia-blue);
+}
+
+.team-card .card-content p {
+  color: var(--text-wild-blue-yonder);
+  font-size: var(--fontSize-6);
+}
+@media (max-width: 992px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour les écrans moyens */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .team-grid {
+      grid-template-columns: 1fr; /* 1 colonne pour les petits écrans */
+    }
+  }
+  
+</style>
+
+  <!-- Team Banner Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="headline-1 section-title">
+        Notre <span class="span">Équipe</span>
+      </h1>
+      <p class="section-text">
+        Découvrez notre équipe de chercheurs passionnés, experts dans divers domaines de la physique quantique.
+      </p>
+    </div>
+  </section>
+
+  <section class="section team">
+    <div class="container">
+      {% for position in positions %}
+      <div class="research-topic-card card">
+        <h2 class="headline-2">{{ position.get_category_display }}</h2>
+        <div class="grid-list team-grid">
+          {% for member in team_members %}
+          {% if member.position.id == position.id %}
+          <!-- Team Member -->
+          <div class="team-card card">
+            <figure class="card-banner img-holder" style="--width: 200; --height: 200;">
+                {% if member.photo %}
+                    <img src="{{ member.photo.url }}" alt="{{ member.first_name }} {{ member.last_name }}" class="img-cover">
+                {% else %}
+                    <img src="{% static 'images/topic-4.png' %}" alt="Photo par défaut" class="img-cover">
+                {% endif %}
+            </figure>
+            <div class="card-content">
+              <h3 class="headline-3">
+                <a href="{% url 'team:member_detail' member.slug %}" class="card-title">
+                  {{ member.title }} {{ member.first_name }} {{ member.last_name }}
+                </a>
+              </h3>
+              <p class="card-text">{{ member.bio_short }}</p>
+              <div class="btn-group">
+                {% if member.linkedin %}
+                <a href="{{ member.linkedin }}" class="btn-icon" aria-label="linkedin">
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+                {% endif %}
+                {% if member.twitter %}
+                <a href="{{ member.twitter }}" class="btn-icon" aria-label="twitter">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  
+{% endblock %}

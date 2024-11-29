@@ -5,36 +5,15 @@
 {% block title %}Accueil - {{ site_name }}{% endblock %}
 
 {% block content %}
-<section class="section hero" id="home" aria-label="home">
-    <div class="container">
-        <div class="hero-content">
-            <p>Bienvenue dans l'univers de la recherche quantique</p>
+<article>
+    {% include "core/sections/home.html" %}
+    {% include "core/sections/team.html" %}
 
-            <h1 class="headline headline-1 section-title">
-                Team <span class="span">Quantum UY1</span>
-            </h1>
 
-            <p class="hero-text">
-                Explorez les frontières de la physique quantique avec notre équipe de chercheurs passionnés. 
-                Notre mission : repousser les limites du savoir, partager les découvertes et inspirer les esprits 
-                curieux à travers le monde.
-            </p>
-
-            
-            <a href="#newsletter" class="btn btn-primary">Rejoignez-nous</a>
-
-        </div>
-
-        <div class="hero-banner">
-            <img src="{% static 'images/hero-banner.png' %}" width="327" height="490" alt="" class="w-100">
-            <img src="{% static 'images/pattern-2.svg' %}" width="27" height="26" alt="" class="shape shape-1">
-            <img src="{% static 'images/pattern-3.svg' %}" width="27" height="26" alt="" class="shape shape-2">
-        </div>
-    </div>
-</section>
+    
+</article>
 
 {# Inclure les autres sections de la page d'accueil #}
-{% comment %} {% include "core/sections/team.html" %}
-{% include "core/sections/research.html" %}
-{% include "core/sections/blog.html" %} {% endcomment %}
+{% comment %} {% include "core/sections/research.html" %} {% endcomment %}
+{% comment %} {% include "core/sections/blog.html" %} {% endcomment %}
 {% endblock %}

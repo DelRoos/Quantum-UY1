@@ -23,6 +23,9 @@
     
     {% include 'includes/header.html' %}
 
+    <div id="notification-container" class="notification-container"></div>
+    <script src="{% static 'js/notifications.js' %}"></script>
+    
     <main role="main">
         {% block content %}{% endblock %}
     </main>

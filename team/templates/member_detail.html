@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ member.title }} {{ member.first_name }} {{ member.last_name }} - Quantum_UY1{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<style>
+
+    body {
+        margin: 0;
+        font-family: 'Noto Sans', sans-serif;
+        background-color: var(--bg-oxford-blue-2);
+        color: var(--text-shadow-blue);
+        line-height: 1.6;
+    }
+    .container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .member-banner {
+        background-color: var(--bg-oxford-blue);
+        padding: 60px 0;
+        margin-top: 80px;
+        text-align: center;
+        border-radius: var(--radius-16);
+    }
+
+    .profile-image {
+        width: 200px;
+        height: 200px;
+        border-radius: var(--radius-circle);
+        margin-bottom: 20px;
+        object-fit: cover;
+        display: inline-block;
+    }
+
+    .member-title {
+        font-size: 2.5rem;
+        color: var(--text-alice-blue);
+        margin: 0;
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+
+    .member-role {
+        color: var(--text-carolina-blue);
+        font-size: 1.2rem;
+        margin: 0;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background-color: var(--bg-oxford-blue);
+        border: 1px solid var(--border-prussian-blue);
+        border-radius: var(--radius-16);
+        padding: 30px;
+        margin: 30px 0;
+    }
+
+    .card-title {
+        color: var(--text-columbia-blue);
+        font-size: 1.8rem;
+        margin: 0 0 20px 0;
+        line-height: 1.3;
+    }
+
+    .experience-item {
+        border-left: 2px solid var(--bg-carolina-blue);
+        padding-left: 20px;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+    .experience-item::before {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: var(--bg-carolina-blue);
+        border-radius: 50%;
+        left: -6px;
+        top: 8px;
+    }
+
+    .experience-date {
+        color: var(--text-carolina-blue);
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+
+    .experience-title {
+        color: var(--text-alice-blue);
+        margin: 0 0 5px 0;
+    }
+
+    .experience-location {
+        color: var(--text-wild-blue-yonder);
+        margin: 0;
+    }
+
+    .publication-list {
+        display: grid;
+        gap: 20px;
+    }
+
+    .publication-item {
+        background-color: var(--bg-prussian-blue);
+        padding: 20px;
+        border-radius: var(--radius-8);
+    }
+
+    .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+
+    @media (max-width: 768px) {
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+
+        .member-banner {
+            margin-top: 60px;
+            padding: 40px 20px;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+        }
+
+        .member-title {
+            font-size: 2rem;
+        }
+    }
+
+
+    .similar-profiles {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+    
+    /* Style pour chaque carte de profil */
+    .profile-card {
+      display: flex;
+      align-items: center;
+      background-color: var(--bg-prussian-blue);
+      padding: 20px;
+      border-radius: var(--radius-8);
+      transition: transform 0.3s ease;
+    }
+    
+    .profile-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    /* Image de profil */
+    .profile-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--radius-circle);
+      margin-right: 15px; /* Espacement entre l'image et le texte */
+    }
+    
+    /* Conteneur pour les informations du profil */
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    /* Nom du membre */
+    .profile-info .name {
+      color: var(--text-alice-blue);
+      font-size: 1.2rem;
+      margin: 0 0 5px;
+      font-weight: bold;
+    }
+    
+    /* Rôle du membre */
+    .profile-info .role {
+      color: var(--text-carolina-blue);
+      font-size: 1rem;
+      margin: 0;
+    }
+    
+</style>
+
+
+<div class="member-banner">
+    <div class="container">
+        {% if member.photo %}
+        <img src="{{ member.photo.url }}" alt="{{ member.first_name }} {{ member.last_name }}" class="profile-image">
+        {% else %}
+        <img src="{% static 'images/topic-4.png' %}" alt="Photo par défaut" class="profile-image">
+        {% endif %}
+        <h1 class="member-title">{{ member.title }} {{ member.first_name }} {{ member.last_name }}</h1>
+        <p class="member-role">{{ member.position.name }}</p>
+    </div>
+</div>
+
+<main class="container">
+    <div class="card">
+        <h2 class="card-title">Biographie</h2>
+        <p>{{ member.bio }}</p>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h2 class="card-title">Parcours</h2>
+            {% for experience in experiences %}
+            <div class="experience-item">
+                <div class="experience-date">
+                    {% if experience.is_current %}
+                    {{ experience.start_date|date:"Y" }} - Présent
+                    {% else %}
+                    {{ experience.start_date|date:"Y" }} - {{ experience.end_date|date:"Y" }}
+                    {% endif %}
+                </div>
+                <h3 class="experience-title">{{ experience.position }}</h3>
+                <p class="experience-location">{{ experience.company }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">Publications Récentes</h2>
+            {% for publication in publications %}
+            <div class="publication-item">
+                <h3 class="experience-title">{{ publication.title }}</h3>
+                <p class="experience-date">{{ publication.publication_date|date:"Y" }}</p>
+                <p>{{ publication.abstract }}</p>
+            </div>
+            {% empty %}
+            <p>Aucune publication disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 class="card-title">Formation</h2>
+        {% for education in education_history %}
+        <div class="education-item">
+            <div class="education-date">
+                {{ education.start_date|date:"Y" }} - {{ education.end_date|date:"Y" }}
+            </div>
+            <h3 class="education-title">{{ education.degree }}</h3>
+            <p class="education-institution">{{ education.institution }}</p>
+        </div>
+        {% empty %}
+        <p>Aucune formation disponible.</p>
+        {% endfor %}
+    </div>
+</main>
+
+<div class="container">
+    <div class="card">
+        <h2 class="card-title">Profils Similaires</h2>
+        <div class="grid-2">
+            {% for profile in similar_profiles %}
+            <div class="team-card card">
+                <figure class="card-banner img-holder" style="--width: 200; --height: 200;">
+                    {% if profile.photo %}
+                    <img src="{{ profile.photo.url }}" alt="{{ profile.first_name }} {{ profile.last_name }}" class="img-cover">
+                    {% else %}
+                    <img src="{% static 'images/default-profile.png' %}" alt="Photo par défaut" class="img-cover">
+                    {% endif %}
+                </figure>
+                <div class="card-content">
+                    <h3 class="headline-3">
+                        <a href="{% url 'team:member_detail' profile.slug %}" class="card-title">
+                            {{ profile.title }} {{ profile.first_name }} {{ profile.last_name }}
+                        </a>
+                    </h3>
+                    <p class="card-text">{{ profile.position.name }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>Aucun profil similaire trouvé.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

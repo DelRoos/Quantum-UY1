@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig'
+    'markymark',
+    'taggit',
+    'core.apps.CoreConfig',
+    'team.apps.TeamConfig',
+    'research.apps.ResearchConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,255 @@
+{
+    "Department": [
+      {
+        "name": "Physique Quantique",
+        "slug": "physique-quantique",
+        "description": "Études et recherches en physique quantique appliquée.",
+        "order": 1
+      },
+      {
+        "name": "Informatique",
+        "slug": "informatique",
+        "description": "Recherches avancées en sciences informatiques.",
+        "order": 2
+      },
+      {
+        "name": "Chimie Théorique",
+        "slug": "chimie-theorique",
+        "description": "Développement de modèles chimiques et simulations.",
+        "order": 3
+      },
+      {
+        "name": "Biotechnologie",
+        "slug": "biotechnologie",
+        "description": "Recherche sur les technologies biologiques appliquées.",
+        "order": 4
+      }
+    ],
+    "Position": [
+      {
+        "name": "Directeur de Recherche",
+        "category": "academic",
+        "level": 1,
+        "description": "Supervise les projets de recherche."
+      },
+      {
+        "name": "Chercheur Postdoctoral",
+        "category": "research",
+        "level": 2,
+        "description": "Mène des recherches spécifiques après un doctorat."
+      },
+      {
+        "name": "Assistant de Recherche",
+        "category": "technical",
+        "level": 3,
+        "description": "Apporte un soutien technique et logistique."
+      },
+      {
+        "name": "Étudiant Doctorant",
+        "category": "student",
+        "level": 4,
+        "description": "Prépare un doctorat dans un domaine de recherche."
+      }
+    ],
+    "Specialty": [
+      {
+        "name": "Intelligence Artificielle",
+        "description": "Recherche sur l'apprentissage automatique et l'IA."
+      },
+      {
+        "name": "Physique des Particules",
+        "description": "Études fondamentales en physique des particules élémentaires."
+      },
+      {
+        "name": "Chimie Quantique",
+        "description": "Modélisation de systèmes chimiques à l'échelle quantique."
+      },
+      {
+        "name": "Biologie Synthétique",
+        "description": "Conception de systèmes biologiques artificiels."
+      }
+    ],
+    "TeamMember": [
+      {
+        "title": "Dr.",
+        "first_name": "Alice",
+        "last_name": "Durand",
+        "email": "alice.durand@example.com",
+        "phone": "+33 6 12 34 56 78",
+        "position": 1,
+        "department": 1,
+        "bio_short": "Spécialiste en physique quantique appliquée.",
+        "bio": "Alice est une chercheuse de renommée internationale.",
+        "research_interests": "Superposition quantique, Qubits.",
+        "expertise": "Modèles théoriques.",
+        "education": "Doctorat en Physique Quantique.",
+        "website": "https://alice-durand.example.com",
+        "linkedin": "https://linkedin.com/in/alicedurand",
+        "is_active": true,
+        "is_featured": true,
+        "order": 1,
+        "joined_date": "2018-09-01"
+      },
+      {
+        "title": "Prof.",
+        "first_name": "Bernard",
+        "last_name": "Martin",
+        "email": "bernard.martin@example.com",
+        "phone": "+33 7 98 76 54 32",
+        "position": 2,
+        "department": 2,
+        "bio_short": "Expert en IA et réseaux neuronaux.",
+        "bio": "Bernard a dirigé plusieurs projets en IA.",
+        "research_interests": "Deep Learning, Vision par ordinateur.",
+        "expertise": "Conception d'algorithmes.",
+        "education": "Doctorat en Informatique.",
+        "website": "https://bernard-martin.example.com",
+        "linkedin": "https://linkedin.com/in/bernardmartin",
+        "is_active": true,
+        "is_featured": false,
+        "order": 2,
+        "joined_date": "2020-03-15"
+      },
+      {
+        "title": "Ms.",
+        "first_name": "Claire",
+        "last_name": "Petit",
+        "email": "claire.petit@example.com",
+        "phone": "+33 6 22 44 55 66",
+        "position": 3,
+        "department": 3,
+        "bio_short": "Assistante de recherche en chimie théorique.",
+        "bio": "Claire participe aux simulations moléculaires.",
+        "research_interests": "Dynamique moléculaire, Spectroscopie.",
+        "expertise": "Calculs ab initio.",
+        "education": "Master en Chimie Théorique.",
+        "website": "https://claire-petit.example.com",
+        "linkedin": "https://linkedin.com/in/clairepetit",
+        "is_active": true,
+        "is_featured": false,
+        "order": 3,
+        "joined_date": "2021-06-01"
+      }
+    ],
+    "Publication": [
+      {
+        "title": "Étude des Qubits dans les environnements bruyants",
+        "authors": [1],
+        "abstract": "Une analyse approfondie des qubits en présence de bruit.",
+        "journal": "Journal de Physique Quantique",
+        "volume": "42",
+        "issue": "3",
+        "pages": "100-120",
+        "doi": "10.1234/qubits2024",
+        "publication_date": "2023-12-01",
+        "publication_type": "article"
+      },
+      {
+        "title": "Deep Learning pour la reconnaissance faciale",
+        "authors": [2],
+        "abstract": "Des algorithmes pour une reconnaissance faciale fiable.",
+        "journal": "Revue d'Informatique Avancée",
+        "volume": "15",
+        "issue": "2",
+        "pages": "45-60",
+        "doi": "10.5678/deeplearning2024",
+        "publication_date": "2023-05-10",
+        "publication_type": "article"
+      },
+      {
+        "title": "Dynamique moléculaire appliquée aux polymères",
+        "authors": [3],
+        "abstract": "Études des propriétés dynamiques des polymères.",
+        "journal": "Journal de Chimie Théorique",
+        "volume": "10",
+        "issue": "1",
+        "pages": "5-25",
+        "doi": "10.9876/polymers2024",
+        "publication_date": "2024-03-15",
+        "publication_type": "article"
+      }
+    ],
+    "Award": [
+      {
+        "name": "Prix Nobel de Physique",
+        "recipient": 1,
+        "description": "Récompense pour les avancées en physique quantique.",
+        "awarding_body": "Comité Nobel",
+        "date_received": "2024-10-15"
+      },
+      {
+        "name": "Prix Turing",
+        "recipient": 2,
+        "description": "Récompense pour les contributions en IA.",
+        "awarding_body": "ACM",
+        "date_received": "2023-11-20"
+      },
+      {
+        "name": "Prix Lavoisier",
+        "recipient": 3,
+        "description": "Distinction en chimie théorique.",
+        "awarding_body": "Société de Chimie",
+        "date_received": "2023-12-10"
+      }
+    ],
+    "Education": [
+      {
+        "member": 1,
+        "degree": "Doctorat en Physique Quantique",
+        "institution": "Université de Paris",
+        "field_of_study": "Physique",
+        "start_date": "2014-09-01",
+        "end_date": "2018-06-30",
+        "description": "Thèse sur les qubits et la décohérence."
+      },
+      {
+        "member": 2,
+        "degree": "Doctorat en Informatique",
+        "institution": "Université de Lyon",
+        "field_of_study": "Intelligence Artificielle",
+        "start_date": "2016-09-01",
+        "end_date": "2020-06-30",
+        "description": "Recherche sur les réseaux de neurones convolutifs."
+      },
+      {
+        "member": 3,
+        "degree": "Master en Chimie Théorique",
+        "institution": "Université de Marseille",
+        "field_of_study": "Chimie",
+        "start_date": "2018-09-01",
+        "end_date": "2020-06-30",
+        "description": "Spécialisation en dynamique moléculaire."
+      }
+    ],
+    "Experience": [
+      {
+        "member": 1,
+        "position": "Postdoctorant",
+        "company": "Institut Max Planck",
+        "location": "Munich, Allemagne",
+        "start_date": "2018-10-01",
+        "end_date": "2020-09-30",
+        "description": "Recherche sur la simulation quantique.",
+        "is_current": false
+      },
+      {
+        "member": 2,
+        "position": "Chercheur IA",
+        "company": "Google AI",
+        "location": "Paris, France",
+        "start_date": "2021-01-01",
+        "description": "Développement d'algorithmes de Deep Learning.",
+        "is_current": true
+      },
+      {
+        "member": 3,
+        "position": "Assistant de Recherche",
+        "company": "CNRS",
+        "location": "Marseille, France",
+        "start_date": "2020-07-01",
+        "description": "Soutien technique en simulation chimique.",
+        "is_current": true
+      }
+    ]
+  }
+  
