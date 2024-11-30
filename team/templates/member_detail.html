@@ -3,11 +3,7 @@
 
 {% block title %}{{ member.title }} {{ member.first_name }} {{ member.last_name }} - Quantum_UY1{% endblock %}
 
-
-
-
 {% block content %}
-
 
 <style>
 
@@ -197,7 +193,9 @@
 </style>
 
 
-<div class="member-banner">
+
+
+  <div class="member-banner">
     <div class="container">
         {% if member.photo %}
         <img src="{{ member.photo.url }}" alt="{{ member.first_name }} {{ member.last_name }}" class="profile-image">
@@ -235,48 +233,52 @@
 
         <div class="card">
             <h2 class="card-title">Publications Récentes</h2>
-            {% for publication in publications %}
-            <div class="publication-item">
-                <h3 class="experience-title">{{ publication.title }}</h3>
-                <p class="experience-date">{{ publication.publication_date|date:"Y" }}</p>
-                <p>{{ publication.abstract }}</p>
+            <div class="publication-list">
+                {% for publication in publications %}
+                <div class="publication-item">
+                    <h3 class="experience-title">{{ publication.title }}</h3>
+                    <p class="experience-date">{{ publication.publication_date|date:"Y" }}</p>
+                    <p>{{ publication.abstract }}</p>
+                </div>
+                {% empty %}
+                <p>Aucune publication disponible.</p>
+                {% endfor %}
             </div>
-            {% empty %}
-            <p>Aucune publication disponible.</p>
-            {% endfor %}
         </div>
     </div>
 
     <div class="card">
         <h2 class="card-title">Formation</h2>
-        {% for education in education_history %}
-        <div class="education-item">
-            <div class="education-date">
-                {{ education.start_date|date:"Y" }} - {{ education.end_date|date:"Y" }}
+        <div class="publication-list">
+            {% for education in education_history %}
+            <div class="publication-item">
+                <div class="experience-date">
+                    {{ education.start_date|date:"Y" }} - {{ education.end_date|date:"Y" }}
+                </div>
+                <h3 class="experience-title">{{ education.degree }}</h3>
+                <p class="publication-institution">{{ education.institution }}</p>
             </div>
-            <h3 class="education-title">{{ education.degree }}</h3>
-            <p class="education-institution">{{ education.institution }}</p>
+            {% empty %}
+            <p>Aucune formation disponible.</p>
+            {% endfor %}
         </div>
-        {% empty %}
-        <p>Aucune formation disponible.</p>
-        {% endfor %}
     </div>
 </main>
 
 <div class="container">
     <div class="card">
         <h2 class="card-title">Profils Similaires</h2>
-        <div class="grid-2">
+        <div class="similar-profiles">
             {% for profile in similar_profiles %}
-            <div class="team-card card">
+            <div class="profile-card"">
                 <figure class="card-banner img-holder" style="--width: 200; --height: 200;">
                     {% if profile.photo %}
                     <img src="{{ profile.photo.url }}" alt="{{ profile.first_name }} {{ profile.last_name }}" class="img-cover">
                     {% else %}
-                    <img src="{% static 'images/default-profile.png' %}" alt="Photo par défaut" class="img-cover">
+                    <img src="{% static 'images/topic-4.png' %}" alt="Photo par défaut" class="img-cover">
                     {% endif %}
                 </figure>
-                <div class="card-content">
+                <div class="profile-info">
                     <h3 class="headline-3">
                         <a href="{% url 'team:member_detail' profile.slug %}" class="card-title">
                             {{ profile.title }} {{ profile.first_name }} {{ profile.last_name }}

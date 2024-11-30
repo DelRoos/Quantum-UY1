@@ -100,12 +100,12 @@ class TeamMember(models.Model):
     )
     
     # Liens externes
-    website = models.URLField("Site web personnel", blank=True)
-    google_scholar = models.URLField("Google Scholar", blank=True)
-    researchgate = models.URLField("ResearchGate", blank=True)
-    orcid = models.CharField("ORCID", max_length=20, blank=True)
-    linkedin = models.URLField("LinkedIn", blank=True)
-    twitter = models.URLField("Twitter", blank=True)
+    website = models.URLField("Site web personnel", blank=True, null=True)
+    google_scholar = models.URLField("Google Scholar", blank=True, null=True)
+    researchgate = models.URLField("ResearchGate", blank=True, null=True)
+    orcid = models.CharField("ORCID", max_length=20, blank=True, null=True)
+    linkedin = models.URLField("LinkedIn", blank=True, null=True)
+    twitter = models.URLField("Twitter", blank=True, null=True)
     
     # Statut et ordre
     is_active = models.BooleanField("Actif", default=True)
