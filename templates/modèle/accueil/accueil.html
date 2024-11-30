@@ -36,7 +36,7 @@
             <h1>Laboratoire de Recherche en Physique Théorique et Expérimentale</h1>
             <h2>Explorant l'invisible pour bâtir le monde de demain</h2>
         </div>
-        <img src="atome5.jpg!w700wp" alt="Image de fond" class="hero-image">
+        <img src="media/images/atome5.jpg!w700wp" alt="Image de fond" class="hero-image">
         <div class="hero-text">
             <h1>Pionniers de la Science et de l'Innovation</h1>
             <p>Repousser les frontières de la Physique Moderne</p>
@@ -85,19 +85,12 @@
         <h2>Nos Sujets de Recherche</h2>
         <p>Nos recherches couvrent un éventail de sujets fascinants visant à repousser les frontières de la connaissance en physique.</p>
         <div class="research-topics">
+            {% for recherche in recherche_list %}
             <div class="topic">
-                <h3>Physique Quantique</h3>
-                <p>Étude des particules subatomiques et de la mécanique quantique.</p>
+                <h3>{{ recherche.titre }}</h3>
+                <p>{{ recherche.resumé }}</p>
             </div>
-            <div class="topic">
-                <h3>Astrophysique et Cosmologie</h3>
-                <p>Recherche sur l'univers à grande échelle, des étoiles aux galaxies.</p>
-            </div>
-            <div class="topic">
-                <h3>Matériaux Avancés et Nanotechnologies</h3>
-                <p>Ingénierie de nouveaux matériaux et étude des phénomènes à l'échelle nanométrique.</p>
-            </div>
-            
+            {% endfor %}
         </div>
         <div class="ctb-button">
             <a href="../recherches/affichage_sujets.html" class="button">Voir Plus</a>
