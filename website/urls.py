@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('team/', include('team.urls')),
+    path('research/', include('research.urls')),
 ] 
 
 # Ajout des URLs pour servir les fichiers médias en développement

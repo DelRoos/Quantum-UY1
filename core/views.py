@@ -7,14 +7,21 @@ from .models import SiteConfig
 from .forms import ContactForm, NewsletterForm
 from django.http import JsonResponse
 from team.models import TeamMember
+from research.models import ResearchArea, Project
 
 class HomeView(TemplateView):
     template_name = 'core/home.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['newsletter_form'] = NewsletterForm()
+
         context['team_members'] = TeamMember.objects.filter(is_active=True).order_by('order')[:10]
+
+        context['research_areas'] = ResearchArea.objects.filter(is_active=True).order_by('order', 'name')
+        context['projects'] = Project.objects.filter(is_public=True).order_by('-start_date')[:6]
+        
         return context
     
     

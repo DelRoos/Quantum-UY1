@@ -1,0 +1,798 @@
+{% extends "base.html" %}
+
+{% block title %}Nos Travaux - {{ site_name }}{% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+<style>
+  /* Styles spécifiques pour la page des travaux */
+  .hero {
+    padding-block-start: calc(var(--section-padding) + 60px);
+    background-color: var(--bg-prussian-blue);
+    margin-bottom: 2rem;
+  }
+
+  .research-metrics {
+    margin-block: 3rem;
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .metric-item {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--bg-oxford-blue-2);
+    border-radius: var(--radius-8);
+    transition: transform var(--transition-1);
+  }
+
+  .metric-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .metric-item .number {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-1);
+    font-weight: var(--weight-bold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-item .label {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+  }
+
+  .research-topic {
+    padding-block: 3rem;
+  }
+
+  .research-topic-card {
+    margin-bottom: 4rem;
+  }
+
+  .research-topic-title {
+    color: var(--text-alice-blue);
+    font-size: var(--fontSize-2);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-prussian-blue);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+    overflow: hidden;
+    transition: transform var(--transition-1);
+  }
+
+  .project-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .project-banner {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+  }
+
+  .project-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-2);
+  }
+
+  .project-card:hover .project-banner img {
+    transform: scale(1.05);
+  }
+
+  .project-content {
+    padding: 2rem;
+  }
+
+  .project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .project-tag {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+    font-size: var(--fontSize-7);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-pill);
+  }
+
+  .project-date {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .project-title {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-3);
+    margin-bottom: 1rem;
+    transition: color var(--transition-1);
+  }
+
+  .project-card:hover .project-title {
+    color: var(--text-alice-blue);
+  }
+
+  .project-description {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .project-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: var(--bg-prussian-blue);
+    border-radius: var(--radius-8);
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-3);
+    font-weight: var(--weight-bold);
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+  }
+
+  .collaborations {
+    margin-top: 4rem;
+    padding: 2rem;
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+  }
+
+  .collaborations-title {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .collaborations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+  }
+
+  .collaboration-item {
+    text-align: center;
+  }
+
+  .collaboration-logo {
+    width: 120px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    filter: grayscale(1) brightness(0.8);
+    transition: filter var(--transition-1);
+  }
+
+  .collaboration-item:hover .collaboration-logo {
+    filter: grayscale(0) brightness(1);
+  }
+
+  .collaboration-name {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+  }
+
+  @media (max-width: 576px) {
+    .metrics-grid {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-stats {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+  }
+
+  .featured-projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .featured-project-card {
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+    overflow: hidden;
+    transition: transform var(--transition-1);
+  }
+
+  .featured-project-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .featured-project-banner {
+    position: relative;
+    aspect-ratio: 16/9;
+  }
+
+  .featured-project-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-pill);
+    font-size: var(--fontSize-7);
+    font-weight: var(--weight-bold);
+  }
+
+  /* Styles pour les projets secondaires */
+  .secondary-projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .secondary-project-card {
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+    overflow: hidden;
+    transition: transform var(--transition-1);
+  }
+
+  .secondary-project-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .secondary-project-banner {
+      position: relative;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/9; /* Vous pouvez ajuster en fonction de vos besoins */
+      overflow: hidden;
+      display: block;
+  }
+
+  .secondary-project-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* S'assure que l'image remplit l'espace sans déformation */
+      object-position: center; /* Centre l'image dans la figure */
+      display: block;
+  }
+
+
+  .secondary-project-content {
+    padding: 1.25rem;
+  }
+
+  .secondary-project-title {
+    font-size: var(--fontSize-5);
+    margin-bottom: 0.5rem;
+  }
+
+  .secondary-project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .research-category {
+    margin: 3rem 0;
+  }
+
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-prussian-blue);
+    padding-bottom: 1rem;
+  }
+
+  .view-all-btn {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-6);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color var(--transition-1);
+  }
+
+  .view-all-btn:hover {
+    color: var(--text-wild-blue-yonder);
+  }
+
+  @media (max-width: 1200px) {
+    .secondary-projects {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 992px) {
+    .featured-projects {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .secondary-projects {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pagination-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .pagination-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-prussian-blue);
+    border-radius: var(--radius-circle);
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    transition: all var(--transition-1);
+  }
+
+  .pagination-btn:hover {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+  }
+
+  .pagination-btn.active {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+  }
+
+  .pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Ajustement du grid pour les projets secondaires */
+  .secondary-projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .secondary-project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .secondary-project-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-description {
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 1200px) {
+    .secondary-projects {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .secondary-projects {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .collaborations-section {
+    margin-top: 4rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border-prussian-blue);
+  }
+
+  .collaborations-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .collaborations-header .section-subtitle {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    margin-bottom: 1rem;
+  }
+
+  .collaborations-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .collaboration-card {
+    background-color: var(--bg-oxford-blue);
+    border: 1px solid var(--border-prussian-blue);
+    border-radius: var(--radius-8);
+    padding: 2rem;
+    text-align: center;
+    transition: transform var(--transition-1);
+  }
+
+  .collaboration-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .collaboration-logo {
+    width: 120px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    object-fit: contain;
+    filter: brightness(0.8);
+    transition: filter var(--transition-1);
+  }
+
+  .collaboration-card:hover .collaboration-logo {
+    filter: brightness(1);
+  }
+
+  .collaboration-name {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-6);
+    font-weight: var(--weight-semiBold);
+    margin-bottom: 0.5rem;
+  }
+
+  .collaboration-type {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+  }
+
+  .collaboration-stats {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-prussian-blue);
+    font-size: var(--fontSize-7);
+    color: var(--text-wild-blue-yonder);
+  }
+
+  @media (max-width: 1200px) {
+    .collaborations-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 992px) {
+    .collaborations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .collaborations-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+
+<section class="hero">
+    <div class="container">
+      <h1 class="headline-1 section-title">
+        Nos <span class="span">Travaux</span> de Recherche
+      </h1>
+      <p class="section-text">
+        Découvrez nos axes de recherche et projets innovants en physique quantique,
+        de la théorie fondamentale aux applications pratiques.
+      </p>
+  
+      <!-- Research Metrics -->
+      <div class="research-metrics">
+        <div class="metrics-grid">
+          <div class="metric-item">
+            <div class="number">{{ metrics.research_areas_count }}</div>
+            <div class="label">Axes de Recherche</div>
+          </div>
+          <div class="metric-item">
+            <div class="number">{{ metrics.active_projects_count }}</div>
+            <div class="label">Projets Actifs</div>
+          </div>
+          <div class="metric-item">
+            <div class="number">{{ metrics.publications_count }}+</div>
+            <div class="label">Publications/An</div>
+          </div>
+          <div class="metric-item">
+            <div class="number">{{ metrics.collaborations_count }}</div>
+            <div class="label">Collaborations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<!-- Research Topics Section -->
+<section class="section research-topic">
+    <div class="container">
+  
+      <!-- Projets Vedettes -->
+      <div class="research-category">
+        <div class="category-header">
+          <h2 class="headline-2">Projets Principaux</h2>
+          <a href="{% url 'research:research_list' %}" class="view-all-btn">
+            Voir tout <ion-icon name="arrow-forward-outline"></ion-icon>
+          </a>
+        </div>
+  
+        <div class="featured-projects">
+          {% for project in featured_projects %}
+          <article class="featured-project-card">
+            <figure class="featured-project-banner">
+                {% if project.image and project.image.url %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
+                {% else %}
+                    <img src="{% static 'images/topic-4.png' %}" alt="{{ project.title }}" loading="lazy">
+                {% endif %}
+              <span class="featured-badge">Projet Phare</span>
+            </figure>
+  
+            <div class="project-content">
+              <div class="project-meta">
+                <div class="project-tags">
+                  {% for tag in project.tags.all %}
+                    <span class="project-tag">{{ tag.name }}</span>
+                  {% endfor %}
+                </div>
+                <div class="project-date">
+                  <ion-icon name="time-outline"></ion-icon>
+                  <span>{{ project.start_date|date:"Y" }}-{{ project.end_date|date:"Y" }}</span>
+                </div>
+              </div>
+  
+              <h3 class="project-title">
+                <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+              </h3>
+              <p class="project-description">
+                {{ project.summary }}
+              </p>
+              <div class="project-stats">
+                <div class="stat-item">
+                  <div class="stat-number">{{ project.team_members.count }}</div>
+                  <div class="stat-label">Chercheurs</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">{{ project.publications.all|length }}</div>
+                  <div class="stat-label">Publications</div>
+                </div>
+              </div>
+              <a href="{{ project.get_absolute_url }}" class="btn btn-primary w-100">En savoir plus</a>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+
+
+    <!-- Autres Projets -->
+    <div class="research-category">
+        <div class="category-header">
+          <h2 class="headline-2">Autres Projets</h2>
+        </div>
+  
+        <div class="secondary-projects">
+          
+          {% for project in secondary_projects %}
+          <article class="secondary-project-card">
+            <figure class="secondary-project-banner">
+              {% if project.image and project.image.url %}
+                  <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
+              {% else %}
+                  <img src="{% static 'images/topic-4.png' %}" alt="{{ project.title }}" loading="lazy">
+              {% endif %}
+            </figure>
+            <div class="secondary-project-content">
+              <div class="secondary-project-meta">
+                <span class="project-tag">{{ project.research_area.name }}</span>
+                <span class="project-date">{{ project.start_date|date:"Y" }}</span>
+              </div>
+              <h3 class="secondary-project-title">
+                <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+              </h3>
+              <p class="project-description">{{ project.summary }}</p>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination-container">
+          {% if secondary_projects.has_previous %}
+          <a class="pagination-btn" href="?page={{ secondary_projects.previous_page_number }}" aria-label="Previous page">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+          </a>
+          {% else %}
+          <span class="pagination-btn disabled" aria-label="Previous page">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+          </span>
+          {% endif %}
+        
+          {% for num in secondary_projects.paginator.page_range %}
+          {% if num == secondary_projects.number %}
+          <span class="pagination-btn active">{{ num }}</span>
+          {% else %}
+          <a class="pagination-btn" href="?page={{ num }}">{{ num }}</a>
+          {% endif %}
+          {% endfor %}
+        
+          {% if secondary_projects.has_next %}
+          <a class="pagination-btn" href="?page={{ secondary_projects.next_page_number }}" aria-label="Next page">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </a>
+          {% else %}
+          <span class="pagination-btn disabled" aria-label="Next page">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </span>
+          {% endif %}
+      </div>
+      </div>
+  
+    </div>
+{% comment %} 
+    <div class="secondary-projects">
+        {% for project in secondary_projects %}
+        <article class="secondary-project-card">
+          <figure class="secondary-project-banner">
+            {% if project.image and project.image.url %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
+            {% else %}
+                <img src="{% static 'images/topic-4.png' %}" alt="{{ project.title }}" loading="lazy">
+            {% endif %}
+          </figure>
+          <div class="secondary-project-content">
+            <div class="secondary-project-meta">
+              <span class="project-tag">{{ project.research_area.name }}</span>
+              <span class="project-date">{{ project.start_date|date:"Y" }}</span>
+            </div>
+            <h3 class="secondary-project-title">
+              <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+            </h3>
+            <p class="project-description">{{ project.summary }}</p>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      
+      <!-- Pagination -->
+      <div class="pagination-container">
+        {% if secondary_projects.has_previous %}
+        <a class="pagination-btn" href="?page={{ secondary_projects.previous_page_number }}" aria-label="Previous page">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </a>
+        {% else %}
+        <span class="pagination-btn disabled" aria-label="Previous page">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </span>
+        {% endif %}
+      
+        {% for num in secondary_projects.paginator.page_range %}
+        {% if num == secondary_projects.number %}
+        <span class="pagination-btn active">{{ num }}</span>
+        {% else %}
+        <a class="pagination-btn" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+      
+        {% if secondary_projects.has_next %}
+        <a class="pagination-btn" href="?page={{ secondary_projects.next_page_number }}" aria-label="Next page">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </a>
+        {% else %}
+        <span class="pagination-btn disabled" aria-label="Next page">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </span>
+        {% endif %}
+    </div> {% endcomment %}
+  </section>  
+  
+<!-- Collaborations Section -->
+<section class="collaborations-section">
+    <div class="container">
+      <div class="collaborations-header">
+        <p class="section-subtitle">Nos Partenaires de Recherche</p>
+        <h2 class="headline-2">Collaborations Internationales</h2>
+      </div>
+  
+      <div class="collaborations-grid">
+        {% for collaboration in collaborations %}
+        <div class="collaboration-card">
+          <img src="{{ collaboration.logo.url }}" alt="{{ collaboration.name }}" class="collaboration-logo">
+          <h3 class="collaboration-name">{{ collaboration.name }}</h3>
+          <p class="collaboration-type">{{ collaboration.institution_type }}</p>
+          <div class="collaboration-stats">
+            <p>{{ collaboration.projects.count }} Projets Communs</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  
+  
+{% endblock %}

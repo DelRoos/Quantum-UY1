@@ -155,7 +155,7 @@ class Project(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('research:project_detail', kwargs={'slug': self.slug})
+        return reverse('research:research_detail', kwargs={'slug': self.slug})
 
     @property
     def duration_months(self):

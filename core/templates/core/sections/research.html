@@ -1,0 +1,121 @@
+{% load static %}
+
+<!-- SECTION SUJETS DE RECHERCHE -->
+<section class="section research-topic" aria-label="research_topic" id="research_topic">
+    <div class="container">
+        <h2 class="headline headline-2 section-title">
+            <span class="span">Sujets de Recherche</span>
+        </h2>
+        <p class="section-text">
+            Explorez les thématiques de recherche en cours à Quantum_UY1, menées par nos experts en physique quantique.
+        </p>
+
+        <ul class="research-topic-list">
+            {% for project in projects %}
+            <li>
+                <div class="card research-topic-card">
+                    <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" 
+                            width="1602" 
+                            height="903" 
+                            loading="lazy" 
+                            alt="{{ project.title }}" 
+                            class="img-cover">
+                        {% else %}
+                        <img src="{% static 'images/default-project-image.jpg' %}" 
+                            width="1602" 
+                            height="903" 
+                            loading="lazy" 
+                            alt="Image par défaut" 
+                            class="img-cover">
+                        {% endif %}
+                    </figure>
+                    <div class="card-content">
+                        <div class="card-wrapper">
+                            <div class="card-tag">
+                                {% for tag in project.tags.all %}
+                                <a href="#" class="span hover-2">#{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                            <div class="wrapper">
+                                <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+                                <span class="span">{{ project.start_date|date:"d M Y" }}</span>
+                            </div>
+                        </div>
+                        <h3 class="headline headline-3">
+                            {% comment %} <a href="#" class="card-title hover-2"> {% endcomment %}
+                            <a href="{{ project.get_absolute_url }}" class="card-title hover-2">
+                                {{ project.title }}
+                            </a>
+                        </h3>
+                        <div class="card-wrapper">
+                            <div class="profile-card">
+                                {% if project.leader.photo %}
+                                <img src="{{ project.leader.photo.url }}" 
+                                     width="48" 
+                                     height="48" 
+                                     loading="lazy" 
+                                     alt="{{ project.leader.first_name }}" 
+                                     class="profile-banner">
+                                {% endif %}
+                                <div>
+                                    <p class="card-title">{{ project.leader.first_name }} {{ project.leader.last_name }}</p>
+                                    <p class="card-subtitle">{{ project.leader.position.name }}</p>
+                                </div>
+                            </div>
+                            {% comment %} <a href="#" class="card-btn">En savoir plus</a> {% endcomment %}
+                            <a href="{{ project.get_absolute_url }}" class="card-btn">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% comment %} <a href="#" class="btn btn-secondary"> {% endcomment %}
+        <a href="{% url 'research:research_list' %}" class="btn btn-secondary">
+            <span class="span">Voir plus de sujets</span>
+            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+        </a>
+    </div>
+</section>
+
+<!-- SECTION CATÉGORIES DE RECHERCHE -->
+<section class="tags" aria-labelledby="tag-label">
+    <div class="container">
+        <h2 class="headline headline-2 section-title" id="tag-label">
+            <span class="span">Catégories de Recherche</span>
+        </h2>
+        <p class="section-text">
+            Explorez les principales thématiques abordées par le laboratoire Quantum_UY1.
+        </p>
+        <ul class="grid-list">
+            {% for area in research_areas %}
+            <li>
+                <button class="card tag-btn">
+                    {% if area.icon %}<button class="card tag-btn">
+                        {% if area.icon %}
+                        <img src="{{ area.icon.url }}" 
+                             width="32" 
+                             height="32" 
+                             loading="lazy" 
+                             alt="{{ area.name }}">
+                        {% else %}
+                        <img src="{% static 'images/default-icon.png' %}" 
+                             width="32" 
+                             height="32" 
+                             loading="lazy" 
+                             alt="Icône par défaut">
+                        {% endif %}
+                        <p class="btn-text">{{ area.name }}</p>
+                    </button>
+                    
+                    {% endif %}
+                    <p class="btn-text">{{ area.name }}</p>
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>

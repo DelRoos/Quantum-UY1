@@ -1,0 +1,181 @@
+{
+  "research_areas": [
+    {
+      "name": "Optimisation Quantique",
+      "short_description": "Étude et amélioration des algorithmes quantiques.",
+      "description": "Description complète pour le domaine Optimisation Quantique.",
+      "icon": "research/icons/quantum_optimization.png",
+      "banner_image": "research/banners/quantum_optimization.png",
+      "order": 1,
+      "tags": ["algorithmes", "quantique", "optimisation"]
+    },
+    {
+      "name": "Circuits Quantiques Hybrides",
+      "short_description": "Applications des circuits quantiques hybrides.",
+      "description": "Description complète pour les circuits quantiques hybrides.",
+      "icon": "research/icons/hybrid_circuits.png",
+      "banner_image": "research/banners/hybrid_circuits.png",
+      "order": 2,
+      "tags": ["circuits", "hybridation"]
+    },
+    {
+      "name": "Matériaux Quantiques",
+      "short_description": "Recherche sur les propriétés des nouveaux matériaux quantiques.",
+      "description": "Description détaillée pour les matériaux quantiques et leurs applications.",
+      "icon": "research/icons/quantum_materials.png",
+      "banner_image": "research/banners/quantum_materials.png",
+      "order": 3,
+      "tags": ["matériaux", "propriétés", "quantique"]
+    },
+    {
+      "name": "Simulation Quantique",
+      "short_description": "Simulations de systèmes complexes via des ordinateurs quantiques.",
+      "description": "Approfondissement des techniques de simulation en utilisant la mécanique quantique.",
+      "icon": "research/icons/quantum_simulation.png",
+      "banner_image": "research/banners/quantum_simulation.png",
+      "order": 4,
+      "tags": ["simulation", "complexité", "quantique"]
+    },
+    {
+      "name": "Cryptographie Quantique",
+      "short_description": "Études sur la sécurité et la cryptographie utilisant les principes quantiques.",
+      "description": "Développement de techniques de chiffrement inviolables grâce à la mécanique quantique.",
+      "icon": "research/icons/quantum_cryptography.png",
+      "banner_image": "research/banners/quantum_cryptography.png",
+      "order": 5,
+      "tags": ["cryptographie", "sécurité", "quantique"]
+    },
+    {
+      "name": "Optimisation Quantique",
+      "short_description": "Étude et amélioration des algorithmes quantiques.",
+      "description": "Description complète pour le domaine Optimisation Quantique.",
+      "icon": "research/icons/quantum_optimization.png",
+      "banner_image": "research/banners/quantum_optimization.png",
+      "order": 1,
+      "tags": ["algorithmes", "quantique", "optimisation"]
+    },
+    {
+      "name": "Circuits Quantiques Hybrides",
+      "short_description": "Applications des circuits quantiques hybrides.",
+      "description": "Description complète pour les circuits quantiques hybrides.",
+      "icon": "research/icons/hybrid_circuits.png",
+      "banner_image": "research/banners/hybrid_circuits.png",
+      "order": 2,
+      "tags": ["circuits", "hybridation"]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Optimisation des algorithmes quantiques",
+      "research_area": "Optimisation Quantique",
+      "leader_email": "clara.lee@example.com",
+      "status": "ongoing",
+      "priority": 3,
+      "funding_type": "external",
+      "funding_amount": 50000.00,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "summary": "Optimisation des performances des algorithmes quantiques pour des applications pratiques.",
+      "description": "Description détaillée pour l'optimisation des algorithmes quantiques.",
+      "objectives": "Améliorer les performances des algorithmes.",
+      "expected_results": "Algorithmes plus efficaces.",
+      "tags": ["algorithmes", "quantique", "optimisation"]
+    },
+    {
+      "title": "Applications des circuits quantiques hybrides",
+      "research_area": "Circuits Quantiques Hybrides",
+      "leader_email": "bob.smith@example.com",
+      "status": "planned",
+      "priority": 2,
+      "funding_type": "mixed",
+      "funding_amount": 75000.00,
+      "start_date": "2024-02-01",
+      "end_date": "2024-11-30",
+      "summary": "Exploration des possibilités offertes par les circuits quantiques hybrides.",
+      "description": "Description détaillée pour les circuits quantiques hybrides.",
+      "objectives": "Identifier des applications viables.",
+      "expected_results": "Mise en œuvre de cas d'utilisation réels.",
+      "tags": ["circuits", "hybridation"]
+    },
+    {
+      "title": "Caractérisation des propriétés des matériaux quantiques",
+      "research_area": "Matériaux Quantiques",
+      "leader_email": "emma.wilson@example.com",
+      "status": "ongoing",
+      "priority": 4,
+      "funding_type": "internal",
+      "funding_amount": 40000.00,
+      "start_date": "2024-03-01",
+      "end_date": "2025-03-01",
+      "summary": "Analyse approfondie des propriétés physiques des matériaux quantiques.",
+      "description": "Étude expérimentale et théorique des matériaux quantiques modernes.",
+      "objectives": "Comprendre les mécanismes fondamentaux.",
+      "expected_results": "Publication dans des journaux scientifiques de haut niveau.",
+      "tags": ["matériaux", "propriétés"]
+    },
+    {
+      "title": "Développement d'un simulateur quantique universel",
+      "research_area": "Simulation Quantique",
+      "leader_email": "james.brown@example.com",
+      "status": "ongoing",
+      "priority": 4,
+      "funding_type": "external",
+      "funding_amount": 100000.00,
+      "start_date": "2024-04-01",
+      "end_date": "2026-04-01",
+      "summary": "Concevoir un simulateur quantique performant et polyvalent.",
+      "description": "Utiliser des techniques avancées pour simuler des systèmes complexes.",
+      "objectives": "Créer un outil standard pour les chercheurs.",
+      "expected_results": "Un prototype fonctionnel.",
+      "tags": ["simulation", "complexité", "quantique"]
+    },
+    {
+      "title": "Sécurisation des communications par cryptographie quantique",
+      "research_area": "Cryptographie Quantique",
+      "leader_email": "sophia.miller@example.com",
+      "status": "planned",
+      "priority": 3,
+      "funding_type": "mixed",
+      "funding_amount": 120000.00,
+      "start_date": "2024-06-01",
+      "end_date": "2025-06-01",
+      "summary": "Développement de protocoles sécurisés basés sur les propriétés quantiques.",
+      "description": "Utilisation des principes de la mécanique quantique pour protéger les données.",
+      "objectives": "Mettre en œuvre des solutions inviolables.",
+      "expected_results": "Prototypage et tests dans un environnement sécurisé.",
+      "tags": ["cryptographie", "sécurité"]
+    },
+    {
+      "title": "Optimisation des algorithmes quantiques",
+      "research_area": "Optimisation Quantique",
+      "leader_email": "clara.lee@example.com",
+      "status": "ongoing",
+      "priority": 3,
+      "funding_type": "external",
+      "funding_amount": 50000.00,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31",
+      "summary": "Optimisation des performances des algorithmes quantiques pour des applications pratiques.",
+      "description": "Description détaillée pour l'optimisation des algorithmes quantiques.",
+      "objectives": "Améliorer les performances des algorithmes.",
+      "expected_results": "Algorithmes plus efficaces.",
+      "tags": ["algorithmes", "quantique", "optimisation"]
+    },
+    {
+      "title": "Applications des circuits quantiques hybrides",
+      "research_area": "Circuits Quantiques Hybrides",
+      "leader_email": "bob.smith@example.com",
+      "status": "planned",
+      "priority": 2,
+      "funding_type": "mixed",
+      "funding_amount": 75000.00,
+      "start_date": "2024-02-01",
+      "end_date": "2024-11-30",
+      "summary": "Exploration des possibilités offertes par les circuits quantiques hybrides.",
+      "description": "Description détaillée pour les circuits quantiques hybrides.",
+      "objectives": "Identifier des applications viables.",
+      "expected_results": "Mise en œuvre de cas d'utilisation réels.",
+      "tags": ["circuits", "hybridation"]
+    }
+  ]
+}

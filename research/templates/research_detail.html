@@ -1,0 +1,460 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{ project.title }} - Détail du Projet{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Styles spécifiques pour la page de détail */
+    .research-hero {
+      padding-block-start: calc(var(--section-padding) + 60px);
+      background-color: var(--bg-prussian-blue);
+      margin-bottom: 2rem;
+    }
+
+    .research-banner {
+      position: relative;
+      border-radius: var(--radius-16);
+      overflow: hidden;
+      margin-block: 3rem;
+    }
+
+    .research-banner img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 21/9;
+      object-fit: cover;
+    }
+
+    .research-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-block: 2rem;
+      padding: 1.5rem;
+      background-color: var(--bg-oxford-blue);
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-wild-blue-yonder);
+    }
+
+    .meta-item ion-icon {
+      color: var(--text-carolina-blue);
+      font-size: 1.2em;
+    }
+
+    .research-content {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .content-main {
+      background-color: var(--bg-oxford-blue);
+      padding: 2rem;
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+    }
+
+    .content-section {
+      margin-block: 3rem;
+    }
+
+    .content-section:first-child {
+      margin-block-start: 0;
+    }
+
+    .section-title {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-2);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-prussian-blue);
+    }
+
+    .research-text {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .content-sidebar {
+      position: sticky;
+      top: 2rem;
+    }
+
+    .sidebar-card {
+      background-color: var(--bg-oxford-blue);
+      padding: 2rem;
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+      margin-bottom: 2rem;
+    }
+
+    .team-member {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-prussian-blue);
+    }
+
+    .team-member:last-child {
+      border-bottom: none;
+    }
+
+    .member-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-circle);
+      object-fit: cover;
+    }
+
+    .member-info {
+      flex: 1;
+    }
+
+    .member-name {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-6);
+      margin-bottom: 0.25rem;
+    }
+
+    .member-role {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background-color: var(--bg-prussian-blue);
+      border-radius: var(--radius-8);
+    }
+
+    .stat-number {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-1);
+      font-weight: var(--weight-bold);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+    }
+
+    .fun-fact {
+      background-color: var(--bg-carolina-blue);
+      color: var(--text-white);
+      padding: 2rem;
+      border-radius: var(--radius-8);
+      margin-block: 2rem;
+    }
+
+    .fun-fact-title {
+      font-size: var(--fontSize-5);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 992px) {
+      .research-content {
+        grid-template-columns: 1fr;
+      }
+
+      .content-sidebar {
+        position: static;
+      }
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-question {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-5);
+      margin-bottom: 0.75rem;
+      font-weight: var(--weight-semiBold);
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-6);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-link:hover {
+      color: var(--text-wild-blue-yonder);
+    }
+
+    .question-form {
+        margin-top: 1rem;
+      }
+    
+      .form-field {
+        margin-bottom: 1rem;
+      }
+    
+      .form-label {
+        display: block;
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        margin-bottom: 0.5rem;
+      }
+    
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background-color: var(--bg-prussian-blue);
+        border: 1px solid var(--border-prussian-blue);
+        border-radius: var(--radius-6);
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        transition: border-color var(--transition-1);
+      }
+    
+      .form-input:focus,
+      .form-textarea:focus {
+        border-color: var(--bg-carolina-blue);
+        outline: none;
+      }
+    
+      .form-textarea {
+        height: 120px;
+        resize: vertical;
+      }
+    
+      .question-card {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        background-color: var(--bg-prussian-blue);
+        border-radius: var(--radius-8);
+      }
+    
+      .question-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+    
+      .question-author {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    
+      .author-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-circle);
+      }
+    
+      .author-name {
+        color: var(--text-carolina-blue);
+        font-size: var(--fontSize-6);
+      }
+    
+      .question-date {
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-7);
+      }
+    
+      .question-text {
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        margin-bottom: 1rem;
+      }
+    
+      .question-response {
+        margin-left: 2rem;
+        padding: 1rem;
+        background-color: var(--bg-oxford-blue);
+        border-radius: var(--radius-8);
+      }
+    
+      .response-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+    
+      .response-badge {
+        background-color: var(--bg-carolina-blue);
+        color: var(--text-white);
+        font-size: var(--fontSize-7);
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--radius-pill);
+      }
+    
+      .tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+    
+      .tab-btn {
+        padding: 0.5rem 1rem;
+        background: none;
+        border: none;
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: all var(--transition-1);
+      }
+    
+      .tab-btn.active {
+        color: var(--text-carolina-blue);
+        border-bottom-color: var(--bg-carolina-blue);
+      }
+    
+      .success-message {
+        display: none;
+        color: #4CAF50;
+        font-size: var(--fontSize-6);
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: rgba(76, 175, 80, 0.1);
+        border-radius: var(--radius-6);
+      }
+    
+      .success-message.show {
+        display: block;
+      }
+  </style>
+  
+  
+<!-- Hero Section -->
+<section class="research-hero">
+    <div class="container">
+      <h1 class="headline-1 section-title">{{ project.title }}</h1>
+  
+      <div class="research-meta">
+        <div class="meta-item">
+          <ion-icon name="time-outline"></ion-icon>
+          <span>{{ project.start_date|date:"Y" }} - {{ project.end_date|date:"Y" }}</span>
+        </div>
+        <div class="meta-item">
+          <ion-icon name="people-outline"></ion-icon>
+          <span>{{ project.team_members.count }} Chercheurs</span>
+        </div>
+        <div class="meta-item">
+          <ion-icon name="document-text-outline"></ion-icon>
+          <span>{{ publications.count }} Publications</span>
+        </div>
+      </div>
+  
+      <figure class="research-banner">
+        {% if project.image and project.image.url %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
+        {% else %}
+            <img src="{% static 'images/topic-4.png' %}" alt="{{ project.title }}" loading="lazy">
+        {% endif %}
+      </figure>
+    </div>
+  </section>
+  
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
+      <div class="research-content">
+        <!-- Main Column -->
+        <div class="content-main">
+          <!-- Project Summary -->
+          <div class="content-section">
+            <h2 class="section-title">Résumé du Projet</h2>
+            <p class="research-text">{{ project.summary }}</p>
+          </div>
+  
+          <!-- Objectives -->
+          {% if project.objectives %}
+          <div class="content-section">
+            <h2 class="section-title">Objectifs</h2>
+            <p class="research-text">{{ project.objectives }}</p>
+          </div>
+          {% endif %}
+  
+          <!-- Methodology -->
+          {% if project.methodology %}
+          <div class="content-section">
+            <h2 class="section-title">Méthodologie</h2>
+            <p class="research-text">{{ project.methodology }}</p>
+          </div>
+          {% endif %}
+  
+          <!-- Expected Results -->
+          {% if project.expected_results %}
+          <div class="content-section">
+            <h2 class="section-title">Résultats Attendues</h2>
+            <p class="research-text">{{ project.expected_results }}</p>
+          </div>
+          {% endif %}
+        </div>
+  
+        <!-- Sidebar -->
+        <aside class="content-sidebar">
+          <!-- Team Members -->
+          <div class="sidebar-card">
+            <h3 class="section-title">Équipe de Recherche</h3>
+            {% for member in team_members %}
+            <div class="team-member">
+
+              {% if project.image and project.image.url %}
+                <img src="{{ member.photo.url }}" alt="{{ member.first_name }} {{ member.last_name }}" class="member-avatar" loading="lazy">
+              {% else %}
+                <img src="{% static 'images/topic-4.png' %}" alt="{{ member.first_name }} {{ member.last_name }}" loading="lazy">
+              {% endif %}
+              <div class="member-info">
+                <h4 class="member-name">{{ member.first_name }} {{ member.last_name }}</h4>
+                <p class="member-role">{{ member.position.name }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+  
+          <!-- Leader Publications -->
+          {% if publications %}
+          <div class="sidebar-card">
+            <h3 class="section-title">Publications du Responsable</h3>
+            <ul class="publication-list">
+              {% for publication in publications %}
+              <li>
+                <a href="{{ publication.url|default:'#' }}" target="_blank">{{ publication.title }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </aside>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
