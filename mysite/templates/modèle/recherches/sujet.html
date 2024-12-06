@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>recherches</title>
+	<link rel="stylesheet" href="{% static 'assets/fontawesome/css/all.min.css' %}"> 
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> 
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container-fluid">
+        <main class="tm-main">
+            <div class="row tm-row">
+                <div class="col-12">
+                    <div controls class="tm-mb-40">
+                        <img width="500" height="400" src="{{ recherche_list.photo.url }}" >					  
+                    </div>
+                </div>
+            </div>
+            <div class="row tm-row">
+                <div class="col-lg-8 tm-post-col">
+                    <div class="tm-post-full">                    
+                        <div class="mb-4">
+                            <h2 class="pt-2 tm-color-primary tm-post-title">{{ recherche_list.titre }}</h2>
+                
+                            <p class="tm-mb-40">{{ recherche_list.resumé }}</p>
+
+                            <h3 class="pt-2 tm-color-purple tm-post-title">problematique</h3>
+
+                            <p class="tm-mb-40">{{ recherche_list.problematique }}</p>
+
+                            <h3 class="pt-2 tm-color-purple tm-post-title">Methodologie</h3>
+
+                            <p class="tm-mb-40">{{ recherche_list.methode_recherche }}</p>
+
+                            <h3 class="pt-2 tm-color-purple tm-post-title">Domaines d'expertise</h3>
+
+                            <p class="tm-mb-40">{{ recherche_list.domaines_application }}</p>
+
+                            <h3 class="pt-2 tm-color-purple tm-post-title">Resultats et impactes</h3>
+
+                            <p class="tm-mb-40">{{ recherche_list.resultats_impacts }}</p>
+ 
+                            <!-- <span class="d-block text-right tm-color-primary">Physique Quantique . Astrophysique . Régulation</span> -->
+                        </div>
+                    </div>
+                </div>
+
+                
+                <aside class="col-lg-4 tm-aside-col">
+                    <div class="tm-post-sidebar">
+                        <hr class="mb-3 tm-hr-purple">
+                        <h2 class="mb-4 tm-post-title tm-color-purple">Membres colaborateurs</h2>
+                        <ul class="tm-mb-75 pl-5 tm-category-list">
+                            {% for membre in membres %}
+                                <li class="tm-color-primary">
+                                    {% if membre.title %}{{ membre.title.name }}. {% endif %} 
+                                    {{ membre.user.first_name }} {{ membre.user.last_name }}
+                                </li> 
+                            {% endfor %}
+                        </ul>
+                    </div> 
+                    
+
+                </aside>
+            </div>
+            <footer class="row tm-row">
+                <!-- <div class="col-md-6 col-12 tm-color-gray">
+                    Design: <a rel="nofollow" target="_parent" href="https://templatemo.com" class="tm-external-link">TemplateMo</a>
+                </div>
+                <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+                    Copyright 2020 Xtra Blog Company Co. Ltd.
+                </div> -->
+            </footer>
+        </main>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/templatemo-script.js"></script>
+</body>
+</html>

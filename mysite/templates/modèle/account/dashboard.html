@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+ <h1>Dashboard</h1>
+ <p>Welcome to your dashboard. 
+    <div class="hero-buttons">
+        <a href="#team" class="button">Ecrire un article</a>
+        <a href="#research" class="button">Rédiger un projet de recherche</a>
+        <a href="{% url "members:edit" %}">Modifier votre profile</a>  
+    </div> 
+</p>
+{% endblock %}

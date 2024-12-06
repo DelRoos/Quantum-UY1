@@ -1,0 +1,16 @@
+{% extends "modèle/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div id="content" class="container mx-auto mt-5 p-4">
+        <h1 class="text-center text-2xl font-bold mb-4">
+            {% if form.instance.pk %}Edit Research Topic{% else %}Add New Research Topic{% endif %}
+        </h1>
+        <form method="post" class="bg-gray-800 p-6 rounded-lg shadow-md mx-auto" style="max-width: 700px;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="mt-4 w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded">
+                Save
+            </button>
+        </form>
+    </div>
+{% endblock %}

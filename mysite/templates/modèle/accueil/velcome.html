@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratoire de Physique</title>
+    <link rel="stylesheet" href="{% static 'css/accueil.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/members.css' %}"> -->
+
+    {% block extra_css %}{% endblock %}
+
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="media/images/logo1 copy.png" alt="Logo du Laboratoire">
+        </div>
+    </header>
+
+    <section id="accueil" class="hero">
+        <div class="hero-text">
+            <h1>Laboratoire de Recherche en Physique Théorique et Expérimentale</h1>
+            <h2>Explorant l'invisible pour bâtir le monde de demain</h2>
+        </div>
+        <img src="media/images/atome5.jpg!w700wp" alt="Image de fond" class="hero-image">
+        <div class="hero-text">
+            <h1>Pionniers de la Science et de l'Innovation</h1>
+            <p>Repousser les frontières de la Physique Moderne</p>
+            <div class="hero-buttons">
+                <a href="#team" class="button">Ecrire un article</a>
+                <a href="#research" class="button">Rédiger un projet de recherche</a>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <p>&copy; 2024 Laboratoire de Physique - Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

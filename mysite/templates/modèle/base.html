@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+    <header class="p-4 bg-purple-800 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <nav>
+                {% if request.user.is_authenticated %}
+                <ul class="flex space-x-4">
+                    <li {% if section == "dashboard" %}class="text-purple-300"{% else %}class="text-white hover:text-purple-300"{% endif %}>
+                        <a href="{% url "members:dashboard" %}">My Dashboard</a>
+                    </li>
+                    <li {% if section == "images" %}class="text-purple-300"{% else %}class="text-white hover:text-purple-300"{% endif %}>
+                        <a href="{% url "research:creer" %}">Créer un sujet de recherche</a>
+                    </li>
+                    <li {% if section == "people" %}class="text-purple-300"{% else %}class="text-white hover:text-purple-300"{% endif %}>
+                        <a href="{% url "blog:create_post" %}">Publier un article</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </nav>
+            <div>
+                {% if request.user.is_authenticated %}
+                <span class="text-white">
+                    Bonjour, {{ request.user.first_name|default:request.user.username }}
+                </span>
+                <form action="{% url "members:logout" %}" method="post" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="text-purple-300 hover:text-purple-400 underline ml-2">
+                        Logout
+                    </button>
+                </form>
+                {% else %}
+                <a href="{% url "members:login" %}" class="text-purple-300 hover:text-purple-400 underline">Log-in</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="content" class="container mx-auto p-6 bg-gray-800 rounded-lg shadow-md mt-6">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-purple-800 p-4 text-center mt-6">
+        <p class="text-white text-sm">© 2024 Laboratory of Physics. All rights reserved.</p>
+    </footer>
+</body>
+</html>

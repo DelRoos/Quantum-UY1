@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Blog</title>
+    <!-- <link rel="stylesheet" href="{% static 'assets/fontawesome/css/all.min.css' %}"> -->
+	<!-- <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">  -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container-fluid">
+        <main class="tm-main">
+                       
+            <div class="row tm-row">
+                <div class="col-12">
+                    <!-- <hr class=" tm-mb-55"> -->
+                        <img src="{% static 'assets/img/atome5.jpg!w700wp' %}" alt="Image" width="954" height="535" controls class="tm-mb-40">							  
+                </div>
+            </div>
+            <div class="row tm-row">
+                <div class="col-lg-8 tm-post-col">
+                    <div class="tm-post-full">                    
+                        <div class="mb-4">
+                            <h2 class="pt-2 tm-color-purple tm-post-title">{{ post.title }}</h2>
+                
+                            <p class="tm-mb-40">Published {{ post.publish }} by {{ post.author }}</p>
+                            <p>
+                                {{ post.body|linebreaks }}
+                            </p>
+                            <!-- <span class="d-block text-right tm-color-purple">Physique Quantique . Astrophysique . Régulation</span> -->
+                        </div>
+                        
+                        <!-- Comments -->
+                        <div>
+                            <h2 class="tm-color-purple tm-post-title">Comments</h2>
+                            <hr class=" tm-mb-45">
+                            {% with comments.count as total_comments %}
+                                <span>
+                                    {{ total_comments }} comment{{ total_comments|pluralize }}
+                                </span>
+                            {% endwith %}
+                            {% for comment in comments %}
+                            <div class="tm-comment tm-mb-45">
+                                <figure class="tm-comment-figure">
+                                    <img src="{{ comment.user.username.photo.url }}" alt="img" class="mb-2 rounded-circle img-thumbnail">
+                                    <span class="tm-color-purple text-center"> {{ comment.name }}</span>
+                                </figure>
+                                <div>
+                                    <p>
+                                        {{ comment.body|linebreaks }}
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <!-- <a href="#" class="tm-color-purple">REPLY</a> -->
+                                        <span class="tm-color-purple">At {{ comment.created }}</span>
+                                    </div>                                                 
+                                </div>   
+                            </div>    
+                            {% empty %}
+                                <p>Ecrire un commentaire...</p>
+                            {% endfor %}
+                                                                                            
+                        </div>
+                    </div>
+                </div>
+                <aside class="col-lg-4 tm-aside-col">
+                    <div class="tm-post-sidebar">
+                        <hr class="mb-3 ">
+                        <h2 class="tm-mb-40 tm-post-title tm-color-purple">Article du meme auteur</h2>
+                        {% if posts_author %}
+                                {% for post in posts_author %}
+                                    <a href="" class="d-block tm-mb-40">
+                                        <figure>
+                                            <img src="{% static 'assets/img/atome6.jfif' %}" alt="Image" class="mb-3 img-fluid">
+                                            <figcaption class="tm-color-purple">{{ post.title }}</figcaption>
+                                            {{ post.publish }}
+                                        </figure>
+                                    </a>
+
+                                {% endfor %}
+                        {% else %}
+                            <p>Aucun article trouvé pour cet auteur.</p>
+                        {% endif %}
+
+                        <hr class=" tm-mb-55">
+                        {% if comment %}
+                            <h2 class="tm-mb-40 tm-post-title tm-color-purple">Your comment has been added.</h2>
+                        {% else %}
+                            <form method="post" action="" class="mb-5 tm-comment-form">
+                                <h2 class="tm-color-purple tm-post-title mb-4">Your comment</h2>
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button class="tm-btn tm-btn-purple tm-btn-small">Submit</button>                        
+                                </div>                                
+                            </form> 
+                            {% endif %}
+                    </div> 
+                    
+
+                </aside>
+            </div>
+            <footer class="row tm-row">
+                <!-- <div class="col-md-6 col-12 tm-color-gray">
+                    Design: <a rel="nofollow" target="_parent" href="https://templatemo.com" class="tm-external-link">TemplateMo</a>
+                </div>
+                <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+                    Copyright 2020 Xtra Blog Company Co. Ltd.
+                </div> -->
+            </footer>
+        </main>
+    </div>
+    <script src="{% static 'assets/js/templatemo-script.js' %}"></script>
+    <script src="{% static 'assets/js/templatemo-script.js' %}"></script>
+</body>
+</html>
