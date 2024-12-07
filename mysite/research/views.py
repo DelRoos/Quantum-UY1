@@ -4,12 +4,13 @@ from .forms import ProjetRechercheForm
 
 def creer_projet(request):
     if request.method == 'POST':
-        form = ProjetRechercheForm(request.POST)
+        form = ProjetRechercheForm(request.POST, request.FILES)  
         if form.is_valid():
-            projet = form.save() 
-            return redirect('modèle/recherches/research_form.html')  
+            projet = form.save()  
+            return redirect('research:creer')  
     else:
-        form = ProjetRechercheForm()
+        form = ProjetRechercheForm()  
+    
     return render(request, 'modèle/recherches/research_form.html', {'form': form})
 
 

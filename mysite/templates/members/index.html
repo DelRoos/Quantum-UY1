@@ -20,7 +20,7 @@
 
       <div class="container ">
 
-        <!-- <a class="navbar-brand" href="./index.html"><img src="media/images/logo1 copy.png" alt=""></a> -->
+        <a class="navbar-brand" href="./index.html"><img src="media/images/logo1 copy.png" alt=""></a>
 
 
         <button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas"
@@ -82,35 +82,28 @@
       <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
 
       <div class="swiper residence-swiper">
+        {% if projets %}
         <div class="swiper-wrapper">
-          {% if projets %}
+          {% for projet in projets %}
           <div class="swiper-slide">
-            {% for projet in projets %}
+            
             <div class="card">
               <img width="200" height="200" src="{{ projet.photo.url }}"  alt="image">
               <div class="card-body p-0">
                 <!-- <a href="index.html"> -->
                   <h5 class="card-title pt-4">{{ projet.titre }}</h5>
                 <!-- </a> -->
-                <p class="card-text">{{ projet.problematique }}</p>
-<!-- 
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div> -->
-
+                <p class="card-text">{{ projet.resumé }}</p>
               </div>
             </div>
-            {% endfor %}
+            
           </div>
-          {% else %}
+          
+          {% endfor %}
+        </div>
+        {% else %}
               <p>Aucun projet associé.</p>
           {% endif %}
-
-        </div>
       </div>
 
       <!-- <div class="residence-btn">
@@ -134,7 +127,7 @@
                       <div class="row my-5 py-lg-5">
                         <div class="col-md-8 mx-auto">
                           <p class="testimonial-p mt-4">
-                           
+                            <img width="200" height="200" src="{{ post.photo.url }}"  alt="image">
                           </p>
                           <div class="row">
                             <div class="col-md-8">
@@ -184,13 +177,7 @@
     <div class="container">
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 ">
         <div class="col-md-8 d-flex align-items-center">
-          <p>© 2024 Templates, Inc. All rights reserved.</p>
-
-        </div>
-        <div class="col-md-4 d-flex align-items-center">
-          <p>HTML template by: <a href="https://templatesjungle.com/" class="link-primary"
-              target="_blank">Templates</a> <br> Distributed by: <a href="https://themewagon.com" class="link-primary"
-              target="_blank">Theme</a></p>
+          <p>2024 Laboratoire de Physique - Tous droits réservés.</p>
 
         </div>
 

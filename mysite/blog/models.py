@@ -26,7 +26,6 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = AutoSlugField(
         populate_from='title',
-        unique_with=['author__username', 'pub_date__month'],
     )
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,

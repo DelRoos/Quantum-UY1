@@ -57,8 +57,7 @@ def post_detail(request, id):
         comment.save()
         form = CommentForm()  
     
-    User = get_user_model()
-    author = get_object_or_404(User, id=id)
+    author = post.author
     posts_author = Post.published.filter(author=author).exclude(id=post.id)
     context = {
         'post': post,
@@ -74,12 +73,12 @@ def post_detail(request, id):
 
 def create_post(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user  
             post.save()
-            return redirect(post.get_absolute_url())
+            return redirect('blog:create_post')
     else:
         form = PostForm()
     

@@ -25,7 +25,7 @@ def dashboard(request):
 def member(request, pk):
     member = get_object_or_404(Profile, pk=pk)
     user = get_object_or_404(User, pk=pk) 
-    article = Post.objects.filter(author=user, status=Post.Status.PUBLISHED)  
+    article = Post.objects.filter(author=member.user, status=Post.Status.PUBLISHED)  
     projets = ProjetRecherche.objects.filter(members=member)
 
     # article = Post.objects.all()
