@@ -37,17 +37,20 @@ class CommentForm(forms.ModelForm):
         fields = ['name', 'email', 'body']
         widgets = {
             'name': forms.TextInput(attrs={
-                'class': 'form-control mb-3',
-                'placeholder': 'Votre nom'
+                'class': 'form-input',  # Utilisez 'form-input' pour correspondre à votre style
+                'placeholder': 'Votre nom',
+                'required': 'required'
             }),
             'email': forms.EmailInput(attrs={
-                'class': 'form-control mb-3',
-                'placeholder': 'Votre email'
+                'class': 'form-input',  # Utilisez 'form-input' pour correspondre à votre style
+                'placeholder': 'Votre email',
+                'required': 'required'
             }),
             'body': forms.Textarea(attrs={
-                'class': 'form-control mb-3',
+                'class': 'form-textarea',  # Utilisez 'form-textarea' pour correspondre à votre style
                 'placeholder': 'Votre commentaire',
-                'rows': 4
+                'rows': 4,
+                'required': 'required'
             }),
         }
 

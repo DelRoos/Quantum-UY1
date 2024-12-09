@@ -108,9 +108,12 @@
     }
 
     .article-image {
-      margin-block: 2rem;
+      margin-left: 18rem;
       border-radius: var(--radius-16);
       overflow: hidden;
+      width: 400px;  /* Largeur fixe */
+      height: 400px; /* Hauteur fixe */
+      object-fit: cover; /* Pour garder le ratio d'aspect */
     }
 
     .article-image img {
@@ -635,9 +638,9 @@
 
         <div class="article-meta">
           <div class="author-card">
-            <img src="{{ post.author.photo.url }}" alt=" " class="author-avatar">
+            <img src="{{ author_profile.photo.url }}" alt=" " class="author-avatar">
             <div class="author-info">
-              <span class="author-name">Published  by {{ post.author }}</span>
+              <span class="author-name">Published  by {{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</span>
               <span class="author-role">Chercheuse en Physique Quantique</span>
             </div>
           </div>
@@ -648,16 +651,12 @@
               <span>{{ post.publish }}</span>
             </span>
             <span class="info-item">
-              <ion-icon name="time-outline"></ion-icon>
-              <span>10 min de lecture</span>
-            </span>
-            <span class="info-item">
               <ion-icon name="chatbubble-outline"></ion-icon>
               <span>{% with comments.count as total_comments %}
                
-                    {{ total_comments }} comment{{ total_comments|pluralize }}
+                    {{ total_comments }}{{ total_comments|pluralize }}
                 
-            {% endwith %} Commentaires</span>
+            {% endwith %} Commentaire(s)</span>
             </span>
           </div>
         </div>
@@ -722,7 +721,7 @@
 
         {% for comment in comments %}
               <div class="comment-card">
-                <img src="/api/placeholder/48/48" alt="User" class="author-avatar">
+                <!-- <img src="/api/placeholder/48/48" alt="User" class="author-avatar"> -->
                 <div class="comment-content">
                   <div class="comment-header">
                     <div class="author-info">
@@ -740,27 +739,30 @@
         {% endfor %}
 
               <!-- Comment Form -->
-              <form class="comment-form">
+              <form class="comment-form" method="post">
+                {% csrf_token %}
                 <h3 class="section-title">Laisser un commentaire</h3>
                 
                 <div class="form-field">
-                  <label for="name" class="form-label">Nom</label>
-                  <input type="text" id="name" class="form-input" required>
+                    <label for="{{ form.name.id_for_label }}" class="form-label">Nom</label>
+                    {{ form.name }}
+                    {{ form.name.errors }}
                 </div>
 
                 <div class="form-field">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="email" id="email" class="form-input" required>
+                    <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
                 </div>
 
                 <div class="form-field">
-                  <label for="comment" class="form-label">Commentaire</label>
-                  <textarea id="comment" class="form-textarea" required></textarea>
+                    <label for="{{ form.body.id_for_label }}" class="form-label">Commentaire</label>
+                    {{ form.body }}
+                    {{ form.body.errors }}
                 </div>
 
                 <button type="submit" class="btn btn-primary">Publier le commentaire</button>
               </form>
-
             </section>
           </article>
 
@@ -772,11 +774,11 @@
     <div class="sidebar-card">
       <h3 class="sidebar-title">À propos de l'auteur</h3>
       <div class="author-profile">
-        <img src="{{ post.author.photo.url }}" alt=" " class="author-avatar">
-        <h4 class="author-name">Dr. Alice Doe</h4>
+        <img src="{{ author_profile.photo.url }}" alt=" " class="author-avatar">
+        <h4 class="author-name">{{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</h4>
         <p class="author-role">Chercheuse en Physique Quantique</p>
         
-        <div class="author-stats">
+        <!-- <div class="author-stats">
           <div class="stat-item">
             <div class="stat-value">15</div>
             <div class="stat-label">Articles</div>
@@ -785,7 +787,7 @@
             <div class="stat-value">25</div>
             <div class="stat-label">Publications</div>
           </div>
-        </div>
+        </div> -->
   
         <p class="article-text">
           Experte en informatique quantique avec plus de 10 ans d'expérience dans 

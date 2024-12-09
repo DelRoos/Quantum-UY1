@@ -39,6 +39,14 @@
   <link rel="preload" as="image" href="{% static '/assets/images/pattern-2.svg' %}">
   <link rel="preload" as="image" href="{% static '/assets/images/pattern-3.svg' %}">
 
+  <style>
+    .img_projet {
+      width: 500px;  /* Largeur fixe */
+      height: 200px; /* Hauteur fixe */
+      object-fit: cover; /* Pour garder le ratio d'aspect */
+    }
+  </style>
+
 </head>
 
 <body id="top">
@@ -219,9 +227,8 @@
                 <li class="slider-item">
                   <a href="{{ member.id }}/" class="slider-card">
 
-                    <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                      <img src="{{ member.photo.url }}" width="507" height="618" loading="lazy" alt=" "
-                        class="img-cover">
+                    <figure class="slider-banner img-holder" style="--width: 250; --height: 318;">
+                      <img src="{{ member.photo.url }}" width="250" height="318" loading="lazy" alt=" ">
                     </figure>
 
                     <div class="slider-content">
@@ -268,24 +275,19 @@
             <li>
               <div class="card research-topic-card">
 
-                <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
-                  <img src="{{ recherche.photo.url }}" width="1602" height="903" loading="lazy"
-                    alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                <figure class="card-banner img-holder" style="--width: 510; --height: 500;">
+                  <img class="img_projet" src="{{ recherche.photo.url }}" width="510" height="500" loading="lazy">
                 </figure>
 
                 <div class="card-content">
 
                   <div class="card-wrapper">
-                    <div class="card-tag">
-                      <a href="#" class="span hover-2">#Design</a>
 
-                      <a href="#" class="span hover-2">#Movie</a>
-                    </div>
 
                     <div class="wrapper">
                       <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
 
-                      <span class="span">6 mins read</span>
+                      <span class="span">{{ recherche.publish }}</span>
                     </div>
                   </div>
 
@@ -296,14 +298,6 @@
                   </h3>
 
                   <div class="card-wrapper">
-
-                    <div class="profile-card">
-                      <div>
-                        <p class="card-title">Joseph</p>
-
-                        <p class="card-subtitle">25 Nov 2022</p>
-                      </div>
-                    </div>
 
                     <a href="#" class="card-btn">Read more</a>
 
@@ -372,7 +366,7 @@
                       <div class="wrapper">
                         <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
 
-                        <span class="span">date de publication</span>
+                        <span class="span">{{post.publish}}</span>
                       </div>
                     </div>
 
@@ -383,15 +377,10 @@
               {% endfor %}
             </ul>
 
-            <a href="blog/list_blog/" class="btn btn-secondary">
-              <span class="span">Voir plus d'article</span>
-  
-              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-            </a>
+            
           </div>
 
-          
-
+<!--           
           <div class="post-aside grid-list">
 
             <div class="card aside-card">
@@ -531,9 +520,14 @@
 
             </div>
 
-          </div>
-
+          </div> -->
+          <a href="blog/list_blog/" class="btn btn-secondary">
+            <span class="span">Voir plus d'article</span>
+  
+            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+          </a>
         </div>
+
       </section>
 
     </article>
@@ -570,6 +564,10 @@
                       Yaoundé, Cameroun
                   </address>
               </div>
+
+              <div class="footer-brand">
+                
+             </div>
 
               <div class="footer-list">
                   <p class="footer-list-title">Newsletter</p>

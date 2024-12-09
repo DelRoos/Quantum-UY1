@@ -416,15 +416,11 @@
           </div>
           <div class="meta-item">
             <ion-icon name="people-outline"></ion-icon>
-            <span>8 Chercheurs</span>
-          </div>
-          <div class="meta-item">
-            <ion-icon name="document-text-outline"></ion-icon>
-            <span>15 Publications</span>
-          </div>
-          <div class="meta-item">
-            <ion-icon name="git-network-outline"></ion-icon>
-            <span>3 Collaborations</span>
+            <span>{% with membres.count as total_membres %}
+               
+              {{ total_membres }}{{ total_membres|pluralize }}
+          
+            {% endwith %} Chercheurs</span>
           </div>
         </div>
 
@@ -580,15 +576,7 @@
               </div>
 
             <div class="footer-list">
-                <p class="footer-list-title">Navigation</p>
-
-                <ul class="footer-links">
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="#team">Notre Équipe</a></li>
-                    <li><a href="#research_topic">Nos Travaux</a></li>
-                    <li><a href="#recent">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+            
             </div>
 
               <div class="footer-list">

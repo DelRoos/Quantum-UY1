@@ -6,6 +6,7 @@ from autoslug import AutoSlugField
 
 
 
+
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return (

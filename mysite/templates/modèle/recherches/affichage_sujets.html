@@ -40,6 +40,12 @@
       margin-bottom: 2rem;
     }
 
+    .img_projet {
+      width: 550px;  
+      height: 200px; 
+      object-fit: cover; 
+    }
+
     .research-metrics {
       margin-block: 3rem;
       background-color: var(--bg-oxford-blue);
@@ -302,8 +308,7 @@
   }
 
   .featured-project-banner img {
-    width: 100%;
-    height: 100%;
+
     object-fit: cover;
   }
 
@@ -608,22 +613,14 @@
 
         <!-- Research Metrics -->
         <div class="research-metrics">
-          <div class="metrics-grid">
+          <div >
             <div class="metric-item">
-              <div class="number">4</div>
-              <div class="label">Axes de Recherche</div>
-            </div>
-            <div class="metric-item">
-              <div class="number">12</div>
-              <div class="label">Projets Actifs</div>
-            </div>
-            <div class="metric-item">
-              <div class="number">25+</div>
-              <div class="label">Publications/An</div>
-            </div>
-            <div class="metric-item">
-              <div class="number">8</div>
-              <div class="label">Collaborations</div>
+              <div class="number">{% with recherche_list.count as total_recherche_list %}
+               
+                {{ total_recherche_list }}{{ total_recherche_list|pluralize }}
+            
+              {% endwith %}</div>
+              <div class="label">Projet de Recherche</div>
             </div>
           </div>
         </div>
@@ -644,12 +641,12 @@
                 {% for recherche in recherche_list %}
                 <article class="featured-project-card">
                 <figure class="featured-project-banner">
-                    <img src="{{ recherche.photo.url }}" alt="Particules subatomiques" loading="lazy">
+                    <img class="img_projet" src="{{ recherche.photo.url }}" alt="" loading="lazy">
                     <span class="featured-badge">En cours</span>
                 </figure>
                 
                 <div class="project-content">
-                    <div class="project-meta">
+                    <!-- <div class="project-meta">
                     <div class="project-tags">
                         <span class="project-tag">Physique Quantique</span>
                         <span class="project-tag">Innovation</span>
@@ -659,7 +656,7 @@
                         <ion-icon name="time-outline"></ion-icon>
                         <span>2023-2026</span>
                     </div>
-                    </div>
+                    </div> -->
 
                     <h3 class="project-title">
                     <a href="#">{{ recherche.titre }}</a>
@@ -727,15 +724,7 @@
               </div>
 
             <div class="footer-list">
-                <p class="footer-list-title">Navigation</p>
-
-                <ul class="footer-links">
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="#team">Notre Équipe</a></li>
-                    <li><a href="#research_topic">Nos Travaux</a></li>
-                    <li><a href="#recent">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+ 
             </div>
 
               <div class="footer-list">

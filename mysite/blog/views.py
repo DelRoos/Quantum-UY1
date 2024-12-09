@@ -6,6 +6,7 @@ from django.views.generic import ListView
 from .forms import CommentForm, EmailPostForm, PostForm
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from members.models import Profile
 
 
 class PostListView(ListView):
@@ -59,12 +60,18 @@ def post_detail(request, id):
     
     author = post.author
     posts_author = Post.published.filter(author=author).exclude(id=post.id)
+    try:
+        author_profile = Profile.objects.get(user=author)
+    except Profile.DoesNotExist:
+        author_profile = None
+
     context = {
         'post': post,
         'form': form,
         'comments': comments,
         'author': author,
         'posts_author': posts_author,
+        'author_profile': author_profile,
         'comment': comment  
     }
     return render(request, 'modèle/blog/article.html', context)
