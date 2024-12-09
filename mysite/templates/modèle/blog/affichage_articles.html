@@ -1,97 +1,640 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blog</title>
-    <link rel="stylesheet" href="{% static 'assets/fontawesome/css/all.min.css' %}">
-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    {% block extra_css %}{% endblock %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>Quantum UY1</title>
+  <meta name="title" content="Quantum UY1">
+  <meta name="description" content="This is a blog for Quantum UY1 comunity">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - custom css link
+  -->
+
+  <style>
+    /* Styles spécifiques pour le blog */
+    .blog-hero {
+      padding-block-start: calc(var(--section-padding) + 60px);
+      padding-block-end: 2rem;
+      background-color: var(--bg-prussian-blue);
+      margin-bottom: 3rem;
+    }
+  
+    .blog-categories {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-block: 3rem;
+      padding: 1rem;
+      background-color: var(--bg-oxford-blue);
+      border-radius: var(--radius-8);
+    }
+  
+
+    .category-btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-pill);
+        background-color: var(--bg-prussian-blue);
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        transition: all var(--transition-1);
+        border: 1px solid var(--border-prussian-blue);
+      }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background-color: var(--bg-carolina-blue);
+      color: var(--text-white);
+    }
+
+    .blog-layout {
+        display: grid;
+        grid-template-columns: 2.5fr 1fr;
+        gap: 3rem;
+        align-items: start;
+        margin-top: 2rem;
+      }
+    
+      .featured-post {
+        margin-bottom: 4rem;
+        background-color: var(--bg-oxford-blue);
+        padding: 2rem;
+        border-radius: var(--radius-16);
+        border: 1px solid var(--border-prussian-blue);
+      }
+    
+    .featured-banner {
+      border-radius: var(--radius-16);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .featured-banner img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      transition: transform var(--transition-2);
+    }
+
+    .featured-banner:hover img {
+      transform: scale(1.05);
+    }
+
+    .post-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-block: 1rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+    }
+
+    .meta-item ion-icon {
+      color: var(--text-carolina-blue);
+    }
+
+    .featured-title {
+      font-size: var(--fontSize-2);
+      color: var(--text-alice-blue);
+      margin-bottom: 1rem;
+      transition: color var(--transition-1);
+    }
+
+    .featured-title:hover {
+      color: var(--text-carolina-blue);
+    }
+
+    .post-excerpt {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .posts-grid {
+        display: grid;
+        gap: 2.5rem;
+        margin-bottom: 2rem;
+      }
+    
+      .post-card {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 2rem;
+        background-color: var(--bg-oxford-blue);
+        border-radius: var(--radius-16);
+        overflow: hidden;
+        transition: transform var(--transition-1);
+        border: 1px solid var(--border-prussian-blue);
+      }
+    
+
+    .post-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .post-banner {
+      overflow: hidden;
+    }
+
+    .post-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-2);
+    }
+
+    .post-card:hover .post-banner img {
+      transform: scale(1.05);
+    }
+
+    .post-content {
+      padding: 1.5rem;
+    }
+
+    .post-title {
+      font-size: var(--fontSize-3);
+      color: var(--text-alice-blue);
+      margin-bottom: 1rem;
+      transition: color var(--transition-1);
+    }
+
+    .post-title:hover {
+      color: var(--text-carolina-blue);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 2rem;
+    }
+
+    .sidebar-card {
+      background-color: var(--bg-oxford-blue);
+      padding: 2rem;
+      border-radius: var(--radius-16);
+      border: 1px solid var(--border-prussian-blue);
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-title {
+      color: var(--text-alice-blue);
+      font-size: var(--fontSize-3);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-prussian-blue);
+    }
+
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+  }
+
+  .pagination-btn {
+    min-width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-prussian-blue);
+    border-radius: var(--radius-circle);
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    transition: all var(--transition-1);
+    border: 1px solid var(--border-prussian-blue);
+  }
+
+  .pagination-btn:hover:not(.disabled) {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+    transform: translateY(-2px);
+  }
+
+  .pagination-btn.active {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+  }
+
+  .pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .pagination-ellipsis {
+    color: var(--text-wild-blue-yonder);
+    padding: 0 0.5rem;
+  }
+
+    .popular-post {
+      display: flex;
+      align-items: start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-prussian-blue);
+    }
+
+    .popular-post:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .popular-banner {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-8);
+      overflow: hidden;
+    }
+
+    .popular-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .popular-title {
+      font-size: var(--fontSize-6);
+      color: var(--text-alice-blue);
+      margin-bottom: 0.5rem;
+      transition: color var(--transition-1);
+    }
+
+    .popular-title:hover {
+      color: var(--text-carolina-blue);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .tag-btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-pill);
+      background-color: var(--bg-prussian-blue);
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+      transition: all var(--transition-1);
+    }
+
+    .tag-btn:hover {
+      background-color: var(--bg-carolina-blue);
+      color: var(--text-white);
+    }
+
+    .newsletter-form {
+      margin-top: 1.5rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background-color: var(--bg-prussian-blue);
+      border: 1px solid var(--border-prussian-blue);
+      border-radius: var(--radius-6);
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      margin-bottom: 1rem;
+    }
+
+    .form-input:focus {
+      border-color: var(--bg-carolina-blue);
+      outline: none;
+    }
+
+    @media (max-width: 992px) {
+      .blog-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .post-card {
+        grid-template-columns: 1fr;
+      }
+
+      .post-banner {
+        aspect-ratio: 16/9;
+      }
+    }
+
+  @media (max-width: 768px) {
+    .blog-categories {
+      padding: 0.75rem;
+      gap: 0.75rem;
+    }
+
+    .category-btn {
+      padding: 0.5rem 1rem;
+      font-size: var(--fontSize-7);
+    }
+
+    .pagination-container {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .pagination-btn {
+      min-width: 35px;
+      height: 35px;
+    }
+  }
+  </style>
+  <link rel="stylesheet" href="{% static '/assets/css/style.css' %}">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="{% static '/assets/images/hero-banner.png' %}">
+  <link rel="preload" as="image" href="{% static '/assets/images/pattern-2.svg' %}">
+  <link rel="preload" as="image" href="{% static '/assets/images/pattern-3.svg' %}">
+
 </head>
-<body>
-    <div class="container-fluid">
-        <main class="tm-main">
-            <div class="row tm-row">
-                <div class="col-12">
-                    <form method="GET" class="form-inline tm-mb-80 tm-search-form">                
-                        <input class="form-control tm-search-input" name="query" type="text" placeholder="Search..." aria-label="Search">
-                        <button class="tm-search-button" type="submit">
-                            <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
-                        </button>                                
-                    </form>
-                </div>                
-            </div>            
-            <div class="row tm-row">
-                {% for post in post_list %}
-                <article class="col-12 col-md-6 tm-post">
-                    <a href="{{ post.id }}" class="effect-lily tm-post-link tm-pt-60">
-                        <div class="tm-post-link-inner">
-                            <img src="{% static 'assets/img/img-01.jpg' %}" alt="Image" class="img-fluid">                            
-                        </div>
-                        <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{post.title}}</h2>
-                    </a>                    
-                    <!-- <p class="tm-pt-30">
-                        {{post.body}}
-                    </p> -->
-                    <div class="d-flex justify-content-between tm-pt-45">
-                        <!-- <span class="tm-color-primary">Travel . Events</span> -->
-                        <span class="tm-color-purple">{{post.publish}}</span>
-                        
-                    </div>
-                    <hr>
-                    
-                    <div class="d-flex justify-content-between">
-                        <!-- {% with comments=comments_dict %}
-                            <span>
-                                {{ comments.count }} comment{{ comments.count|pluralize }}
-                            </span>
-                        {% endwith %} -->
-                        <span>by {{ post.author.first_name }} {{ post.author.last_name }}</span>
-                    </div>
-                </article>
-                {% endfor %}
-                
-            </div>
-            <div class="row tm-row tm-mt-100 tm-mb-75">
-                <div class="tm-prev-next-wrapper">
-                    {% if page.has_previous %}
-                        <a href="?page={{ page.previous_page_number }}" class="mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20">Previous</a>
-                    {% endif %}
-                    <div class="tm-paging-wrapper">
-                        <span class="d-inline-block mr-3">Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
-                        <!-- <nav class="tm-paging-nav d-inline-block">
-                            <ul>
-                                <li class="tm-paging-item active">
-                                    <a href="#" class="mb-2 tm-btn tm-paging-link">1</a>
-                                </li>
-                                <li class="tm-paging-item">
-                                    <a href="#" class="mb-2 tm-btn tm-paging-link">2</a>
-                                </li>
-                                <li class="tm-paging-item">
-                                    <a href="#" class="mb-2 tm-btn tm-paging-link">3</a>
-                                </li>
-                                <li class="tm-paging-item">
-                                    <a href="#" class="mb-2 tm-btn tm-paging-link">4</a>
-                                </li>
-                                
-                            </ul>
-                        </nav> -->
-                    </div> 
-                    {% if page.has_next %}
-                        <a href="?page={{ page.next_page_number }}" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
-                    {% endif %}
-                </div>
-                               
-            </div>            
-            <footer class="row tm-row">
-                <hr class="col-12">
-            </footer>
-        </main>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="{% static '/assets/images/logo.svg' %}" width="119" height="37" alt="Quantum UY1">
+      </a>
+
     </div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/templatemo-script.js"></script>
+  </header>
+
+
+
+
+
+  <main>
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+      <div class="container">
+        <h1 class="headline-1 section-title">
+          Notre Blog
+        </h1>
+        <p class="section-text">
+          Découvrez nos dernières actualités, analyses et réflexions sur la physique quantique 
+          et les avancées scientifiques.
+        </p>
+
+        <!-- Catégories -->
+        <div class="blog-categories">
+          <button class="category-btn active">Tous</button>
+          <button class="category-btn">Physique Quantique</button>
+          <button class="category-btn">Recherche</button>
+          <button class="category-btn">Innovation</button>
+          <button class="category-btn">Événements</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="section">
+      <div class="container">
+        <div class="blog-layout">
+          <!-- Articles Column -->
+          <div class="articles-column">
+            <!-- Featured Post -->
+            {% for post in post_list %}
+            <article class="featured-post">
+              <figure class="featured-banner">
+                <img src="{{ post.photo.url }}" alt="" loading="lazy">
+              </figure>
+
+              <div class="post-meta">
+                <span class="meta-item">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <span>{{post.publish}}</span>
+                </span>
+                <span class="meta-item">
+                  <ion-icon name="person-outline"></ion-icon>
+                  <span>{{ post.author.first_name }} {{ post.author.last_name }}</span>
+                </span>
+                <span class="meta-item">
+                  <ion-icon name="chatbubble-outline"></ion-icon>
+                  <span>8 Commentaires</span>
+                </span>
+              </div>
+
+              <h2>
+                <a href="{{ post.id }}" class="featured-title">
+                  {{post.title}}
+                </a>
+              </h2>
+
+              <a href="{{ post.id }}" class="btn btn-primary">Lire l'article</a>
+            </article>
+            {% endfor %}
+
+            <!-- Pagination --><div class="pagination-container">
+  <button class="pagination-btn" aria-label="Previous page">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+  </button>
+  <button class="pagination-btn active">1</button>
+  <button class="pagination-btn">2</button>
+  <button class="pagination-btn">3</button>
+  <button class="pagination-btn">4</button>
+  <button class="pagination-btn">5</button>
+  <span class="pagination-ellipsis">...</span>
+  <button class="pagination-btn">10</button>
+  <button class="pagination-btn" aria-label="Next page">
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </button>
+</div>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="sidebar">
+
+            <!-- Newsletter -->
+            <div class="sidebar-card">
+              <h3 class="sidebar-title">Newsletter</h3>
+              <p class="research-text">
+                Restez informé de nos dernières publications et actualités.
+              </p>
+
+              <form class="newsletter-form">
+                <input type="email" class="form-input" placeholder="Votre email" required>
+                <button type="submit" class="btn btn-primary w-100">S'abonner</button>
+              </form>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+<footer id="contact">
+  <div class="container">
+      <div class="card footer">
+          <div class="section footer-top">
+
+              <div class="footer-brand">
+                  <a href="#" class="logo">
+                      <img src="{% static '/assets/images/logo.svg' %}" width="119" height="37" loading="lazy" alt="Quantum UY1">
+                  </a>
+
+                  <p class="footer-text">
+                      Le laboratoire Quantum UY1 est un centre d'excellence dédié à la recherche fondamentale en physique quantique. 
+                      Notre mission est d'explorer les frontières de la science et de former la prochaine génération de chercheurs.
+                  </p>
+
+                  <p class="footer-list-title">Adresse</p>
+
+                  <address class="footer-text address">
+                      Université de Yaoundé 1 <br>
+                      Faculté des Sciences <br>
+                      Département de Physique <br>
+                      Yaoundé, Cameroun
+                  </address>
+              </div>
+
+            <div class="footer-list">
+                <p class="footer-list-title">Navigation</p>
+
+                <ul class="footer-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="#team">Notre Équipe</a></li>
+                    <li><a href="#research_topic">Nos Travaux</a></li>
+                    <li><a href="#recent">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+              <div class="footer-list">
+                  <p class="footer-list-title">Newsletter</p>
+
+                  <p class="footer-text">
+                      Restez informé de nos dernières découvertes scientifiques, publications et événements en vous inscrivant à notre newsletter.
+                  </p>
+
+                  <div class="input-wrapper">
+                      <input type="text" name="name" placeholder="Votre nom" required class="input-field" autocomplete="off">
+                      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                  </div>
+
+                  <div class="input-wrapper">
+                      <input type="email" name="email_address" placeholder="Adresse email" required class="input-field" autocomplete="off">
+                      <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                  </div>
+
+                  <a href="#" class="btn btn-primary">
+                      <span class="span">Rejoignez-nous</span>
+                      <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                  </a>
+              </div>
+
+          </div>
+
+          <div class="footer-bottom">
+              <p class="copyright">
+                  © 2024 Quantum UY1 - Laboratoire de Recherche Quantique
+              </p>
+
+              <ul class="social-list">
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-twitter"></ion-icon>
+                          <span class="span">Twitter</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-linkedin"></ion-icon>
+                          <span class="span">LinkedIn</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-researchgate"></ion-icon>
+                          <span class="span">ResearchGate</span>
+                      </a>
+                  </li>
+
+              </ul>
+          </div>
+
+      </div>
+  </div>
+</footer>
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="{% static '/assets/js/script.js' %}"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </body>
+
 </html>

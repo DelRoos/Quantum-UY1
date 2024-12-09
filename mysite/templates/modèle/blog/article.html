@@ -1,118 +1,981 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blog</title>
-    <!-- <link rel="stylesheet" href="{% static 'assets/fontawesome/css/all.min.css' %}"> -->
-	<!-- <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">  -->
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    {% block extra_css %}{% endblock %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>Quantum UY1</title>
+  <meta name="title" content="Quantum UY1">
+  <meta name="description" content="This is a blog for Quantum UY1 comunity">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="{% static '/assets/css/style.css' %}">
+
+
+
+  <style>
+    /* Styles spécifiques pour la page article */
+    .article-hero {
+      padding-block-start: calc(var(--section-padding) + 60px);
+      background-color: var(--bg-prussian-blue);
+      padding-bottom: 3rem;
+    }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-block: 2rem;
+      align-items: center;
+    }
+
+    .author-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-circle);
+      object-fit: cover;
+    }
+
+    .author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .author-name {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-6);
+      font-weight: var(--weight-semiBold);
+    }
+
+    .author-role {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+    }
+
+    .article-info {
+      display: flex;
+      gap: 1.5rem;
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .article-content {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: 3rem;
+      padding-block: 3rem;
+    }
+
+    .article-main {
+      background-color: var(--bg-oxford-blue);
+      padding: 2rem;
+      border-radius: var(--radius-16);
+      border: 1px solid var(--border-prussian-blue);
+    }
+
+    .article-image {
+      margin-block: 2rem;
+      border-radius: var(--radius-16);
+      overflow: hidden;
+    }
+
+    .article-image img {
+      width: 100%;
+      height: auto;
+    }
+
+    .article-text {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      line-height: 1.8;
+      margin-block: 1.5rem;
+    }
+
+    .article-section {
+      margin-block: 3rem;
+    }
+
+    .section-title {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-3);
+      margin-bottom: 1.5rem;
+    }
+
+    .quote-block {
+      background-color: var(--bg-prussian-blue);
+      padding: 2rem;
+      border-radius: var(--radius-8);
+      border-left: 4px solid var(--bg-carolina-blue);
+      margin-block: 2rem;
+    }
+
+    .quote-text {
+      color: var(--text-alice-blue);
+      font-size: var(--fontSize-5);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .quote-author {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-6);
+      font-weight: var(--weight-semiBold);
+    }
+
+    .article-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-block: 2rem;
+    }
+
+    .tag-link {
+      padding: 0.5rem 1rem;
+      background-color: var(--bg-prussian-blue);
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+      border-radius: var(--radius-pill);
+      transition: all var(--transition-1);
+    }
+
+    .tag-link:hover {
+      background-color: var(--bg-carolina-blue);
+      color: var(--text-white);
+    }
+
+    .share-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-block: 3rem;
+      padding: 1.5rem;
+      background-color: var(--bg-prussian-blue);
+      border-radius: var(--radius-8);
+    }
+
+    .share-title {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+    }
+
+    .share-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .share-btn {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      background-color: var(--bg-oxford-blue);
+      border-radius: var(--radius-circle);
+      color: var(--text-wild-blue-yonder);
+      transition: all var(--transition-1);
+    }
+
+    .share-btn:hover {
+      background-color: var(--bg-carolina-blue);
+      color: var(--text-white);
+      transform: translateY(-2px);
+    }
+
+    .comments-section {
+      margin-block: 3rem;
+    }
+
+    .comment-card {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background-color: var(--bg-prussian-blue);
+      border-radius: var(--radius-8);
+      margin-bottom: 1.5rem;
+    }
+
+    .comment-content {
+      flex: 1;
+    }
+
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .comment-text {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      line-height: 1.6;
+    }
+
+    .comment-form {
+      margin-top: 2rem;
+    }
+
+    .form-field {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--bg-prussian-blue);
+      border: 1px solid var(--border-prussian-blue);
+      border-radius: var(--radius-8);
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+    }
+
+    .form-textarea {
+      height: 150px;
+      resize: vertical;
+    }
+
+    @media (max-width: 992px) {
+      .article-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .article-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .comment-card {
+        flex-direction: column;
+      }
+    }
+
+    /* Navigation entre articles */
+    .article-navigation {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-prussian-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background-color: var(--bg-oxford-blue);
+      border-radius: var(--radius-8);
+      border: 1px solid var(--border-prussian-blue);
+      transition: all var(--transition-1);
+      flex: 1;
+    }
+
+    .nav-link:hover {
+      background-color: var(--bg-prussian-blue);
+      transform: translateY(-2px);
+    }
+
+    .nav-link.prev {
+      text-align: left;
+    }
+
+    .nav-link.next {
+      text-align: right;
+      flex-direction: row-reverse;
+    }
+
+    .nav-label {
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-7);
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-title {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-6);
+      font-weight: var(--weight-semiBold);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+      }
+
+      .nav-link {
+        width: 100%;
+      }
+
+      .nav-link.next {
+        justify-content: flex-start;
+        flex-direction: row;
+      }
+    }
+
+    /* Ajustements pour la newsletter dans la sidebar */
+    .newsletter-form {
+      margin-top: 1.5rem;
+    }
+
+    .newsletter-form .form-input {
+      margin-bottom: 1rem;
+    }
+
+    /* Ajustements pour la liste des tags */
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+
+  /* Styles généraux de la sidebar */
+  .sidebar {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .sidebar-card {
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-16);
+    border: 1px solid var(--border-prussian-blue);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform var(--transition-1);
+  }
+
+  .sidebar-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .sidebar-title {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-3);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-prussian-blue);
+    position: relative;
+  }
+
+  .sidebar-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 50px;
+    height: 2px;
+    background-color: var(--bg-carolina-blue);
+  }
+
+  /* Profil de l'auteur amélioré */
+  .author-profile {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .author-profile .author-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--radius-circle);
+    margin: 0 auto 1.5rem;
+    border: 4px solid var(--bg-carolina-blue);
+    padding: 4px;
+  }
+
+  .author-profile .author-name {
+    font-size: var(--fontSize-4);
+    margin-bottom: 0.5rem;
+  }
+
+  .author-profile .author-role {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    margin-bottom: 1rem;
+  }
+
+  .author-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border-prussian-blue);
+    border-bottom: 1px solid var(--border-prussian-blue);
+    margin: 1.5rem 0;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-3);
+    font-weight: var(--weight-bold);
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+  }
+
+  .author-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+
+  /* Articles similaires améliorés */
+  .similar-post {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-prussian-blue);
+  }
+
+  .similar-post:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .similar-post-img {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--radius-8);
+    overflow: hidden;
+  }
+
+  .similar-post-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-2);
+  }
+
+  .similar-post:hover .similar-post-img img {
+    transform: scale(1.1);
+  }
+
+  .similar-post-content {
+    flex: 1;
+  }
+
+  .similar-post-title {
+    font-size: var(--fontSize-6);
+    color: var(--text-alice-blue);
+    font-weight: var(--weight-semiBold);
+    margin-bottom: 0.5rem;
+    transition: color var(--transition-1);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .similar-post-title:hover {
+    color: var(--text-carolina-blue);
+  }
+
+  .similar-post-meta {
+    display: flex;
+    gap: 1rem;
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+  }
+
+  /* Newsletter améliorée */
+  .newsletter-card {
+    text-align: center;
+    background: linear-gradient(145deg, var(--bg-prussian-blue), var(--bg-oxford-blue));
+  }
+
+  .newsletter-card .sidebar-title {
+    text-align: center;
+  }
+
+  .newsletter-card .sidebar-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .newsletter-text {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    margin-bottom: 2rem;
+  }
+
+  .newsletter-form .form-input {
+    background-color: var(--bg-oxford-blue-2);
+    border: 1px solid var(--border-prussian-blue);
+    border-radius: var(--radius-pill);
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    transition: all var(--transition-1);
+  }
+
+  .newsletter-form .form-input:focus {
+    border-color: var(--bg-carolina-blue);
+    box-shadow: 0 0 0 2px rgba(10, 165, 234, 0.1);
+  }
+
+  .newsletter-form .btn {
+    width: 100%;
+    border-radius: var(--radius-pill);
+  }
+
+  /* Tags améliorés */
+  .sidebar-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tag-link {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-prussian-blue);
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+    border-radius: var(--radius-pill);
+    transition: all var(--transition-1);
+  }
+
+  .tag-link:hover {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+    transform: translateY(-3px);
+  }
+  </style>
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="{% static '/assets/images/hero-banner.png' %}">
+  <link rel="preload" as="image" href="{% static '/assets/images/pattern-2.svg' %}">
+  <link rel="preload" as="image" href="{% static '/assets/images/pattern-3.svg' %}">
+
 </head>
-<body>
-    <div class="container-fluid">
-        <main class="tm-main">
-                       
-            <div class="row tm-row">
-                <div class="col-12">
-                    <!-- <hr class=" tm-mb-55"> -->
-                        <img src="{% static 'assets/img/atome5.jpg!w700wp' %}" alt="Image" width="954" height="535" controls class="tm-mb-40">							  
-                </div>
-            </div>
-            <div class="row tm-row">
-                <div class="col-lg-8 tm-post-col">
-                    <div class="tm-post-full">                    
-                        <div class="mb-4">
-                            <h2 class="pt-2 tm-color-purple tm-post-title">{{ post.title }}</h2>
-                
-                            <p class="tm-mb-40">Published {{ post.publish }} by {{ post.author }}</p>
-                            <p>
-                                {{ post.body|linebreaks }}
-                            </p>
-                            <!-- <span class="d-block text-right tm-color-purple">Physique Quantique . Astrophysique . Régulation</span> -->
-                        </div>
-                        
-                        <!-- Comments -->
-                        <div>
-                            <h2 class="tm-color-purple tm-post-title">Comments</h2>
-                            <hr class=" tm-mb-45">
-                            {% with comments.count as total_comments %}
-                                <span>
-                                    {{ total_comments }} comment{{ total_comments|pluralize }}
-                                </span>
-                            {% endwith %}
-                            {% for comment in comments %}
-                            <div class="tm-comment tm-mb-45">
-                                <figure class="tm-comment-figure">
-                                    <img src="{{ comment.user.username.photo.url }}" alt="img" class="mb-2 rounded-circle img-thumbnail">
-                                    <span class="tm-color-purple text-center"> {{ comment.name }}</span>
-                                </figure>
-                                <div>
-                                    <p>
-                                        {{ comment.body|linebreaks }}
-                                    </p>
-                                    <div class="d-flex justify-content-between">
-                                        <!-- <a href="#" class="tm-color-purple">REPLY</a> -->
-                                        <span class="tm-color-purple">At {{ comment.created }}</span>
-                                    </div>                                                 
-                                </div>   
-                            </div>    
-                            {% empty %}
-                                <p>Ecrire un commentaire...</p>
-                            {% endfor %}
-                                                                                            
-                        </div>
-                    </div>
-                </div>
-                <aside class="col-lg-4 tm-aside-col">
-                    <div class="tm-post-sidebar">
-                        <hr class="mb-3 ">
-                        <h2 class="tm-mb-40 tm-post-title tm-color-purple">Article du meme auteur</h2>
-                        {% if posts_author %}
-                                {% for post in posts_author %}
-                                    <a href="" class="d-block tm-mb-40">
-                                        <figure>
-                                            <img src="{% static 'assets/img/atome6.jfif' %}" alt="Image" class="mb-3 img-fluid">
-                                            <figcaption class="tm-color-purple">{{ post.title }}</figcaption>
-                                            {{ post.publish }}
-                                        </figure>
-                                    </a>
 
-                                {% endfor %}
-                        {% else %}
-                            <p>Aucun article trouvé pour cet auteur.</p>
-                        {% endif %}
+<body id="top">
 
-                        <hr class=" tm-mb-55">
-                        {% if comment %}
-                            <h2 class="tm-mb-40 tm-post-title tm-color-purple">Your comment has been added.</h2>
-                        {% else %}
-                            <form method="post" action="" class="mb-5 tm-comment-form">
-                                <h2 class="tm-color-purple tm-post-title mb-4">Your comment</h2>
-                                    {% csrf_token %}
-                                    {{ form.as_p }}
-                                    <button class="tm-btn tm-btn-purple tm-btn-small">Submit</button>                        
-                                </div>                                
-                            </form> 
-                            {% endif %}
-                    </div> 
-                    
+  <!-- 
+    - #HEADER
+  -->
 
-                </aside>
-            </div>
-            <footer class="row tm-row">
-                <!-- <div class="col-md-6 col-12 tm-color-gray">
-                    Design: <a rel="nofollow" target="_parent" href="https://templatemo.com" class="tm-external-link">TemplateMo</a>
-                </div>
-                <div class="col-md-6 col-12 tm-color-gray tm-copyright">
-                    Copyright 2020 Xtra Blog Company Co. Ltd.
-                </div> -->
-            </footer>
-        </main>
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="{% static '/assets/images/logo.svg' %}" width="119" height="37" alt="Quantum UY1">
+      </a>
+
     </div>
-    <script src="{% static 'assets/js/templatemo-script.js' %}"></script>
-    <script src="{% static 'assets/js/templatemo-script.js' %}"></script>
+  </header>
+
+
+
+
+
+  <main>
+    <!-- Article Hero -->
+    <section class="article-hero">
+      <div class="container">
+        <h1 class="headline-1">
+          {{ post.title }}
+        </h1>
+
+        <div class="article-meta">
+          <div class="author-card">
+            <img src="{{ post.author.photo.url }}" alt=" " class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Published  by {{ post.author }}</span>
+              <span class="author-role">Chercheuse en Physique Quantique</span>
+            </div>
+          </div>
+
+          <div class="article-info">
+            <span class="info-item">
+              <ion-icon name="calendar-outline"></ion-icon>
+              <span>{{ post.publish }}</span>
+            </span>
+            <span class="info-item">
+              <ion-icon name="time-outline"></ion-icon>
+              <span>10 min de lecture</span>
+            </span>
+            <span class="info-item">
+              <ion-icon name="chatbubble-outline"></ion-icon>
+              <span>{% with comments.count as total_comments %}
+               
+                    {{ total_comments }} comment{{ total_comments|pluralize }}
+                
+            {% endwith %} Commentaires</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Content -->
+    <div class="section">
+      <div class="container">
+        <div class="article-content">
+          <!-- Main Content -->
+          <article class="article-main">
+            <figure class="article-image">
+              <img src="{{ post.photo.url }}" alt="Informatique Quantique" loading="lazy">
+            </figure>
+
+            <div class="article-section">
+              <p class="article-text">
+                {{ post.body|linebreaks }}
+              </p>
+
+              <blockquote class="quote-block">
+                <p class="quote-text">
+                  "L'informatique quantique n'est pas seulement une évolution, c'est une 
+                  révolution qui changera fondamentalement notre approche du calcul."
+                </p>
+                <cite class="quote-author">- Dr. Alice Doe</cite>
+              </blockquote>
+            </div>
+
+            <!-- Tags -->
+            <div class="article-tags">
+              <a href="#" class="tag-link">Quantique</a>
+              <a href="#" class="tag-link">Informatique</a>
+              <a href="#" class="tag-link">Innovation</a>
+              <a href="#" class="tag-link">Technologie</a>
+            </div>
+
+            <!-- Share Section -->
+            <div class="share-section">
+              <span class="share-title">Partager l'article :</span>
+              <div class="share-buttons">
+                <a href="#" class="share-btn" aria-label="Share on Twitter">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+                <a href="#" class="share-btn" aria-label="Share on LinkedIn">
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+                <a href="#" class="share-btn" aria-label="Share on Facebook">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+              </div>
+            </div>
+
+            <!-- Comments Section -->
+            <section class="comments-section">
+              <h2 class="section-title">Commentaires ( {% with comments.count as total_comments %}
+               
+                {{ total_comments }} comment{{ total_comments|pluralize }}
+            
+        {% endwith %} )</h2>
+
+        {% for comment in comments %}
+              <div class="comment-card">
+                <img src="/api/placeholder/48/48" alt="User" class="author-avatar">
+                <div class="comment-content">
+                  <div class="comment-header">
+                    <div class="author-info">
+                      <span class="author-name">{{ comment.name }}</span>
+                      <span class="author-role">{{ comment.created }}</span>
+                    </div>
+                  </div>
+                  <p class="comment-text">
+                    {{ comment.body|linebreaks }}
+                  </p>
+                </div>
+              </div>
+        {% empty %}
+            <p>Ecrire un commentaire...</p>
+        {% endfor %}
+
+              <!-- Comment Form -->
+              <form class="comment-form">
+                <h3 class="section-title">Laisser un commentaire</h3>
+                
+                <div class="form-field">
+                  <label for="name" class="form-label">Nom</label>
+                  <input type="text" id="name" class="form-input" required>
+                </div>
+
+                <div class="form-field">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" class="form-input" required>
+                </div>
+
+                <div class="form-field">
+                  <label for="comment" class="form-label">Commentaire</label>
+                  <textarea id="comment" class="form-textarea" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Publier le commentaire</button>
+              </form>
+
+            </section>
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="sidebar">
+
+<aside class="sidebar">
+    <!-- Profil de l'auteur -->
+    <div class="sidebar-card">
+      <h3 class="sidebar-title">À propos de l'auteur</h3>
+      <div class="author-profile">
+        <img src="{{ post.author.photo.url }}" alt=" " class="author-avatar">
+        <h4 class="author-name">Dr. Alice Doe</h4>
+        <p class="author-role">Chercheuse en Physique Quantique</p>
+        
+        <div class="author-stats">
+          <div class="stat-item">
+            <div class="stat-value">15</div>
+            <div class="stat-label">Articles</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">25</div>
+            <div class="stat-label">Publications</div>
+          </div>
+        </div>
+  
+        <p class="article-text">
+          Experte en informatique quantique avec plus de 10 ans d'expérience dans 
+          la recherche et le développement d'algorithmes quantiques.
+        </p>
+  
+        <div class="author-socials">
+          <a href="#" class="social-link">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </a>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-linkedin"></ion-icon>
+          </a>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-github"></ion-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Article du meme auteur -->
+    <div class="sidebar-card">
+      <h3 class="sidebar-title">Article du meme auteur</h3>
+      {% if posts_author %}
+      {% for post in posts_author %}
+      <article class="similar-post">
+        <figure class="similar-post-img">
+          <img src="{{ post.photo.url }}" alt="Article similaire" loading="lazy">
+        </figure>
+        <div class="similar-post-content">
+          <h4>
+            <a href="#" class="similar-post-title">
+              {{ post.title }}
+            </a>
+          </h4>
+          <div class="similar-post-meta">
+            <span>
+              <ion-icon name="calendar-outline"></ion-icon>
+              {{ post.publish }}
+            </span>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+      {% else %}
+          <p>Aucun article trouvé pour cet auteur.</p>
+      {% endif %}
+    </div>
+  
+    <!-- Newsletter -->
+    <div class="sidebar-card newsletter-card">
+      <h3 class="sidebar-title">Newsletter</h3>
+      <p class="newsletter-text">
+        Restez informé de nos dernières publications en physique quantique et innovations.
+      </p>
+      <form class="newsletter-form">
+        <input type="email" class="form-input" placeholder="Votre email" required>
+        <button type="submit" class="btn btn-primary">S'abonner</button>
+      </form>
+    </div>
+  
+    <!-- Tags -->
+    <div class="sidebar-card">
+      <h3 class="sidebar-title">Tags Populaires</h3>
+      <div class="sidebar-tags">
+        <a href="#" class="tag-link">Quantique</a>
+        <a href="#" class="tag-link">Physique</a>
+        <a href="#" class="tag-link">Innovation</a>
+        <a href="#" class="tag-link">Recherche</a>
+        <a href="#" class="tag-link">Science</a>
+        <a href="#" class="tag-link">Technologie</a>
+      </div>
+    </div>
+  </aside>
+          </div>
+  
+        </div>
+      </div>
+    </main>
+
+    <!-- 
+    - #FOOTER
+  -->
+<footer id="contact">
+  <div class="container">
+      <div class="card footer">
+          <div class="section footer-top">
+
+              <div class="footer-brand">
+                  <a href="#" class="logo">
+                      <img src="{% static '/assets/images/logo.svg' %}" width="119" height="37" loading="lazy" alt="Quantum UY1">
+                  </a>
+
+                  <p class="footer-text">
+                      Le laboratoire Quantum UY1 est un centre d'excellence dédié à la recherche fondamentale en physique quantique. 
+                      Notre mission est d'explorer les frontières de la science et de former la prochaine génération de chercheurs.
+                  </p>
+
+                  <p class="footer-list-title">Adresse</p>
+
+                  <address class="footer-text address">
+                      Université de Yaoundé 1 <br>
+                      Faculté des Sciences <br>
+                      Département de Physique <br>
+                      Yaoundé, Cameroun
+                  </address>
+              </div>
+
+              <div class="footer-list">
+                  <p class="footer-list-title">Newsletter</p>
+
+                  <p class="footer-text">
+                      Restez informé de nos dernières découvertes scientifiques, publications et événements en vous inscrivant à notre newsletter.
+                  </p>
+
+                  <div class="input-wrapper">
+                      <input type="text" name="name" placeholder="Votre nom" required class="input-field" autocomplete="off">
+                      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                  </div>
+
+                  <div class="input-wrapper">
+                      <input type="email" name="email_address" placeholder="Adresse email" required class="input-field" autocomplete="off">
+                      <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                  </div>
+
+                  <a href="#" class="btn btn-primary">
+                      <span class="span">Rejoignez-nous</span>
+                      <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                  </a>
+              </div>
+
+          </div>
+
+          <div class="footer-bottom">
+              <p class="copyright">
+                  © 2024 Quantum UY1 - Laboratoire de Recherche Quantique
+              </p>
+
+              <ul class="social-list">
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-twitter"></ion-icon>
+                          <span class="span">Twitter</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-linkedin"></ion-icon>
+                          <span class="span">LinkedIn</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="#" class="social-link">
+                          <ion-icon name="logo-researchgate"></ion-icon>
+                          <span class="span">ResearchGate</span>
+                      </a>
+                  </li>
+
+              </ul>
+          </div>
+
+      </div>
+  </div>
+</footer>
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="{% static '/assets/js/script.js' %}"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </body>
+
 </html>
