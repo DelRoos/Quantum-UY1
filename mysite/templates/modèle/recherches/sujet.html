@@ -1,404 +1,352 @@
+{% extends "bases.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}Accueil - {{ site_name }}{% endblock %}
 
-  <!-- 
-    - primary meta tags
-  -->
-  <title>Quantum UY1</title>
-  <meta name="title" content="Quantum UY1">
-  <meta name="description" content="This is a blog for Quantum UY1 comunity">
+{% block content %}
+<style>
+  /* Styles spécifiques pour la page de détail */
+  .research-hero {
+    padding-block-start: calc(var(--section-padding) + 60px);
+    background-color: var(--bg-prussian-blue);
+    margin-bottom: 2rem;
+  }
 
-  <!-- 
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  .research-banner {
+    position: relative;
+    border-radius: var(--radius-16);
+    overflow: hidden;
+    margin-block: 3rem;
+  }
 
-  <!-- 
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
+  .research-banner img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 21/9;
+    object-fit: cover;
+  }
 
-  <!-- 
-    - custom css link
-  -->
-  <link rel="stylesheet" href="{% static '/assets/css/style.css' %}">
-  <style>
-    /* Styles spécifiques pour la page de détail */
-    .research-hero {
-      padding-block-start: calc(var(--section-padding) + 60px);
-      background-color: var(--bg-prussian-blue);
-      margin-bottom: 2rem;
-    }
+  .research-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-block: 2rem;
+    padding: 1.5rem;
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+  }
 
-    .research-banner {
-      position: relative;
-      border-radius: var(--radius-16);
-      overflow: hidden;
-      margin-block: 3rem;
-    }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-wild-blue-yonder);
+  }
 
-    .research-banner img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 21/9;
-      object-fit: cover;
-    }
+  .meta-item ion-icon {
+    color: var(--text-carolina-blue);
+    font-size: 1.2em;
+  }
 
-    .research-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin-block: 2rem;
-      padding: 1.5rem;
-      background-color: var(--bg-oxford-blue);
-      border-radius: var(--radius-8);
-      border: 1px solid var(--border-prussian-blue);
-    }
+  .research-content {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
 
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-wild-blue-yonder);
-    }
+  .content-main {
+    background-color: var(--bg-oxford-blue);
+    padding: 2rem;
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+  }
 
-    .meta-item ion-icon {
-      color: var(--text-carolina-blue);
-      font-size: 1.2em;
-    }
+  .content-section {
+    margin-block: 3rem;
+  }
 
+  .content-section:first-child {
+    margin-block-start: 0;
+  }
+
+  .section-title {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-2);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-prussian-blue);
+  }
+
+  .research-text {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .content-sidebar {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .sidebar-card {
+    background-color: var(--bg-oxford-blue);
+    padding: 2rem;
+    border-radius: var(--radius-8);
+    border: 1px solid var(--border-prussian-blue);
+    margin-bottom: 2rem;
+  }
+
+  .team-member {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-prussian-blue);
+  }
+
+  .team-member:last-child {
+    border-bottom: none;
+  }
+
+  .member-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-circle);
+    object-fit: cover;
+  }
+
+  .member-info {
+    flex: 1;
+  }
+
+  .member-name {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-6);
+    margin-bottom: 0.25rem;
+  }
+
+  .member-role {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--bg-prussian-blue);
+    border-radius: var(--radius-8);
+  }
+
+  .stat-number {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-1);
+    font-weight: var(--weight-bold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+  }
+
+  .fun-fact {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+    padding: 2rem;
+    border-radius: var(--radius-8);
+    margin-block: 2rem;
+  }
+
+  .fun-fact-title {
+    font-size: var(--fontSize-5);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 992px) {
     .research-content {
-      display: grid;
-      grid-template-columns: 2.5fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .content-main {
-      background-color: var(--bg-oxford-blue);
-      padding: 2rem;
-      border-radius: var(--radius-8);
-      border: 1px solid var(--border-prussian-blue);
-    }
-
-    .content-section {
-      margin-block: 3rem;
-    }
-
-    .content-section:first-child {
-      margin-block-start: 0;
-    }
-
-    .section-title {
-      color: var(--text-carolina-blue);
-      font-size: var(--fontSize-2);
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border-prussian-blue);
-    }
-
-    .research-text {
-      color: var(--text-wild-blue-yonder);
-      font-size: var(--fontSize-6);
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
+      grid-template-columns: 1fr;
     }
 
     .content-sidebar {
-      position: sticky;
-      top: 2rem;
+      position: static;
     }
+  }
 
-    .sidebar-card {
-      background-color: var(--bg-oxford-blue);
-      padding: 2rem;
-      border-radius: var(--radius-8);
-      border: 1px solid var(--border-prussian-blue);
-      margin-bottom: 2rem;
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-question {
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-5);
+    margin-bottom: 0.75rem;
+    font-weight: var(--weight-semiBold);
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-carolina-blue);
+    font-size: var(--fontSize-6);
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-link:hover {
+    color: var(--text-wild-blue-yonder);
+  }
+
+  .question-form {
+      margin-top: 1rem;
     }
-
-    .team-member {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border-prussian-blue);
+  
+    .form-field {
+      margin-bottom: 1rem;
     }
-
-    .team-member:last-child {
-      border-bottom: none;
-    }
-
-    .member-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: var(--radius-circle);
-      object-fit: cover;
-    }
-
-    .member-info {
-      flex: 1;
-    }
-
-    .member-name {
-      color: var(--text-carolina-blue);
-      font-size: var(--fontSize-6);
-      margin-bottom: 0.25rem;
-    }
-
-    .member-role {
+  
+    .form-label {
+      display: block;
       color: var(--text-wild-blue-yonder);
-      font-size: var(--fontSize-7);
+      font-size: var(--fontSize-6);
+      margin-bottom: 0.5rem;
     }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
+  
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background-color: var(--bg-prussian-blue);
+      border: 1px solid var(--border-prussian-blue);
+      border-radius: var(--radius-6);
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      transition: border-color var(--transition-1);
     }
-
-    .stat-item {
-      text-align: center;
-      padding: 1rem;
+  
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--bg-carolina-blue);
+      outline: none;
+    }
+  
+    .form-textarea {
+      height: 120px;
+      resize: vertical;
+    }
+  
+    .question-card {
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
       background-color: var(--bg-prussian-blue);
       border-radius: var(--radius-8);
     }
-
-    .stat-number {
-      color: var(--text-carolina-blue);
-      font-size: var(--fontSize-1);
-      font-weight: var(--weight-bold);
-      line-height: 1;
-      margin-bottom: 0.5rem;
+  
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
     }
-
-    .stat-label {
+  
+    .question-author {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  
+    .author-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-circle);
+    }
+  
+    .author-name {
+      color: var(--text-carolina-blue);
+      font-size: var(--fontSize-6);
+    }
+  
+    .question-date {
       color: var(--text-wild-blue-yonder);
       font-size: var(--fontSize-7);
     }
-
-    .fun-fact {
-      background-color: var(--bg-carolina-blue);
-      color: var(--text-white);
-      padding: 2rem;
-      border-radius: var(--radius-8);
-      margin-block: 2rem;
-    }
-
-    .fun-fact-title {
-      font-size: var(--fontSize-5);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    @media (max-width: 992px) {
-      .research-content {
-        grid-template-columns: 1fr;
-      }
-
-      .content-sidebar {
-        position: static;
-      }
-    }
-
-    .faq-item {
-      margin-bottom: 1.5rem;
-    }
-
-    .faq-question {
-      color: var(--text-carolina-blue);
-      font-size: var(--fontSize-5);
-      margin-bottom: 0.75rem;
-      font-weight: var(--weight-semiBold);
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-carolina-blue);
+  
+    .question-text {
+      color: var(--text-wild-blue-yonder);
       font-size: var(--fontSize-6);
+      margin-bottom: 1rem;
+    }
+  
+    .question-response {
+      margin-left: 2rem;
+      padding: 1rem;
+      background-color: var(--bg-oxford-blue);
+      border-radius: var(--radius-8);
+    }
+  
+    .response-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       margin-bottom: 0.5rem;
     }
-
-    .contact-link:hover {
-      color: var(--text-wild-blue-yonder);
+  
+    .response-badge {
+      background-color: var(--bg-carolina-blue);
+      color: var(--text-white);
+      font-size: var(--fontSize-7);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-pill);
     }
-
-    .question-form {
-        margin-top: 1rem;
-      }
-    
-      .form-field {
-        margin-bottom: 1rem;
-      }
-    
-      .form-label {
-        display: block;
-        color: var(--text-wild-blue-yonder);
-        font-size: var(--fontSize-6);
-        margin-bottom: 0.5rem;
-      }
-    
-      .form-input,
-      .form-textarea {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        background-color: var(--bg-prussian-blue);
-        border: 1px solid var(--border-prussian-blue);
-        border-radius: var(--radius-6);
-        color: var(--text-wild-blue-yonder);
-        font-size: var(--fontSize-6);
-        transition: border-color var(--transition-1);
-      }
-    
-      .form-input:focus,
-      .form-textarea:focus {
-        border-color: var(--bg-carolina-blue);
-        outline: none;
-      }
-    
-      .form-textarea {
-        height: 120px;
-        resize: vertical;
-      }
-    
-      .question-card {
-        margin-bottom: 1.5rem;
-        padding: 1.5rem;
-        background-color: var(--bg-prussian-blue);
-        border-radius: var(--radius-8);
-      }
-    
-      .question-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-      }
-    
-      .question-author {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-    
-      .author-avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: var(--radius-circle);
-      }
-    
-      .author-name {
-        color: var(--text-carolina-blue);
-        font-size: var(--fontSize-6);
-      }
-    
-      .question-date {
-        color: var(--text-wild-blue-yonder);
-        font-size: var(--fontSize-7);
-      }
-    
-      .question-text {
-        color: var(--text-wild-blue-yonder);
-        font-size: var(--fontSize-6);
-        margin-bottom: 1rem;
-      }
-    
-      .question-response {
-        margin-left: 2rem;
-        padding: 1rem;
-        background-color: var(--bg-oxford-blue);
-        border-radius: var(--radius-8);
-      }
-    
-      .response-header {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-      }
-    
-      .response-badge {
-        background-color: var(--bg-carolina-blue);
-        color: var(--text-white);
-        font-size: var(--fontSize-7);
-        padding: 0.25rem 0.5rem;
-        border-radius: var(--radius-pill);
-      }
-    
-      .tabs {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-      }
-    
-      .tab-btn {
-        padding: 0.5rem 1rem;
-        background: none;
-        border: none;
-        color: var(--text-wild-blue-yonder);
-        font-size: var(--fontSize-6);
-        cursor: pointer;
-        border-bottom: 2px solid transparent;
-        transition: all var(--transition-1);
-      }
-    
-      .tab-btn.active {
-        color: var(--text-carolina-blue);
-        border-bottom-color: var(--bg-carolina-blue);
-      }
-    
-      .success-message {
-        display: none;
-        color: #4CAF50;
-        font-size: var(--fontSize-6);
-        margin-top: 1rem;
-        padding: 1rem;
-        background-color: rgba(76, 175, 80, 0.1);
-        border-radius: var(--radius-6);
-      }
-    
-      .success-message.show {
-        display: block;
-      }
-  </style>
-  <!-- 
-    - preload images
-  -->
-  <link rel="preload" as="image" href="{% static '/assets/images/hero-banner.png' %}">
-  <link rel="preload" as="image" href="{% static '/assets/images/pattern-2.svg' %}">
-  <link rel="preload" as="image" href="{% static '/assets/images/pattern-3.svg' %}">
-
-</head>
-
-<body id="top">
-
-  <!-- 
-    - #HEADER
-  -->
-
-  <header class="header" data-header>
-    <div class="container">
-
-      <a href="#" class="logo">
-        <img src="{% static '/assets/images/logo.svg' %} width="119" height="37" alt="Quantum UY1">
-      </a>
-
-    </div>
-  </header>
-
+  
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .tab-btn {
+      padding: 0.5rem 1rem;
+      background: none;
+      border: none;
+      color: var(--text-wild-blue-yonder);
+      font-size: var(--fontSize-6);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition-1);
+    }
+  
+    .tab-btn.active {
+      color: var(--text-carolina-blue);
+      border-bottom-color: var(--bg-carolina-blue);
+    }
+  
+    .success-message {
+      display: none;
+      color: #4CAF50;
+      font-size: var(--fontSize-6);
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: rgba(76, 175, 80, 0.1);
+      border-radius: var(--radius-6);
+    }
+  
+    .success-message.show {
+      display: block;
+    }
+</style>
 
 
   <main>
@@ -482,14 +430,17 @@
             <div class="sidebar-card">
               <h3 class="section-title">Équipe de Recherche</h3>
               {% for membre in membres %}
-              <div class="team-member">
-                <img src="{{ membre.photo.url }}" alt=" " class="member-avatar">
-                <div class="member-info">
-                  <h4 class="member-name">{% if membre.title %}{{ membre.title.name }}. {% endif %} 
-                    {{ membre.user.first_name }} {{ membre.user.last_name }}</h4>
-                  <!-- <p class="member-role">Chercheuse Principale</p> -->
+              <a href="{% url 'dashboard:membre' membre.id %}" class="link hover-2">
+                <div class="team-member">
+                  <img src="{{ membre.photo.url }}" alt=" " class="member-avatar">
+                  <div class="member-info">
+                    <h4 class="member-name">{% if membre.title %}{{ membre.title.name }}. {% endif %} 
+                      {{ membre.user.first_name }} {{ membre.user.last_name }}</h4>
+                    <!-- <p class="member-role">Chercheuse Principale</p> -->
+                  </div>
                 </div>
-              </div>
+              </a>
+              
               {% endfor %}
               
 
@@ -546,122 +497,4 @@
 
 
 
-
-  <!-- 
-    - #FOOTER
-  -->
-<footer id="contact">
-  <div class="container">
-      <div class="card footer">
-          <div class="section footer-top">
-
-              <div class="footer-brand">
-                  <a href="#" class="logo">
-                      <img src="{% static '/assets/images/logo.svg' %}" width="119" height="37" loading="lazy" alt="Quantum UY1">
-                  </a>
-
-                  <p class="footer-text">
-                      Le laboratoire Quantum UY1 est un centre d'excellence dédié à la recherche fondamentale en physique quantique. 
-                      Notre mission est d'explorer les frontières de la science et de former la prochaine génération de chercheurs.
-                  </p>
-
-                  <p class="footer-list-title">Adresse</p>
-
-                  <address class="footer-text address">
-                      Université de Yaoundé 1 <br>
-                      Faculté des Sciences <br>
-                      Département de Physique <br>
-                      Yaoundé, Cameroun
-                  </address>
-              </div>
-
-            <div class="footer-list">
-            
-            </div>
-
-              <div class="footer-list">
-                  <p class="footer-list-title">Newsletter</p>
-
-                  <p class="footer-text">
-                      Restez informé de nos dernières découvertes scientifiques, publications et événements en vous inscrivant à notre newsletter.
-                  </p>
-
-                  <div class="input-wrapper">
-                      <input type="text" name="name" placeholder="Votre nom" required class="input-field" autocomplete="off">
-                      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-                  </div>
-
-                  <div class="input-wrapper">
-                      <input type="email" name="email_address" placeholder="Adresse email" required class="input-field" autocomplete="off">
-                      <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
-                  </div>
-
-                  <a href="#" class="btn btn-primary">
-                      <span class="span">Rejoignez-nous</span>
-                      <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-                  </a>
-              </div>
-
-          </div>
-
-          <div class="footer-bottom">
-              <p class="copyright">
-                  © 2024 Quantum UY1 - Laboratoire de Recherche Quantique
-              </p>
-
-              <ul class="social-list">
-                  <li>
-                      <a href="#" class="social-link">
-                          <ion-icon name="logo-twitter"></ion-icon>
-                          <span class="span">Twitter</span>
-                      </a>
-                  </li>
-
-                  <li>
-                      <a href="#" class="social-link">
-                          <ion-icon name="logo-linkedin"></ion-icon>
-                          <span class="span">LinkedIn</span>
-                      </a>
-                  </li>
-
-                  <li>
-                      <a href="#" class="social-link">
-                          <ion-icon name="logo-researchgate"></ion-icon>
-                          <span class="span">ResearchGate</span>
-                      </a>
-                  </li>
-
-              </ul>
-          </div>
-
-      </div>
-  </div>
-  
-</footer>
-
-  <!-- 
-    - #BACK TO TOP
-  -->
-
-  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
-    <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon>
-  </a>
-
-
-
-
-
-  <!-- 
-    - custom js link
-  -->
-  <script src="{% static '/assets/js/script.js' %}"></script>
-
-  <!-- 
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-</body>
-
-</html>
+{% endblock %}

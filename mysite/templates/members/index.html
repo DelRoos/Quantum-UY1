@@ -293,10 +293,13 @@
             <h2 class="card-title">Publications</h2>
             <div class="publication-list">
               {% for post in article %}
+              <a href="{% url 'blog:post_detail' post.id %}" class="card-title hover-2">
                 <div class="publication-item">
-                    <h3 class="experience-title">{{ post.title }}</h3>
-                    <p class="experience-date">{{ post.publish }}</p>
+                  <h3 class="experience-title">{{ post.title }}</h3>
+                  <p class="experience-date">{{ post.publish }}</p>
                 </div>
+              </a>
+                
                 {% endfor %}
             </div>
         </div>
@@ -312,11 +315,14 @@
         <h2 class="card-title">Projets de Recherche</h2>
         <div class="publication-list">
           {% for projet in projets %}
+          <a href="{% url 'dashboard:detail' projet.id %}" class="card-title hover-2">
             <div class="publication-item">
-                <h3 class="experience-title">{{ projet.titre }}</h3>
-                <p class="experience-date">En cours</p>
-                <p>{{ projet.resumé }}</p>
+              <h3 class="experience-title">{{ projet.titre }}</h3>
+              <p class="experience-date">En cours</p>
+              <p>{{ projet.resumé }}</p>
             </div>
+          </a>
+            
             {% endfor %}
         </div>
     </div>

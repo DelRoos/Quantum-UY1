@@ -15,13 +15,13 @@ class PostListView(ListView):
     """
     queryset = Post.published.all()
     context_object_name = 'posts'
-    paginate_by = 3
-    template_name = 'blog/post/list.html'
+    paginate_by = 1
+    template_name = 'modèle/blog/affichage_articles.html'
 
 
 def post_list(request):
-    post_list = Post.published.all()
-    paginator = Paginator(post_list, 3)
+    posts = Post.published.all()
+    paginator = Paginator(posts, 2)
     page_number = request.GET.get('page', 1)
     try:
         posts = paginator.page(page_number)
@@ -38,7 +38,7 @@ def post_list(request):
     return render(
         request,
         'modèle/blog/affichage_articles.html',
-        {'post_list': post_list, 'comments_dict': comments_dict}
+        {'posts': posts, 'comments_dict': comments_dict, 'paginator': paginator}
     )
 
 def post_detail(request, id):

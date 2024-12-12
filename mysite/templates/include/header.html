@@ -1,0 +1,38 @@
+{% load static %}
+<header class="header" data-header>
+    <div class="container">
+        <a href="{% url 'dashboard:acceuil' %}" class="logo">
+            <img src="{% static '/assets/images/logo.svg' %}" width="119" height="37" alt="{{ site_name }}">
+        </a>
+
+        <nav class="navbar" data-navbar>
+            <div class="navbar-top">
+                <a href="{% url 'dashboard:acceuil' %}" class="logo">
+                    <img src="{% static '/assets/images/logo.webp' %}" width="119" height="37" alt="{{ site_name }}">
+                </a>
+                <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+                    <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+                </button>
+            </div>
+
+            <ul class="navbar-list">
+                <li>
+                  <a href="{% url 'dashboard:acceuil' %}" class="navbar-link hover-1" data-nav-toggler>Accueil</a>
+                </li>         
+                <li>
+                  <a href="{% url 'dashboard:list' %}" class="navbar-link hover-1" data-nav-toggler>Nos travaux</a>
+                </li>     
+                <li>
+                  <a href="{% url 'blog:post_list' %}" class="navbar-link hover-1" data-nav-toggler>Blog</a>
+                </li>
+            </ul>
+      
+        </nav>
+
+        <a href="#newsletter" class="btn btn-primary">Rejoignez-nous</a>
+
+        <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+            <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+        </button>
+    </div>
+</header>

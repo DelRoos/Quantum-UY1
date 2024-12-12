@@ -1,0 +1,30 @@
+<!-- Pagination -->
+<div class="pagination-container">
+    {% if posts.has_previous %}
+      <a class="pagination-btn" href="?page={{ posts.previous_page_number }}" aria-label="Previous page">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </a>
+    {% else %}
+      <button class="pagination-btn" aria-label="Previous page" disabled>
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button>
+    {% endif %}
+  
+    {% for num in posts.paginator.page_range %}
+      {% if num == posts.number %}
+        <button class="pagination-btn active">{{ num }}</button>
+      {% else %}
+        <a class="pagination-btn" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+  
+    {% if posts.has_next %}
+      <a class="pagination-btn" href="?page={{ posts.next_page_number }}" aria-label="Next page">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </a>
+    {% else %}
+      <button class="pagination-btn" aria-label="Next page" disabled>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+    {% endif %}
+  </div>
