@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from administrateur.models import Title, ExpertiseField
-from .models import Profile
+from .models import Profile, Title, ExpertiseField, Newsletter
 
 
 class LoginForm(forms.Form):
@@ -66,4 +65,25 @@ class ProfileEditForm(forms.ModelForm):
                 'type': 'date'  # Ajout du type date pour activer le sélecteur
             }),
             'title': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class NewsletterForm(forms.ModelForm):
+    """Formulaire d'inscription à la newsletter"""
+    class Meta:
+        model = Newsletter
+        fields = ['name', 'email']
+        widgets = {
+            'name': forms.TextInput(
+                attrs={
+                    'class': 'input-field',
+                    'placeholder': 'Votre nom'
+                }
+            ),
+            'email': forms.EmailInput(
+                attrs={
+                    'class': 'input-field',
+                    'placeholder': 'Votre email'
+                }
+            )
         }

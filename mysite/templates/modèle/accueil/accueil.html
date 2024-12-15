@@ -5,7 +5,6 @@
 
 {% block content %}
 
-  
   <main>
     <article>
 
@@ -28,19 +27,6 @@
               Explorez les frontières de la physique quantique avec notre équipe de chercheurs passionnés. Notre mission : 
               repousser les limites du savoir, partager les découvertes et inspirer les esprits curieux à travers le monde.
            </p>
-
-            <div class="input-wrapper">
-
-              <input type="email" name="email_address" placeholder="Type your email address" required
-                class="input-field" autocomplete="off">
-
-              <button class="btn btn-primary">
-                <span class="span">Rejoignez-nous</span>
-
-                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-              </button>
-
-            </div>
 
           </div>
 
@@ -85,11 +71,11 @@
                 unique pour explorer les mystères de la physique quantique.
               </p>
 
-              <!-- <div class="team-footer">
-                <a href="team.html" class="btn btn-primary btn-secondary">
+              <div class="team-footer">
+                <a href="{% url 'dashboard:membre_list' %}" class="btn btn-primary btn-secondary">
                   Voir tous les membres
                 </a>
-              </div> -->
+              </div>
 
               <div class="btn-group">
                 <button class="btn-icon" aria-label="previous" data-slider-prev>
@@ -162,7 +148,7 @@
             {% for recherche in list_projet %}
 
             <li>
-              <div class="card research-topic-card">
+              <div class="research-topic-card">
 
                 <figure class="card-banner img-holder" style="--width: 510; --height: 500;">
                   <img class="img_projet" src="{{ recherche.photo.url }}" width="510" height="500" loading="lazy">
@@ -181,7 +167,7 @@
                   </div>
 
                   <h3 class="headline headline-3">
-                    <a href="{% url 'dashboard:detail' recherche.id %}" class="card-title hover-2">
+                    <a href="{% url 'research:detail' recherche.id %}" class="card-title hover-2">
                       {{ recherche.titre }}
                     </a>
                   </h3>
@@ -265,15 +251,14 @@
               </li>
               {% endfor %}
             </ul>
-
-            
+            <a href="blog/list_blog/" class="btn btn-secondary">
+              <span class="span">Voir plus d'article</span>
+    
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
           </div>
 
-          <a href="blog/list_blog/" class="btn btn-secondary">
-            <span class="span">Voir plus d'article</span>
-  
-            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-          </a>
+         
         </div>
 
       </section>

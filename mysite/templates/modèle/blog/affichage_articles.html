@@ -13,6 +13,27 @@
     margin-bottom: 3rem;
   }
 
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-block: 2rem;
+  }
+
+  .tag-link {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-prussian-blue);
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+    border-radius: var(--radius-pill);
+    transition: all var(--transition-1);
+  }
+
+  .tag-link:hover {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+  }
+
   .blog-categories {
     display: flex;
     gap: 1rem;
@@ -41,20 +62,20 @@
   }
 
   .blog-layout {
-      display: grid;
-      grid-template-columns: 2.5fr 1fr;
-      gap: 3rem;
-      align-items: start;
-      margin-top: 2rem;
-    }
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
   
-    .featured-post {
-      margin-bottom: 4rem;
-      background-color: var(--bg-oxford-blue);
-      padding: 2rem;
-      border-radius: var(--radius-16);
-      border: 1px solid var(--border-prussian-blue);
-    }
+  .featured-post {
+    margin-bottom: 4rem;
+    background-color: var(--bg-oxford-blue);
+    padding: 2rem;
+    border-radius: var(--radius-16);
+    border: 1px solid var(--border-prussian-blue);
+  }
   
   .featured-banner {
     border-radius: var(--radius-16);
@@ -119,21 +140,21 @@
   }
 
   .posts-grid {
-      display: grid;
-      gap: 2.5rem;
-      margin-bottom: 2rem;
-    }
+    display: grid;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+  }
   
-    .post-card {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 2rem;
-      background-color: var(--bg-oxford-blue);
-      border-radius: var(--radius-16);
-      overflow: hidden;
-      transition: transform var(--transition-1);
-      border: 1px solid var(--border-prussian-blue);
-    }
+  .post-card {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-16);
+    overflow: hidden;
+    transition: transform var(--transition-1);
+    border: 1px solid var(--border-prussian-blue);
+  }
   
 
   .post-card:hover {
@@ -372,15 +393,26 @@
           et les avancées scientifiques.
         </p>
 
-        <!-- Catégories -->
         <!-- <div class="blog-categories">
-          <button class="category-btn active">Tous</button>
-          <button class="category-btn">Physique Quantique</button>
-          <button class="category-btn">Recherche</button>
-          <button class="category-btn">Innovation</button>
-          <button class="category-btn">Événements</button>
+          {% if tag %}
+          {% if posts %}
+            <h2>Articles pour le tag : {{ tag.name }}</h2>
+          {% else %}
+            <h2>Aucun article trouvé pour le tag : {{ tag.name }}</h2>
+          {% endif %}
+        {% endif %}
         </div>
-      </div> -->
+
+        <div class="blog-categories">
+          <button class="category-btn">
+            <a href="{% url 'blog:post_list' %}" class="tag-link">All</a>
+          </button>
+          {% for tag in all_tags %}
+          <button class="category-btn"><a href="{% url 'blog:post_list_by_tag' tag.slug %}" class="tag-link">{{ tag.name }}</a></button>
+          {% endfor %}
+
+        </div> -->
+      </div>
     </section>
 
     <!-- Blog Content -->
@@ -392,9 +424,15 @@
             <!-- Featured Post -->
             {% for post in posts %}
             <article class="featured-post">
-              <figure class="featured-banner">
-                <img src="{{ post.photo.url }}" alt="" width="119" height="37" loading="lazy">
+              <figure>
+                <img src="{{ post.photo.url }}" alt="" width="419" loading="cover">
               </figure>
+              <div class="article-tags">
+                {% for tag in post.tags.all %}
+                <a href="#" class="tag-link">{{ tag.name }}</a>
+                {% endfor %}
+              </div>
+                
 
               <div class="post-meta">
                 <span class="meta-item">
@@ -412,33 +450,16 @@
               </div>
 
               <h2>
-                <a href="{{ post.id }}" class="featured-title">
+                <a href="{% url 'blog:post_detail' post.id %}" class="featured-title">
                   {{post.title}}
                 </a>
               </h2>
 
-              <a href="{{ post.id }}" class="btn btn-primary">Lire l'article</a>
+              <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-primary">Lire l'article</a>
             </article>
             {% endfor %}
 
           </div>
-
-          <!-- Sidebar -->
-          <aside class="sidebar">
-
-            <!-- Newsletter -->
-            <div class="sidebar-card">
-              <h3 class="sidebar-title">Newsletter</h3>
-              <p class="research-text">
-                Restez informé de nos dernières publications et actualités.
-              </p>
-
-              <form class="newsletter-form">
-                <input type="email" class="form-input" placeholder="Votre email" required>
-                <button type="submit" class="btn btn-primary w-100">S'abonner</button>
-              </form>
-            </div>
-          </aside>
         </div>
       </div>
       {% include "include/pagination.html" with page=posts %}

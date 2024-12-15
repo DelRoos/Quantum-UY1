@@ -582,15 +582,15 @@
             <img src="{{ author_profile.photo.url }}" alt=" " class="author-avatar">
             <div class="author-info">
               <span class="author-name">Published  by {{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</span>
-              <span class="author-role">Chercheuse en Physique Quantique</span>
+              <span class="author-role">
+                <span class="info-item">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <span>{{ post.publish }}</span>
+                </span>
             </div>
           </div>
 
           <div class="article-info">
-            <span class="info-item">
-              <ion-icon name="calendar-outline"></ion-icon>
-              <span>{{ post.publish }}</span>
-            </span>
             <span class="info-item">
               <ion-icon name="chatbubble-outline"></ion-icon>
               <span>{% with comments.count as total_comments %}
@@ -616,24 +616,26 @@
 
             <div class="article-section">
               <p class="article-text">
-                {{ post.body|linebreaks }}
+                <!-- {{ post.body|linebreaks }} -->
               </p>
 
               <blockquote class="quote-block">
                 <p class="quote-text">
-                  "L'informatique quantique n'est pas seulement une évolution, c'est une 
-                  révolution qui changera fondamentalement notre approche du calcul."
+                  {{ post.body|linebreaks }}
                 </p>
-                <cite class="quote-author">- Dr. Alice Doe</cite>
               </blockquote>
             </div>
 
             <!-- Tags -->
+            
             <div class="article-tags">
-              <a href="#" class="tag-link">Quantique</a>
-              <a href="#" class="tag-link">Informatique</a>
-              <a href="#" class="tag-link">Innovation</a>
-              <a href="#" class="tag-link">Technologie</a>
+              
+              {% for tag in post.tags.all %}
+                <a class="tag-link" href="{% url "blog:post_list_by_tag" tag.slug %}">
+              {{ tag.name }}
+                </a>
+              {% endfor %}
+
             </div>
 
             <!-- Share Section -->
@@ -707,8 +709,7 @@
             </section>
           </article>
 
-          <!-- Sidebar -->
-          <aside class="sidebar">
+
 
 <aside class="sidebar">
     <!-- Profil de l'auteur -->
@@ -717,7 +718,9 @@
       <div class="author-profile">
         <img src="{{ author_profile.photo.url }}" alt=" " class="author-avatar">
         <h4 class="author-name">{{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</h4>
-        <p class="author-role">Chercheuse en Physique Quantique</p>
+        <p class="author-role">Spécialisé en {% for expertise in author_profile.expertise.all %}
+          {{ expertise.name }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}</p>
         
         <!-- <div class="author-stats">
           <div class="stat-item">
@@ -731,8 +734,7 @@
         </div> -->
   
         <p class="article-text">
-          Experte en informatique quantique avec plus de 10 ans d'expérience dans 
-          la recherche et le développement d'algorithmes quantiques.
+          
         </p>
   
         <div class="author-socials">
@@ -760,7 +762,7 @@
         </figure>
         <div class="similar-post-content">
           <h4>
-            <a href="#" class="similar-post-title">
+            <a href="{% url 'blog:post_detail' post.id %}" class="similar-post-title">
               {{ post.title }}
             </a>
           </h4>
@@ -778,29 +780,31 @@
       {% endif %}
     </div>
   
-    <!-- Newsletter -->
-    <div class="sidebar-card newsletter-card">
-      <h3 class="sidebar-title">Newsletter</h3>
-      <p class="newsletter-text">
-        Restez informé de nos dernières publications en physique quantique et innovations.
-      </p>
-      <form class="newsletter-form">
-        <input type="email" class="form-input" placeholder="Votre email" required>
-        <button type="submit" class="btn btn-primary">S'abonner</button>
-      </form>
-    </div>
-  
-    <!-- Tags -->
+    <!-- Article similaire -->
     <div class="sidebar-card">
-      <h3 class="sidebar-title">Tags Populaires</h3>
-      <div class="sidebar-tags">
-        <a href="#" class="tag-link">Quantique</a>
-        <a href="#" class="tag-link">Physique</a>
-        <a href="#" class="tag-link">Innovation</a>
-        <a href="#" class="tag-link">Recherche</a>
-        <a href="#" class="tag-link">Science</a>
-        <a href="#" class="tag-link">Technologie</a>
-      </div>
+      <h3 class="sidebar-title">Article similaire</h3>
+      {% for post in similar_posts %}
+      <article class="similar-post">
+        <figure class="similar-post-img">
+          <img src="{{ post.photo.url }}" alt="Article similaire" loading="lazy">
+        </figure>
+        <div class="similar-post-content">
+          <h4>
+            <a href="{% url 'blog:post_detail' post.id %}" class="similar-post-title">
+              {{ post.title }}
+            </a>
+          </h4>
+          <div class="similar-post-meta">
+            <span>
+              <ion-icon name="calendar-outline"></ion-icon>
+              {{ post.publish }}
+            </span>
+          </div>
+        </div>
+      </article>
+      {% empty %}
+        There are no similar posts yet.
+      {% endfor %}
     </div>
   </aside>
           </div>

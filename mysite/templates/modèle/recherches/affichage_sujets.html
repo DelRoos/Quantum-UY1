@@ -576,33 +576,21 @@
     <!-- Research Topics Section -->
     <section class="section research-topic">
         <div class="container">
-            <!-- Projets Vedettes -->
             <div class="research-category">
             <div class="category-header">
                 <h2 class="headline-2">Projets</h2>
             </div>
 
-            <div class="featured-projects">
-                <!-- Projet Vedette 1 -->
+            <div class="secondary-projects">
                 {% for recherche in posts %}
-                <article class="featured-project-card">
-                <figure class="featured-project-banner">
+                <article class="secondary-project-card">
+                <figure class="secondary-project-banner">
                     <img class="img_projet" src="{{ recherche.photo.url }}" alt="" loading="lazy">
-                    <span class="featured-badge">En cours</span>
+                    <!-- <span class="secondary-badge">En cours</span> -->
                 </figure>
                 
                 <div class="project-content">
-                    <!-- <div class="project-meta">
-                    <div class="project-tags">
-                        <span class="project-tag">Physique Quantique</span>
-                        <span class="project-tag">Innovation</span>
-                    </div>
-                    
-                    <div class="project-date">
-                        <ion-icon name="time-outline"></ion-icon>
-                        <span>2023-2026</span>
-                    </div>
-                    </div> -->
+                
 
                     <h3 class="project-title">
                     <a href="#">{{ recherche.titre }}</a>
@@ -612,22 +600,7 @@
                       {{ recherche.resumé }}
                     </p>
 
-                    <!-- <div class="project-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">12</div>
-                        <div class="stat-label">Chercheurs</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">15</div>
-                        <div class="stat-label">Publications</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">4</div>
-                        <div class="stat-label">Brevets</div>
-                    </div> -->
-                    <!-- </div> -->
-
-                    <a href="{{ recherche.id }}/" class="btn btn-primary w-100">En savoir plus</a>
+                    <a href="{% url 'research:detail' recherche.slug %}" class="btn btn-primary w-100">En savoir plus</a>
                 </div>
                 </article>
                 {% endfor %}

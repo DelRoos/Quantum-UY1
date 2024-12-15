@@ -6,14 +6,17 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib import auth, messages
+from django.contrib.auth.forms import AuthenticationForm 
+from django.http import JsonResponse
 from .forms import (
     LoginForm, 
     UserRegistrationForm, 
     UserEditForm,
-    ProfileEditForm
+    ProfileEditForm,
+    NewsletterForm
 ) 
-from .models import Profile
-from administrateur.models import Title
+from .models import Profile, Title, Role, Newsletter
 
 
 def register(request):
@@ -85,7 +88,8 @@ def edit(request):
     profile, created = Profile.objects.get_or_create(
         user=request.user,
         defaults={
-            'title': Title.objects.get(id=1)  # Remplacez 1 par un ID valide pour le titre par défaut
+            'title': Title.objects.get(id=1),  
+            'role': Role.objects.get(id=1)
         }
     )
 
@@ -114,8 +118,9 @@ def edit(request):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        default_title = Title.objects.get(id=1)  # Remplacez 1 par un ID valide
-        Profile.objects.create(user=instance, title=default_title)
+        default_title = Title.objects.get(id=1)
+        default_role = Role.objects.get(id=1)  # Remplacez 1 par un ID valide
+        Profile.objects.create(user=instance, title=default_role)
 
 
 
@@ -126,3 +131,37 @@ def dashboard(request):
         'modèle/account/dashboard.html',
         {'section': 'dashboard'}
     )
+
+
+def newsletter_signup(request):
+    if request.method == 'POST':
+        form = NewsletterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': True,
+                    'message': f"Merci {form.cleaned_data['name']} ! Vous êtes maintenant inscrit à notre newsletter."
+                })
+            else:
+                messages.success(
+                    request, 
+                    f"Merci {form.cleaned_data['name']} ! Vous êtes maintenant inscrit à notre newsletter."
+                )
+        else:
+            error_message = "Cette adresse email est déjà inscrite à notre newsletter." if 'email' in form.errors else "Une erreur s'est produite. Veuillez réessayer."
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': False,
+                    'message': error_message,
+                    'errors': form.errors
+                })
+            else:
+                messages.error(request, error_message)
+    
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'success': False,
+            'message': "Méthode non autorisée"
+        })
+    return redirect(request.META.get('HTTP_REFERER', 'base.html'))

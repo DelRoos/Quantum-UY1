@@ -1,36 +1,10 @@
+{% extends "bases.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}Accueil - {{ site_name }}{% endblock %}
 
-  <!-- 
-    - primary meta tags
-  -->
-  <title>Quantum UY1</title>
-  <meta name="title" content="Quantum UY1">
-  <meta name="description" content="This is a blog for Quantum UY1 comunity">
+{% block content %}
 
-  <!-- 
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
-
-  <!-- 
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-
-  <!-- 
-    - custom css link
-  -->
-  <link rel="stylesheet" href="{% static '/assets/css/style.css' %}">
   <style>
 
     body {
@@ -219,31 +193,6 @@
   </style>
 
 
-  <!-- 
-    - preload images
-  -->
-  <link rel="preload" as="image" href="{% static '/assets/images/hero-banner.png' %}">
-  <link rel="preload" as="image" href="{% static '/assets/images/pattern-2.svg' %}">
-  <link rel="preload" as="image" href="{% static '/assets/images/pattern-3.svg' %}">
-
-</head>
-
-<body id="top">
-
-  <!-- 
-    - #HEADER
-  -->
-
-  <header class="header" data-header>
-    <div class="container">
-
-      <a href="#" class="logo">
-        <img src="{% static '/assets/images/logo.svg' %}" width="119" height="37" alt="Quantum UY1">
-      </a>
-
-    </div>
-  </header>
-
 
 
 
@@ -254,6 +203,7 @@
         <p class="member-role">{% for expertise in member.expertise.all %}
           {{ expertise.name }}{% if not forloop.last %}, {% endif %}
       {% endfor %}</p>
+      
     </div>
 </div>
 
@@ -261,9 +211,24 @@
   <main class="container">
     <div class="card">
         <h2 class="card-title">Biographie</h2>
-        <p>{{ member.title.name }}. {{ member.user.first_name }} {{ member.user.last_name }} est spécialisé en {% for expertise in member.expertise.all %}
-          {{ expertise.name }}{% if not forloop.last %}, {% endif %}
-      {% endfor %}.</p>
+        <p>
+          <div>
+            {{ member.biographie }}
+          </div>
+         <br>
+          <div class="btn-group">
+            <a href="{{ member.google_scholar }}" class="btn-icon" aria-label="facebook">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            <a href="{{ member.linkedin }}" class="btn-icon" aria-label="linkedin">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+            <a href="{{ member.twitter }}" class="btn-icon" aria-label="twitter">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+
+          </div>
+        </p>
     </div>
 
     <div class="grid-2">
@@ -315,7 +280,7 @@
         <h2 class="card-title">Projets de Recherche</h2>
         <div class="publication-list">
           {% for projet in projets %}
-          <a href="{% url 'dashboard:detail' projet.id %}" class="card-title hover-2">
+          <a href="{% url 'research:detail' projet.id %}" class="card-title hover-2">
             <div class="publication-item">
               <h3 class="experience-title">{{ projet.titre }}</h3>
               <p class="experience-date">En cours</p>
@@ -330,120 +295,4 @@
 </main>
 
   
-  <!-- 
-    - #FOOTER
-  -->
-<footer id="contact">
-  <div class="container">
-      <div class="card footer">
-          <div class="section footer-top">
-
-              <div class="footer-brand">
-                  <a href="#" class="logo">
-                      <img src="{% static '/assets/images/logo.svg' %}" width="119" height="37" loading="lazy" alt="Quantum UY1">
-                  </a>
-
-                  <p class="footer-text">
-                      Le laboratoire Quantum UY1 est un centre d'excellence dédié à la recherche fondamentale en physique quantique. 
-                      Notre mission est d'explorer les frontières de la science et de former la prochaine génération de chercheurs.
-                  </p>
-
-                  <p class="footer-list-title">Adresse</p>
-
-                  <address class="footer-text address">
-                      Université de Yaoundé 1 <br>
-                      Faculté des Sciences <br>
-                      Département de Physique <br>
-                      Yaoundé, Cameroun
-                  </address>
-              </div>
-
-            <div class="footer-list">
-
-            </div>
-
-              <div class="footer-list">
-                  <p class="footer-list-title">Newsletter</p>
-
-                  <p class="footer-text">
-                      Restez informé de nos dernières découvertes scientifiques, publications et événements en vous inscrivant à notre newsletter.
-                  </p>
-
-                  <div class="input-wrapper">
-                      <input type="text" name="name" placeholder="Votre nom" required class="input-field" autocomplete="off">
-                      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-                  </div>
-
-                  <div class="input-wrapper">
-                      <input type="email" name="email_address" placeholder="Adresse email" required class="input-field" autocomplete="off">
-                      <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
-                  </div>
-
-                  <a href="#" class="btn btn-primary">
-                      <span class="span">Rejoignez-nous</span>
-                      <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-                  </a>
-              </div>
-
-          </div>
-
-          <div class="footer-bottom">
-              <p class="copyright">
-                  © 2024 Quantum UY1 - Laboratoire de Recherche Quantique
-              </p>
-
-              <ul class="social-list">
-                  <li>
-                      <a href="#" class="social-link">
-                          <ion-icon name="logo-twitter"></ion-icon>
-                          <span class="span">Twitter</span>
-                      </a>
-                  </li>
-
-                  <li>
-                      <a href="#" class="social-link">
-                          <ion-icon name="logo-linkedin"></ion-icon>
-                          <span class="span">LinkedIn</span>
-                      </a>
-                  </li>
-
-                  <li>
-                      <a href="#" class="social-link">
-                          <ion-icon name="logo-researchgate"></ion-icon>
-                          <span class="span">ResearchGate</span>
-                      </a>
-                  </li>
-
-              </ul>
-          </div>
-
-      </div>
-  </div>
-</footer>
-
-  <!-- 
-    - #BACK TO TOP
-  -->
-
-  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
-    <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon>
-  </a>
-
-
-
-
-
-  <!-- 
-    - custom js link
-  -->
-  <script src="{% static '/assets/js/script.js' %}"></script>
-
-  <!-- 
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-</body>
-
-</html>
+{% endblock %}

@@ -623,7 +623,7 @@ body.nav-active { overflow: hidden; }
 .research-topic-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  /* gap: 30px; */
 }
 
 .research-topic-card {

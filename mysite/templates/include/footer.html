@@ -34,7 +34,7 @@
                         Restez informé de nos dernières découvertes scientifiques, publications et événements en vous inscrivant à notre newsletter.
                     </p>
 
-                    <form id="newsletter-form" method="post" action="">
+                    <form id="newsletter-form" method="post" action="{% url 'members:newsletter_signup' %}">
                         {% csrf_token %}
                         <div class="input-wrapper">
                             <input type="text" name="name" placeholder="Votre nom" required class="input-field" autocomplete="off">

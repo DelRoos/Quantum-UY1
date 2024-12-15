@@ -3,6 +3,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from autoslug import AutoSlugField
+from taggit.managers import TaggableManager
+import markdown
 
 
 
@@ -24,6 +26,7 @@ class Post(models.Model):
         upload_to='blog/%Y/%m/%d/',
         blank=True
     ) 
+    tags = TaggableManager()
     title = models.CharField(max_length=250)
     slug = AutoSlugField(
         populate_from='title',
@@ -34,6 +37,7 @@ class Post(models.Model):
         related_name='blog_posts'
     )
     body = models.TextField()
+    body_html = models.TextField(editable=False, blank=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -66,6 +70,14 @@ class Post(models.Model):
             ]
         )
 
+    def save(self, *args, **kwargs):
+        # Convertir le contenu Markdown en HTML avant de sauvegarder
+        self.body_html = markdown.markdown(self.body)
+        super().save(*args, **kwargs)
+
+
+
+        
 
 class Comment(models.Model):
     post = models.ForeignKey(

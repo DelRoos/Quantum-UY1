@@ -1,0 +1,66 @@
+{% extends "bases.html" %}
+{% load static %}
+
+{% block title %}Accueil - {{ site_name }}{% endblock %}
+
+{% block content %}
+
+
+
+<main>
+
+    <!-- Team Banner Section -->
+    <section class="section hero">
+        <div class="container">
+            <h1 class="headline-1 section-title">
+                Notre <span class="span">Équipe</span>
+            </h1>
+            <p class="section-text">
+                Découvrez notre équipe de chercheurs passionnés, experts dans divers domaines de la physique quantique.
+            </p>
+        </div>
+    </section>
+
+    <!-- Team Categories Section -->
+    <section class="section team">
+        <div class="container">
+            <!-- Itérer sur les rôles -->
+            {% for role, list_member in members_by_role.items %}
+            <div class="research-topic-card card">
+                <h2 class="headline-2">{{ role }}</h2>
+                <div class="grid-list">
+                    <!-- Itérer sur les membres de ce rôle -->
+                    {% for member in list_member %}
+                    <div class="team-card card">
+                        <figure class="card-banner img-holder" style="--width: 200; --height: 200;">
+                            <img src="{{ member.photo.url }}" alt="{{ member.title.name }}. {{ member.user.first_name }} {{ member.user.last_name }}" class="img-cover">
+                        </figure>
+
+                        <div class="card-content">
+                            <h3 class="headline-3">
+                                <a href="{{ member.id }}/" class="card-title">{{ member.title.name }}. {{ member.user.first_name }} {{ member.user.last_name }}</a>
+                            </h3>
+                            <p class="card-text">{{ member.biographie }}</p>
+
+                            <div class="btn-group">
+                                <a href="{{ member.google_scholar }}" class="btn-icon" aria-label="google scholar">
+                                    <ion-icon name="logo-google"></ion-icon>
+                                </a>
+                                <a href="{{ member.linkedin }}" class="btn-icon" aria-label="linkedin">
+                                    <ion-icon name="logo-linkedin"></ion-icon>
+                                </a>
+                                <a href="{{ member.twitter }}" class="btn-icon" aria-label="twitter">
+                                    <ion-icon name="logo-twitter"></ion-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -2,7 +2,7 @@
 <header class="header" data-header>
     <div class="container">
         <a href="{% url 'dashboard:acceuil' %}" class="logo">
-            <img src="{% static '/assets/images/logo.svg' %}" width="119" height="37" alt="{{ site_name }}">
+            <img src="{% static '/assets/images/logo.webp' %}" width="50" height="30" alt="{{ site_name }}">
         </a>
 
         <nav class="navbar" data-navbar>
@@ -18,9 +18,12 @@
             <ul class="navbar-list">
                 <li>
                   <a href="{% url 'dashboard:acceuil' %}" class="navbar-link hover-1" data-nav-toggler>Accueil</a>
+                </li> 
+                <li>
+                    <a href="{% url 'dashboard:membre_list' %}" class="navbar-link hover-1" data-nav-toggler>Notre equipe</a>
                 </li>         
                 <li>
-                  <a href="{% url 'dashboard:list' %}" class="navbar-link hover-1" data-nav-toggler>Nos travaux</a>
+                  <a href="{% url 'research:list' %}" class="navbar-link hover-1" data-nav-toggler>Nos travaux</a>
                 </li>     
                 <li>
                   <a href="{% url 'blog:post_list' %}" class="navbar-link hover-1" data-nav-toggler>Blog</a>

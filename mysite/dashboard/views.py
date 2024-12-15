@@ -4,7 +4,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from members.models import Profile
 from research.models import ProjetRecherche
 from blog.models import Post
-from django.views.generic import ListView
+
 
 User  = get_user_model()
 
@@ -42,35 +42,22 @@ def member(request, pk):
     )
 
 
-class ProjetRechercheListView(ListView):
-    """
-    Alternative post list view
-    """
-    queryset = ProjetRecherche.objects.all()
-    context_object_name = 'posts'
-    paginate_by = 1
-    template_name = 'modèle/blog/affichage_sujets.html'
+def list_member(request):
+    list_member = Profile.objects.all()
 
+    members_by_role = {}
+    for member in list_member:
+        role_name = member.role
+        if role_name not in members_by_role:
+            members_by_role[role_name] = []
+        members_by_role[role_name].append(member)
 
-def recherche_list(request):
-    posts = ProjetRecherche.objects.all()
-    paginator = Paginator(posts, 4)
-    page_number = request.GET.get('page', 1)
-    try:
-        posts = paginator.page(page_number)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
+    return render(
+        request, 
+        'members/list.html', 
+        {
+            'list_member': list_member,
+            'members_by_role': members_by_role,
 
-    recherche_list = ProjetRecherche.objects.all()
-    return render(request, 'modèle/recherches/affichage_sujets.html', {'recherche_list' : recherche_list, 'posts': posts, 'paginator': paginator}) 
-
-def vue_projet(request, pk):
-    recherche_list = get_object_or_404(ProjetRecherche, pk=pk)
-    membres = recherche_list.members.all()
-    return render(request, 'modèle/recherches/sujet.html', {'recherche_list': recherche_list, 'membres': membres}) 
-
-def about(request):
-    return render(request, 'modèle/about/about.html')
-
+        }
+    )
