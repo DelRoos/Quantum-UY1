@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from members.models import Profile
 from autoslug import AutoSlugField
+import markdown
 
 
 
@@ -14,12 +15,16 @@ class ProjetRecherche(models.Model):
     slug = AutoSlugField(
         populate_from='titre',
     ) 
-    problematique = models.TextField()  
-    methode_recherche = models.TextField()  
+      
     members = models.ManyToManyField('members.Profile')  
-    domaines_application = models.TextField()  
-    resultats_impacts = models.TextField()  
+    body = models.TextField()
+    body_html = models.TextField(editable=False, blank=True)
     resumé = models.TextField()
+    # resumé_html = models.TextField(editable=False, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.body_html = markdown.markdown(self.body)
+        super().save(*args, **kwargs)
 
 class FAQ(models.Model):
     projet = models.ForeignKey(

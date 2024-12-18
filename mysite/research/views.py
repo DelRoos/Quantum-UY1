@@ -52,7 +52,7 @@ def vue_projet(request, slug):
     )
     membres = recherche_list.members.all()
 
-    # FAQ = recherche_list.FAQ.filter(active=True)[:3]
+    FAQ = recherche_list.FAQ.filter(active=True)[:3]
 
     form = CommentForm(request.POST if request.method == 'POST' else None)
 
@@ -66,7 +66,7 @@ def vue_projet(request, slug):
     context = {
         'recherche_list': recherche_list, 
         'form': form, 
-        # 'comment': comment, 
+        'FAQ': FAQ, 
         'membres': membres
     }
 

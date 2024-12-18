@@ -6,6 +6,36 @@
 {% block content %}
 <style>
   /* Styles spécifiques pour la page de détail */
+
+  .comments-section {
+    margin-block: 3rem;
+  }
+
+  .comment-card {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--bg-prussian-blue);
+    border-radius: var(--radius-8);
+    margin-bottom: 1.5rem;
+  }
+
+  .comment-content {
+    flex: 1;
+  }
+
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .comment-text {
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    line-height: 1.6;
+  }
+  
   .research-hero {
     padding-block-start: calc(var(--section-padding) + 60px);
     background-color: var(--bg-prussian-blue);
@@ -386,67 +416,71 @@
           <div class="content-main">
             <!-- Introduction -->
             <div class="content-section">
-              <h2 class="section-title">Pourquoi Ce Sujet Est-Il Important ?</h2>
-              <p class="research-text">
-                {{ recherche_list.resumé }}
-              </p>
-              <p class="research-text">
-                {{ recherche_list.problematique }}
-              </p>
-            </div>
-
-            <!-- Méthodes et Approches -->
-            <div class="content-section">
-              <h2 class="section-title">Méthodes et Approches</h2>
-              <p class="research-text">
-                {{ recherche_list.methode_recherche }}
-              </p>
-
-              <!-- Anecdote -->
-              <div class="fun-fact">
-                <h3 class="fun-fact-title">
-                  <ion-icon name="bulb-outline"></ion-icon>
-                  Domaines d'expertise
-                </h3>
-                <p>
-                  {{ recherche_list.domaines_application }}
+              <blockquote class="quote-block">
+                <p class="quote-text">
+                  {{ recherche_list.body_html|safe }}
                 </p>
-              </div>
+              </blockquote>
+
             </div>
 
-            <!-- Résultats et Découvertes -->
-            <div class="content-section">
-              <h2 class="section-title">Résultats et Découvertes</h2>
-              <p class="research-text">
-                {{ recherche_list.resultats_impacts }}
-              </p>
-            </div>
 
-            <!-- Comment Form -->
-            <form class="comment-form" method="post">
-              {% csrf_token %}
-              <h3 class="section-title">Posez vos questions</h3>
-              
-              <div class="form-field">
-                  <label for="{{ form.name.id_for_label }}" class="form-label">Nom</label>
-                  {{ form.name }}
-                  {{ form.name.errors }}
+
+
+            <section class="comments-section">
+              <h3 class="">{% with FAQ.count as total_FAQ %}
+               
+                {{ total_FAQ }} question(s){{ total_FAQ|pluralize }}
+            
+              {% endwith %}</h3>
+
+    
+              {% for comment in FAQ %}
+              <div class="comment-card">
+                <!-- <img src="/api/placeholder/48/48" alt="User" class="author-avatar"> -->
+                <div class="comment-content">
+                  <div class="comment-header">
+                    <div class="author-info">
+                      <span class="author-name">{{ comment.name }}</span>
+                      <span class="author-role">{{ comment.created }}</span>
+                    </div>
+                  </div>
+                  <p class="comment-text">
+                    {{ comment.question|linebreaks }}
+                  </p>
+                </div>
               </div>
-
-              <div class="form-field">
-                  <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
-                  {{ form.email }}
-                  {{ form.email.errors }}
-              </div>
-
-              <div class="form-field">
-                  <label for="{{ form.question.id_for_label }}" class="form-label">Question</label>
-                  {{ form.question }}
-                  {{ form.question.errors }}
-              </div>
-
-              <button type="submit" class="btn btn-primary">Publier le commentaire</button>
-            </form>
+            {% empty %}
+              <p>Ecrire une question...</p>
+            {% endfor %}
+    
+                <!-- Comment Form -->
+                <form class="comment-form" method="post">
+                  {% csrf_token %}
+                  <h3 class="section-title">Posez vos questions</h3>
+                  
+                  <div class="form-field">
+                      <label for="{{ form.name.id_for_label }}" class="form-label">Nom</label>
+                      {{ form.name }}
+                      {{ form.name.errors }}
+                  </div>
+    
+                  <div class="form-field">
+                      <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                      {{ form.email }}
+                      {{ form.email.errors }}
+                  </div>
+    
+                  <div class="form-field">
+                      <label for="{{ form.question.id_for_label }}" class="form-label">Question</label>
+                      {{ form.question }}
+                      {{ form.question.errors }}
+                  </div>
+    
+                  <button type="submit" class="btn btn-primary">Publier le commentaire</button>
+                </form>
+            </section>
+          
 
           </div>
 

@@ -98,7 +98,7 @@
                  <!-- Member -->
                  {% for member in list_member %}
                 <li class="slider-item">
-                  <a href="{{ member.id }}/" class="slider-card">
+                  <a href="{% url 'dashboard:membre' member.slug %}" class="slider-card">
 
                     <figure class="slider-banner img-holder" style="--width: 250; --height: 318;">
                       <img src="{{ member.photo.url }}" width="250" height="318" loading="lazy" alt=" ">
@@ -167,14 +167,14 @@
                   </div>
 
                   <h3 class="headline headline-3">
-                    <a href="{% url 'research:detail' recherche.id %}" class="card-title hover-2">
+                    <a href="{% url 'research:detail' recherche.slug %}" class="card-title hover-2">
                       {{ recherche.titre }}
                     </a>
                   </h3>
 
                   <div class="card-wrapper">
 
-                    <a href="#" class="card-btn">Read more</a>
+                    <a href="{% url 'research:detail' recherche.slug %}" class="card-btn">Read more</a>
 
                   </div>
 
@@ -185,7 +185,7 @@
             {% endfor %}
           </ul>
 
-          <a href="list/" class="btn btn-secondary">
+          <a href="{% url 'research:list' %}" class="btn btn-secondary">
             <span class="span">Voir plus de sujets</span>
 
             <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
@@ -234,7 +234,7 @@
                     <a href="#" class="card-badge">New</a>
 
                     <h3 class="headline headline-3 card-title">
-                      <a href="{% url 'blog:post_detail' post.id %}" class="link hover-2">{{post.title}}</a>
+                      <a href="{% url 'blog:post_detail' post.slug %}" class="link hover-2">{{post.title}}</a>
                     </h3>
 
                     <div class="card-wrapper">
@@ -251,14 +251,14 @@
               </li>
               {% endfor %}
             </ul>
-            <a href="blog/list_blog/" class="btn btn-secondary">
-              <span class="span">Voir plus d'article</span>
-    
-              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-            </a>
+            
           </div>
 
-         
+          <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">
+            <span class="span">Voir plus d'article</span>
+  
+            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+          </a>
         </div>
 
       </section>

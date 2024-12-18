@@ -621,7 +621,7 @@
 
               <blockquote class="quote-block">
                 <p class="quote-text">
-                  {{ post.body|linebreaks }}
+                  {{ post.body_html|safe }}
                 </p>
               </blockquote>
             </div>
@@ -660,26 +660,26 @@
                
                 {{ total_comments }} comment{{ total_comments|pluralize }}
             
-        {% endwith %} )</h2>
+              {% endwith %} )</h2>
 
-        {% for comment in comments %}
-              <div class="comment-card">
-                <!-- <img src="/api/placeholder/48/48" alt="User" class="author-avatar"> -->
-                <div class="comment-content">
-                  <div class="comment-header">
-                    <div class="author-info">
-                      <span class="author-name">{{ comment.name }}</span>
-                      <span class="author-role">{{ comment.created }}</span>
+              {% for comment in comments %}
+                    <div class="comment-card">
+                      <!-- <img src="/api/placeholder/48/48" alt="User" class="author-avatar"> -->
+                      <div class="comment-content">
+                        <div class="comment-header">
+                          <div class="author-info">
+                            <span class="author-name">{{ comment.name }}</span>
+                            <span class="author-role">{{ comment.created }}</span>
+                          </div>
+                        </div>
+                        <p class="comment-text">
+                          {{ comment.body|linebreaks }}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <p class="comment-text">
-                    {{ comment.body|linebreaks }}
-                  </p>
-                </div>
-              </div>
-        {% empty %}
-            <p>Ecrire un commentaire...</p>
-        {% endfor %}
+              {% empty %}
+                  <p>Ecrire un commentaire...</p>
+              {% endfor %}
 
               <!-- Comment Form -->
               <form class="comment-form" method="post">
@@ -762,7 +762,7 @@
         </figure>
         <div class="similar-post-content">
           <h4>
-            <a href="{% url 'blog:post_detail' post.id %}" class="similar-post-title">
+            <a href="{% url 'blog:post_detail' post.slug %}" class="similar-post-title">
               {{ post.title }}
             </a>
           </h4>

@@ -5,7 +5,76 @@
 
 {% block content %}
 
+<style>
+.section.team {
+    padding: 4rem 0; 
+}
 
+.grid-list {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2rem; 
+}
+
+.team-card {
+    background-color: var(--bg-oxford-blue); 
+    border: 1px solid #ddd;
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s; 
+}
+
+.team-card:hover {
+    transform: translateY(-5px); 
+}
+
+.card-banner {
+    width: 100%; 
+    height: 200px; 
+    position:sticky;
+}
+
+
+.img-cover {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+
+.card-content {
+    padding: 1.5rem; 
+}
+
+.card-title {
+    font-size: 2rem; 
+    color: #dfd7d7; 
+}
+
+.card-text {
+    font-size: 0.9rem; 
+    color: #666; 
+    margin: 0.5rem 0; 
+}
+
+.btn-group {
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 1rem; 
+}
+
+
+.btn-icon {
+    color: #007bff; 
+    font-size: 1.5rem; 
+    transition: color 0.3s;
+}
+
+.btn-icon:hover {
+    color: #0056b3; 
+}
+</style>
 
 <main>
 
@@ -38,8 +107,9 @@
 
                         <div class="card-content">
                             <h3 class="headline-3">
-                                <a href="{{ member.id }}/" class="card-title">{{ member.title.name }}. {{ member.user.first_name }} {{ member.user.last_name }}</a>
+                                <a href="{% url 'dashboard:membre' member.slug %}" class="card-title">{{ member.title.name }}. {{ member.user.first_name }} {{ member.user.last_name }}</a>
                             </h3>
+                            <p class="card-text">{{ member.profession }}</p>
                             <p class="card-text">{{ member.biographie }}</p>
 
                             <div class="btn-group">

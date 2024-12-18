@@ -5,6 +5,7 @@
 
 {% block content %}
 <style>
+
   /* Styles spécifiques pour le blog */
   .blog-hero {
     padding-block-start: calc(var(--section-padding) + 60px);
@@ -68,6 +69,13 @@
     align-items: start;
     margin-top: 2rem;
   }
+
+  .blog-contain{
+    display: grid; /* Utilisation de la grille CSS */
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes de largeur égale */
+    gap: 2rem; /* Espacement entre les articles */
+    margin-top: 2rem; /* Espacement au-dessus de la section */
+  }
   
   .featured-post {
     margin-bottom: 4rem;
@@ -75,17 +83,19 @@
     padding: 2rem;
     border-radius: var(--radius-16);
     border: 1px solid var(--border-prussian-blue);
+    width: 400px;  /* Largeur fixe */
+    height: 350px; /* Hauteur fixe */
   }
   
   .featured-banner {
     border-radius: var(--radius-16);
     overflow: hidden;
-    margin-bottom: 2rem;
-    margin-left: 18rem;
+    margin-bottom: 1rem;
+    margin-left: 9rem;
     border-radius: var(--radius-16);
     overflow: hidden;
-    width: 400px;  /* Largeur fixe */
-    height: 400px; /* Hauteur fixe */
+    width: 200px;  /* Largeur fixe */
+    height: 100px; /* Hauteur fixe */
     /* object-fit: cover;  */
   }
 
@@ -122,7 +132,7 @@
   }
 
   .featured-title {
-    font-size: var(--fontSize-2);
+    font-size: var(--fontSize-4);
     color: var(--text-alice-blue);
     margin-bottom: 1rem;
     transition: color var(--transition-1);
@@ -420,13 +430,13 @@
       <div class="container">
         <div class="blog-layout">
           <!-- Articles Column -->
-          <div class="articles-column">
+          <div class="blog-contain">
             <!-- Featured Post -->
             {% for post in posts %}
             <article class="featured-post">
-              <figure>
-                <img src="{{ post.photo.url }}" alt="" width="419" loading="cover">
-              </figure>
+              <!-- <figure class="featured-banner"> -->
+                <img class="featured-banner" src="{{ post.photo.url }}" alt="" loading="lazy">
+              <!-- </figure> -->
               <div class="article-tags">
                 {% for tag in post.tags.all %}
                 <a href="#" class="tag-link">{{ tag.name }}</a>
@@ -443,14 +453,14 @@
                   <ion-icon name="person-outline"></ion-icon>
                   <span>{{ post.author.first_name }} {{ post.author.last_name }}</span>
                 </span>
-                <span class="meta-item">
+                <!-- <span class="meta-item">
                   <ion-icon name="chatbubble-outline"></ion-icon>
                   <span>8 Commentaires</span>
-                </span>
+                </span> -->
               </div>
 
               <h2>
-                <a href="{% url 'blog:post_detail' post.id %}" class="featured-title">
+                <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title">
                   {{post.title}}
                 </a>
               </h2>
@@ -460,6 +470,78 @@
             {% endfor %}
 
           </div>
+
+          <!-- Sidebar -->
+          <aside class="sidebar">
+            <!-- Articles Populaires -->
+            <div class="sidebar-card">
+              <h3 class="sidebar-title">Articles Populaires</h3>
+                  <article class="popular-post">
+                    <figure class="popular-banner">
+                      <img src="{% static '/assets/images/logo.webp' %}" alt="Article populaire 1" loading="lazy">
+                    </figure>
+                    <div class="popular-content">
+                      <a href="#" class="popular-title">Le Futur des Ordinateurs Quantiques</a>
+                      <span class="meta-item">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <span>15 Nov 2024</span>
+                      </span>
+                    </div>
+                  </article>
+
+                  <article class="popular-post">
+                    <figure class="popular-banner">
+                      <img src="{% static '/assets/images/logo.webp' %}" alt="Article populaire 2" loading="lazy">
+                    </figure>
+                    <div class="popular-content">
+                      <a href="#" class="popular-title">Les Avancées de la Physique Quantique</a>
+                      <span class="meta-item">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <span>20 Nov 2024</span>
+                      </span>
+                    </div>
+                  </article>
+
+                  <article class="popular-post">
+                    <figure class="popular-banner">
+                      <img src="{% static '/assets/images/logo.webp' %}" alt="Article populaire 3" loading="lazy">
+                    </figure>
+                    <div class="popular-content">
+                      <a href="#" class="popular-title">Les Mystères de l'Univers</a>
+                      <span class="meta-item">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <span>25 Nov 2024</span>
+                      </span>
+                    </div>
+                  </article>
+
+                  <!-- Ajoutez plus d'articles populaires ici -->
+            </div>
+
+
+            <!-- Articles Récents -->
+            <div class="sidebar-card">
+              <h3 class="sidebar-title">Articles Récents</h3>
+
+              <article class="popular-post">
+                <figure class="popular-banner">
+                  <img src="{% static '/assets/images/logo.webp' %}" alt="Article populaire 1" loading="lazy">
+                </figure>
+
+                <div class="popular-content">
+                  <a href="" class="popular-title">
+                    Le Futur des Ordinateurs Quantiques
+                  </a>
+                  <span class="meta-item">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    <span>15 Nov 2024</span>
+                  </span>
+                </div>
+              </article>
+
+              <!-- Ajoutez plus d'articles Récents -->
+            </div>
+          </aside>
         </div>
       </div>
       {% include "include/pagination.html" with page=posts %}

@@ -213,6 +213,9 @@
         <h2 class="card-title">Biographie</h2>
         <p>
           <div>
+            {{ member.profession }}
+          </div>
+          <div>
             {{ member.biographie }}
           </div>
          <br>
@@ -232,24 +235,16 @@
     </div>
 
     <div class="grid-2">
-        <!-- <div class="card">
+        <div class="card">
             <h2 class="card-title">Parcours</h2>
+            {% for education in parcours %}
             <div class="experience-item">
-                <div class="experience-date">2018 - Présent</div>
-                <h3 class="experience-title">Chercheuse Principale</h3>
-                <p class="experience-location">Laboratoire Quantum UY1</p>
+                <div class="experience-date">{{ education.start_date }} - {{ education.end_date }}</div>
+                <h3 class="experience-title">{{ education.diplome }} en {{ education.filiere }}</h3>
+                <p class="experience-location">{{ education.institution }}</p>
             </div>
-            <div class="experience-item">
-                <div class="experience-date">2012 - 2018</div>
-                <h3 class="experience-title">Ph.D. en Physique Quantique</h3>
-                <p class="experience-location">Université de Paris</p>
-            </div>
-            <div class="experience-item">
-                <div class="experience-date">2008 - 2012</div>
-                <h3 class="experience-title">M.Sc. en Physique des Particules</h3>
-                <p class="experience-location">Université de Genève</p>
-            </div>
-        </div> -->
+            {% endfor %}
+        </div>
 
 
         {% if article %}

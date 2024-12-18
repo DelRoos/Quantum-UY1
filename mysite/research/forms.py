@@ -13,7 +13,7 @@ class ProjetRechercheForm(forms.ModelForm):
 
     class Meta:
         model = ProjetRecherche
-        fields = ['titre', 'photo', 'problematique', 'methode_recherche', 'members', 'domaines_application', 'resultats_impacts', 'resumé']
+        fields = ['titre', 'photo', 'members', 'body', 'resumé']
         widgets = {
             'titre': forms.TextInput(attrs={
                 'class': 'block w-full p-2 mb-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-purple-500 text-black',
@@ -22,24 +22,10 @@ class ProjetRechercheForm(forms.ModelForm):
             'photo': forms.ClearableFileInput(attrs={
                 'class': 'block w-full mb-3'
             }),
-            'problematique': forms.Textarea(attrs={
+            'body': forms.Textarea(attrs={
                 'class': 'block w-full p-2 mb-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-purple-500 text-black',
-                'placeholder': 'Problématique',
-                'rows': 4
-            }),
-            'methode_recherche': forms.Textarea(attrs={
-                'class': 'block w-full p-2 mb-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-purple-500 text-black',
-                'placeholder': 'Méthode de recherche',
-                'rows': 4
-            }),
-            'domaines_application': forms.TextInput(attrs={
-                'class': 'block w-full p-2 mb-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-purple-500 text-black',
-                'placeholder': 'Domaines d\'application'
-            }),
-            'resultats_impacts': forms.Textarea(attrs={
-                'class': 'block w-full p-2 mb-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-purple-500 text-black',
-                'placeholder': 'Résultats et impacts',
-                'rows': 4
+                'placeholder': 'Contenu du post',
+                'rows': 6
             }),
             'resumé': forms.Textarea(attrs={
                 'class': 'block w-full p-2 mb-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-purple-500 text-black',

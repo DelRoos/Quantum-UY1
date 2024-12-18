@@ -13,18 +13,16 @@ django.setup()
 
 def main():
     """Run administrative tasks."""
-    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
     
     try:
         from django.contrib.auth.models import User
-        from members.models import Title, ExpertiseField, Role, Profile
+        from members.models import Title, ExpertiseField, Role, Profile, Education
         from taggit.models import Tag
         from blog.models import Post
         from research.models import ProjetRecherche
         from faker import Faker
 
         fake = Faker()
-
 
         # Fonction pour créer des titres
         def create_titles():
@@ -36,12 +34,21 @@ def main():
             for role_choice in Role.ROLE_CHOICES:
                 Role.objects.get_or_create(name=role_choice[0])
 
-
-
-        def create_expertises(max = 10):
+        def create_expertises(max=10):
             for _ in range(max):
                 ExpertiseField.objects.create(
                     name=fake.word(),
+                )
+
+        def create_education(user, max=3):  # Ajoutez une fonction pour créer des données d'éducation
+            for _ in range(random.randint(1, max)):  # Créez entre 1 et max enregistrements
+                Education.objects.create(
+                    user=user,
+                    diplome=fake.sentence(nb_words=3),
+                    institution=fake.company(),
+                    filiere=fake.word(),
+                    start_date=fake.date_between(start_date='-10y', end_date='-1y'),
+                    end_date=fake.date_between(start_date='-1y', end_date='today') if random.choice([True, False]) else None,
                 )
 
         def create_users_with_profiles(max=50):
@@ -56,10 +63,10 @@ def main():
                 title = Title.objects.order_by('?').first()
                 role = Role.objects.order_by('?').first()
                 
-
                 # Créer un profil pour chaque utilisateur
                 profile = Profile.objects.create(
                     user=user,
+                    profession=fake.text(max_nb_chars=150),  
                     biographie=fake.text(max_nb_chars=150),  
                     date_of_birth=fake.date(),
                     website=fake.url(), 
@@ -74,6 +81,9 @@ def main():
                 # Ajouter des expertises aléatoires au profil
                 expertise_fields = ExpertiseField.objects.all()
                 profile.expertise.add(*random.sample(list(expertise_fields), random.randint(1, 5)))
+
+                # Créer des données d'éducation pour l'utilisateur
+                create_education(user)  # Appel de la fonction pour créer des données d'éducation
 
                 # Copier une image dans le dossier MEDIA_ROOT
                 image_folder = 'media/Images'  # Remplacez par le chemin vers votre dossier d'images
@@ -90,17 +100,11 @@ def main():
                 profile.photo = os.path.join('users', today.strftime('%Y'), today.strftime('%m'), today.strftime('%d'), image_file)
                 profile.save()
 
-
-
-       
-
         def create_posts(max=70):
             image_folder = 'media/Images'  # Remplacez par le chemin vers votre dossier d'images
             images = os.listdir(image_folder)  # Liste des fichiers d'images dans le dossier
             markdown_folder = 'media/Markdown' 
             markdown_files = [f for f in os.listdir(markdown_folder) if f.endswith('.md')]  
-
-
 
             for _ in range(max):
                 title = fake.sentence()
@@ -118,13 +122,11 @@ def main():
                 with open(markdown_path, 'r', encoding='utf-8') as f:
                     body_content = f.read()  # Lire le contenu du fichier Markdown
 
-    
-
                 # Créer un post avec l'image
-                post =Post.objects.create(
+                post = Post.objects.create(
                     title=title,
                     photo=os.path.join('blog', today.strftime('%Y'), today.strftime('%m'), today.strftime('%d'), image_file),
-                    author=User.objects.order_by('?').first(),
+                    author=User .objects.order_by('?').first(),
                     body=body_content,
                     publish=fake.date_time(),
                     status=random.choice(['DF', 'PB']),
@@ -132,11 +134,11 @@ def main():
                 tags = [fake.word() for _ in range(random.randint(1, 5))]  # Générer entre 1 et 5 tags aléatoires
                 post.tags.add(*tags)
 
-
-
         def create_projet_recherche(max=55):
             image_folder = 'media/Images'  # Remplacez par le chemin vers votre dossier d'images
             images = os.listdir(image_folder)  # Liste des fichiers d'images dans le dossier
+            markdown_folder = 'media/Markdown' 
+            markdown_files = [f for f in os.listdir(markdown_folder) if f.endswith('.md')]  
 
             for _ in range(max):
                 titre = fake.sentence()
@@ -148,21 +150,21 @@ def main():
                 destination_path = os.path.join(destination_folder, image_file)
                 shutil.copy(image_path, destination_path)
 
+                markdown_file = random.choice(markdown_files)
+                markdown_path = os.path.join(markdown_folder, markdown_file)
+                with open(markdown_path, 'r', encoding='utf-8') as f:
+                    body_content = f.read()  # Lire le contenu du fichier Markdown
+
                 # Créer un projet de recherche avec l'image
                 projet_recherche = ProjetRecherche.objects.create(
                     titre=titre,
                     photo=os.path.join('research', today.strftime('%Y'), today.strftime('%m'), today.strftime('%d'), image_file),
-                    problematique=fake.text(),
-                    methode_recherche=fake.text(),
-                    domaines_application=fake.text(),
-                    resultats_impacts=fake.text(),
+                    body=body_content,
                     resumé=fake.text(),
                 )
                 members = random.sample(list(Profile.objects.all()), 10)
                 for member in members:
                     projet_recherche.members.add(member.id)
-
-
 
         create_titles()  
         create_roles()
@@ -170,12 +172,9 @@ def main():
         create_users_with_profiles(50)
         create_posts(70)
         create_projet_recherche(55)
-        
-
-
 
     except Exception as err:
-       print("Error : "+ str(err))
+        print("Error : " + str(err))
 
 
 if __name__ == '__main__':

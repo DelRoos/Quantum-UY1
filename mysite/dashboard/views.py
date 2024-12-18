@@ -1,17 +1,28 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from members.models import Profile
+from django.views.generic import ListView
+from members.models import Profile, Education
 from research.models import ProjetRecherche
 from blog.models import Post
 
 
 User  = get_user_model()
 
+class PostListView(ListView):
+    """
+    Alternative post list view
+    """
+    queryset = Post.published.all()
+    context_object_name = 'posts'
+    paginate_by = 1
+    template_name = 'modèle/blog/affichage_articles.html'
+
+
 def dashboard(request):
     list_member = Profile.objects.all()
     list_projet = ProjetRecherche.objects.all()[:5]
-    list_article = Post.objects.all()[:3]
+    list_article = Post.published.all()[:3]
 
     return render(
         request, 
@@ -23,11 +34,13 @@ def dashboard(request):
         }
     )
 
-def member(request, pk):
-    member = get_object_or_404(Profile, pk=pk)
-    user = get_object_or_404(User, pk=pk) 
+def member(request, slug):
+    member = get_object_or_404(Profile, slug=slug)
+    user = member.user
     article = Post.objects.filter(author=member.user, status=Post.Status.PUBLISHED)  
     projets = ProjetRecherche.objects.filter(members=member)
+    parcours = Education.objects.filter(user=user)
+
 
     # article = Post.objects.all()
 
@@ -37,7 +50,8 @@ def member(request, pk):
         {
             'member': member,
             'projets': projets,
-            'article': article
+            'article': article,
+            'parcours': parcours
         }
     )
 

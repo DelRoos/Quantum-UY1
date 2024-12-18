@@ -1,5 +1,8 @@
 from django.db import models
 from django.conf import settings
+from django.utils.text import slugify
+from autoslug import AutoSlugField
+
 
 
 class Title(models.Model):
@@ -57,6 +60,7 @@ class ExpertiseField(models.Model):
     def __str__(self):
         return self.name
 
+
         
 class Profile(models.Model):
     user = models.OneToOneField(
@@ -74,7 +78,8 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
 
     )
-
+    slug = AutoSlugField(max_length=255, unique=True, blank=True)
+    profession = models.TextField(max_length=150)
     biographie = models.TextField(max_length=150)
     expertise = models.ManyToManyField(ExpertiseField)
     date_of_birth = models.DateField(blank=True, null=True)
@@ -90,7 +95,34 @@ class Profile(models.Model):
     twitter = models.URLField(max_length=100)
 
     def __str__(self):
-        return f'Profile of {self.user.username}'
+        return f'Profile of {self.user.first_name} {self.user.last_name}'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(f"{self.user.first_name} {self.user.last_name}")
+        super().save(*args, **kwargs)
+
+
+class Education(models.Model):
+    """Parcours académique des membres"""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    diplome = models.CharField("Diplôme", max_length=200)
+    institution = models.CharField("Institution", max_length=200)
+    filiere = models.CharField("Domaine d'étude", max_length=200)
+    start_date = models.DateField("Date de début")
+    end_date = models.DateField("Date de fin", null=True, blank=True)
+    
+    class Meta:
+        ordering = ['-end_date', '-start_date']
+        verbose_name = "Formation"
+        verbose_name_plural = "Formations"
+
+    def __str__(self):
+        return f"{self.diplome} - {self.institution}"
 
 
 
