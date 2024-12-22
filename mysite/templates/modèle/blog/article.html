@@ -581,7 +581,7 @@
           <div class="author-card">
             <img src="{{ author_profile.photo.url }}" alt=" " class="author-avatar">
             <div class="author-info">
-              <span class="author-name">Published  by {{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</span>
+              <span class="author-name">by {{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</span>
               <span class="author-role">
                 <span class="info-item">
                   <ion-icon name="calendar-outline"></ion-icon>
@@ -595,7 +595,7 @@
               <ion-icon name="chatbubble-outline"></ion-icon>
               <span>{% with comments.count as total_comments %}
                
-                    {{ total_comments }}{{ total_comments|pluralize }}
+                    {{ total_comments }}
                 
             {% endwith %} Commentaire(s)</span>
             </span>
@@ -630,11 +630,7 @@
             
             <div class="article-tags">
               
-              {% for tag in post.tags.all %}
-                <a class="tag-link" href="{% url "blog:post_list_by_tag" tag.slug %}">
-              {{ tag.name }}
-                </a>
-              {% endfor %}
+
 
             </div>
 
@@ -658,7 +654,7 @@
             <section class="comments-section">
               <h2 class="section-title">Commentaires ( {% with comments.count as total_comments %}
                
-                {{ total_comments }} comment{{ total_comments|pluralize }}
+                {{ total_comments }}
             
               {% endwith %} )</h2>
 

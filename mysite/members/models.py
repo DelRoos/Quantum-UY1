@@ -7,11 +7,11 @@ from autoslug import AutoSlugField
 
 class Title(models.Model):
     TITLE_CHOICES = [
-        ('monsieur', 'Mr'),
-        ('madame', 'Mme'),
-        ('mademoiselle', 'Mll'),
-        ('docteur', 'Dr'),
-        ('professeur', 'Pr'),
+        ('Mr', 'monsieur'),
+        ('Mme', 'madame' ),
+        ('Mll', 'mademoiselle'),
+        ('Dr', 'docteur'),
+        ('Pr', 'professeur'),
     ]
 
 

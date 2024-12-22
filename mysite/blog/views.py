@@ -1,7 +1,7 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_POST
-from .models import Post
+from .models import Categorie, Post
 from django.views.generic import ListView
 from .forms import CommentForm, EmailPostForm, PostForm
 from django.conf import settings
@@ -21,12 +21,14 @@ class PostListView(ListView):
     template_name = 'modèle/blog/affichage_articles.html'
 
 
-def post_list(request, tag_slug=None):
+def post_list(request, name=None):
     posts = Post.published.all()
-    tag = None
-    if tag_slug:
-        tag = get_object_or_404(Tag, slug=tag_slug)
-        posts = posts.filter(tags__in=[tag])
+    categorie = None
+
+    if name:
+        categorie = get_object_or_404(Categorie, name=name)
+        posts = posts.filter(categorie=categorie)  # Assurez-vous que le champ est correct
+
     paginator = Paginator(posts, 4)
     page_number = request.GET.get('page', 1)
     try:
@@ -40,11 +42,11 @@ def post_list(request, tag_slug=None):
     for post in posts:
         comments_dict[post.id] = post.comments.filter(active=True)
 
-    all_tags = Tag.objects.all()
+    all_categories = Categorie.objects.all()
     return render(
         request,
         'modèle/blog/affichage_articles.html',
-        {'posts': posts, 'tag': tag, 'all_tags': all_tags, 'comments_dict': comments_dict, 'paginator': paginator}
+        {'posts': posts, 'all_categories': all_categories, 'comments_dict': comments_dict, 'paginator': paginator}
     )
 
 def post_detail(request, slug):

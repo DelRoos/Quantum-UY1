@@ -198,12 +198,8 @@
       </section>
 
 
-
-
-
-
       <!-- 
-        - #RECENT POST
+        - #POST
       -->
 
       <section class="section recent-post" id="recent" aria-labelledby="recent-label">
@@ -252,6 +248,47 @@
               {% endfor %}
             </ul>
             
+          </div>
+
+          <div class="post-aside grid-list">
+
+            <div class="card aside-card">
+
+              <h3 class="headline headline-2 aside-title">
+                <span class="span">Popular Posts</span>
+              </h3>
+
+              <ul class="popular-list">
+                {% for post in article %}
+                <li>
+                  <div class="popular-card">
+
+                    <figure class="card-banner img-holder" style="--width: 64; --height: 64;">
+                      <img src="{{ post.photo.url }}" width="64" height="64" loading="lazy"
+                        alt="Creating is a privilege but it’s also a gift" class="img-cover">
+                    </figure>
+
+                    <div class="card-content">
+
+                      <h4 class="headline headline-4 card-title">
+                        <a href="{% url 'blog:post_detail' post.slug %}" class="link hover-2">{{post.title}}</a>
+                      </h4>
+
+                      <div class="warpper">
+
+                        <time class="publish-date" datetime="2022-04-15">{{post.publish}}</time>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+
+            </div>
+
+
           </div>
 
           <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">

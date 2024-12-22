@@ -23,6 +23,7 @@ def dashboard(request):
     list_member = Profile.objects.all()
     list_projet = ProjetRecherche.objects.all()[:5]
     list_article = Post.published.all()[:3]
+    article = Post.published.order_by('publish')[:5]
 
     return render(
         request, 
@@ -30,7 +31,8 @@ def dashboard(request):
         {
             'list_member': list_member,
             'list_projet': list_projet,
-            'list_article': list_article
+            'list_article': list_article,
+            'article': article
         }
     )
 

@@ -18,7 +18,7 @@ def main():
         from django.contrib.auth.models import User
         from members.models import Title, ExpertiseField, Role, Profile, Education
         from taggit.models import Tag
-        from blog.models import Post
+        from blog.models import Categorie, Post
         from research.models import ProjetRecherche
         from faker import Faker
 
@@ -50,6 +50,10 @@ def main():
                     start_date=fake.date_between(start_date='-10y', end_date='-1y'),
                     end_date=fake.date_between(start_date='-1y', end_date='today') if random.choice([True, False]) else None,
                 )
+
+        def create_categories():
+            for categorie_choice in Categorie.CATEGORIE_CHOICES:
+                Categorie.objects.get_or_create(name=categorie_choice[0])
 
         def create_users_with_profiles(max=50):
             for _ in range(max):
@@ -122,6 +126,8 @@ def main():
                 with open(markdown_path, 'r', encoding='utf-8') as f:
                     body_content = f.read()  # Lire le contenu du fichier Markdown
 
+                categorie = Categorie.objects.order_by('?').first()
+
                 # Créer un post avec l'image
                 post = Post.objects.create(
                     title=title,
@@ -130,6 +136,7 @@ def main():
                     body=body_content,
                     publish=fake.date_time(),
                     status=random.choice(['DF', 'PB']),
+                    categorie=categorie 
                 )
                 tags = [fake.word() for _ in range(random.randint(1, 5))]  # Générer entre 1 et 5 tags aléatoires
                 post.tags.add(*tags)
@@ -169,6 +176,7 @@ def main():
         create_titles()  
         create_roles()
         create_expertises(10)
+        create_categories()
         create_users_with_profiles(50)
         create_posts(70)
         create_projet_recherche(55)

@@ -396,7 +396,7 @@
             <ion-icon name="people-outline"></ion-icon>
             <span>{% with membres.count as total_membres %}
                
-              {{ total_membres }}{{ total_membres|pluralize }}
+              {{ total_membres }}
           
             {% endwith %} Chercheurs</span>
           </div>
@@ -430,7 +430,7 @@
             <section class="comments-section">
               <h3 class="">{% with FAQ.count as total_FAQ %}
                
-                {{ total_FAQ }} question(s){{ total_FAQ|pluralize }}
+                {{ total_FAQ }} question(s)
             
               {% endwith %}</h3>
 

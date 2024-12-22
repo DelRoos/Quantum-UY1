@@ -37,6 +37,15 @@
         display: inline-block;
     }
 
+    .image {
+        width: 100px;
+        height: 100px;
+        /* border-radius: var(--radius-circle); */
+        /* margin-bottom: 20px; */
+        object-fit: cover;
+        display: inline-block;
+    }
+
     .member-title {
         font-size: 2.5rem;
         color: var(--text-alice-blue);
@@ -102,14 +111,27 @@
     }
 
     .publication-list {
-        display: grid;
-        gap: 20px;
+    display: flex;
+    flex-direction: column; /* Pour empiler les projets verticalement */
+    gap: 20px; /* Espacement entre les projets */
     }
 
-    .publication-item {
-        background-color: var(--bg-prussian-blue);
-        padding: 20px;
-        border-radius: var(--radius-8);
+    .project-item {
+      display: flex; /* Aligne l'image et le texte horizontalement */
+      align-items: center; /* Centre verticalement */
+      background-color: var(--bg-prussian-blue); /* Optionnel : couleur de fond */
+      padding: 10px; /* Optionnel : espacement interne */
+      border-radius: var(--radius-8); /* Optionnel : arrondir les coins */
+      text-decoration: none; /* Enlève le soulignement du lien */
+      color: inherit; /* Hérite de la couleur du texte */
+    }
+
+    .project-item:hover {
+      transform: scale(1.05);
+    }
+
+    .card-banner {
+      margin-right: 15px; /* Espacement entre l'image et le texte */
     }
 
     .grid-2 {
@@ -247,42 +269,45 @@
         </div>
 
 
-        {% if article %}
+        
           
         <div class="card">
             <h2 class="card-title">Publications</h2>
             <div class="publication-list">
+              {% if article %}
               {% for post in article %}
-              <a href="{% url 'blog:post_detail' post.id %}" class="card-title hover-2">
+              <a href="{% url 'blog:post_detail' post.slug %}" class="card-title hover-2">
                 <div class="publication-item">
                   <h3 class="experience-title">{{ post.title }}</h3>
                   <p class="experience-date">{{ post.publish }}</p>
                 </div>
               </a>
-                
-                {% endfor %}
+              {% endfor %}
+              {% else %}
+                <div class="publication-item">
+                  <h3 class="experience-title">Aucun article posté</h3>
+                </div>
+              {% endif %}
             </div>
         </div>
 
-          
-        {% endif %}
     </div>
-
 
 
     {% if projets %}
     <div class="card">
         <h2 class="card-title">Projets de Recherche</h2>
         <div class="publication-list">
-          {% for projet in projets %}
-          <a href="{% url 'research:detail' projet.id %}" class="card-title hover-2">
-            <div class="publication-item">
-              <h3 class="experience-title">{{ projet.titre }}</h3>
-              <p class="experience-date">En cours</p>
-              <p>{{ projet.resumé }}</p>
-            </div>
-          </a>
-            
+            {% for projet in projets %}
+            <a href="{% url 'research:detail' projet.slug %}" class="project-item">
+                <figure class="card-banner img-holder">
+                    <img src="{{ projet.photo.url }}" alt="{{ projet.titre }}" class="image">
+                </figure>
+                <div class="publication-item">
+                    <h3 class="experience-title">{{ projet.titre }}</h3>
+                    <p>{{ projet.resumé }}</p>
+                </div>
+            </a>
             {% endfor %}
         </div>
     </div>

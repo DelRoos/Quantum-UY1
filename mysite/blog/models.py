@@ -6,6 +6,28 @@ from autoslug import AutoSlugField
 from taggit.managers import TaggableManager
 import markdown
 
+class Categorie(models.Model):
+    CATEGORIE_CHOICES = [
+        ('Culture', 'culture'),
+        ('Space', 'space'),
+        ('Animal', 'animal'),
+        ('Minimal', 'minimal'),
+        ('Nature', 'nature'),
+    ]
+
+
+    name = models.CharField(
+        max_length=100,
+        choices=CATEGORIE_CHOICES,
+        default='Culture'  
+    )
+    
+
+    def __str__(self):
+        return self.get_name_display() 
+    
+    class Meta:
+        ordering = ['name']  # Tri par ordre alphabétique
 
 
 
@@ -26,6 +48,11 @@ class Post(models.Model):
         upload_to='blog/%Y/%m/%d/',
         blank=True
     ) 
+    categorie = models.ForeignKey(
+        Categorie,
+        on_delete=models.CASCADE,
+
+    )
     tags = TaggableManager()
     title = models.CharField(max_length=250)
     slug = AutoSlugField(
@@ -72,7 +99,7 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         # Convertir le contenu Markdown en HTML avant de sauvegarder
-        self.body_html = markdown.markdown(self.body)
+        self.body_html = markdown.markdown(self.body, extensions=["fenced_code", "tables"])
         super().save(*args, **kwargs)
 
 

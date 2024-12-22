@@ -403,25 +403,28 @@
           et les avancées scientifiques.
         </p>
 
+
         <!-- <div class="blog-categories">
-          {% if tag %}
-          {% if posts %}
-            <h2>Articles pour le tag : {{ tag.name }}</h2>
+          {% if categorie %}
+              {% if posts %}
+                <h2>Articles pour la catégorie : {{ categorie.name }}</h2>
+              {% else %}
+                  <p>Aucun article trouvé pour la catégorie : {{ categorie.name }}</p>
+              {% endif %}
           {% else %}
-            <h2>Aucun article trouvé pour le tag : {{ tag.name }}</h2>
+              <h2>Aucune catégorie spécifiée.</h2>
           {% endif %}
-        {% endif %}
-        </div>
+        </div> -->
 
         <div class="blog-categories">
           <button class="category-btn">
             <a href="{% url 'blog:post_list' %}" class="tag-link">All</a>
           </button>
-          {% for tag in all_tags %}
-          <button class="category-btn"><a href="{% url 'blog:post_list_by_tag' tag.slug %}" class="tag-link">{{ tag.name }}</a></button>
+          {% for category in all_categories %}
+          <button class="category-btn"><a href="{% url 'blog:post_list_by_categorie' category.name %}" class="tag-link">{{ category.name }}</a></button>
           {% endfor %}
 
-        </div> -->
+        </div>
       </div>
     </section>
 
@@ -438,9 +441,7 @@
                 <img class="featured-banner" src="{{ post.photo.url }}" alt="" loading="lazy">
               <!-- </figure> -->
               <div class="article-tags">
-                {% for tag in post.tags.all %}
-                <a href="#" class="tag-link">{{ tag.name }}</a>
-                {% endfor %}
+                <a href="#" class="tag-link">{{ post.categorie }}</a>
               </div>
                 
 
@@ -519,9 +520,9 @@
             </div>
 
 
-            <!-- Articles Récents -->
+            <!-- Recommandation -->
             <div class="sidebar-card">
-              <h3 class="sidebar-title">Articles Récents</h3>
+              <h3 class="sidebar-title">Recommandation</h3>
 
               <article class="popular-post">
                 <figure class="popular-banner">
@@ -539,7 +540,7 @@
                 </div>
               </article>
 
-              <!-- Ajoutez plus d'articles Récents -->
+              <!-- Ajoutez plus d'Recommandation -->
             </div>
           </aside>
         </div>
