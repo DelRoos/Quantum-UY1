@@ -75,7 +75,9 @@
     padding: 2rem;
     border-radius: var(--radius-16);
     border: 1px solid var(--border-prussian-blue);
-  }
+    max-width: 800px; /* Limite la largeur maximale de la section principale */
+    margin: 0 auto; /* Centre la section */
+}
 
   .article-image {
     margin-left: 18rem;
@@ -91,16 +93,15 @@
     height: auto;
   }
 
-  .article-text {
-    color: var(--text-wild-blue-yonder);
-    font-size: var(--fontSize-6);
+
+.article-text {
     line-height: 1.8;
     margin-block: 1.5rem;
-  }
+}
 
-  .article-section {
-    margin-block: 3rem;
-  }
+.article-section {
+    overflow-x: auto; /* Permet le défilement horizontal */
+}
 
   .section-title {
     color: var(--text-carolina-blue);
@@ -615,9 +616,6 @@
             </figure>
 
             <div class="article-section">
-              <p class="article-text">
-                <!-- {{ post.body|linebreaks }} -->
-              </p>
 
               <blockquote class="quote-block">
                 <p class="quote-text">

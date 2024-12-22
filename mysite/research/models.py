@@ -23,7 +23,7 @@ class ProjetRecherche(models.Model):
     # resumé_html = models.TextField(editable=False, blank=True)
 
     def save(self, *args, **kwargs):
-        self.body_html = markdown.markdown(self.body)
+        self.body_html = markdown.markdown(self.body, extensions=["fenced_code", "tables"])
         super().save(*args, **kwargs)
 
 class FAQ(models.Model):
