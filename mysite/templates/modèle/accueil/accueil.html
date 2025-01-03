@@ -4,7 +4,30 @@
 {% block title %}Accueil - {{ site_name }}{% endblock %}
 
 {% block content %}
+<style>
+  .card-banner1 {
+    height: 300px;
+    overflow: hidden; /* Masquer les débordements */
+    display: flex; /* Centrer le contenu */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+  }
 
+  .card-banner2 {
+    height: 54px;
+    overflow: hidden; /* Masquer les débordements */
+    display: flex; /* Centrer le contenu */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+  }
+
+  .img_projet {
+    width: 100%; /* Prendre toute la largeur */
+    height: auto; /* Garder le ratio d'aspect */
+    max-height: 100%; /* Limiter la hauteur à 100% de la figure */
+    object-fit: cover; /* Couvrir l'élément sans déformer l'image */
+  }
+</style>
   <main>
     <article>
 
@@ -150,8 +173,8 @@
             <li>
               <div class="research-topic-card">
 
-                <figure class="card-banner img-holder" style="--width: 510; --height: 500;">
-                  <img class="img_projet" src="{{ recherche.photo.url }}" width="510" height="500" loading="lazy">
+                <figure class="card-banner card-banner1 img-holder">
+                  <img class="img_projet" src="{{ recherche.photo.url }}" alt="" loading="lazy">
                 </figure>
 
                 <div class="card-content">
@@ -222,7 +245,7 @@
 
                   <figure class="card-banner img-holder" style="--width: 271; --height: 258;">
                     <img src="{{ post.photo.url }}" width="271" height="258" loading="lazy"
-                      alt="Helpful Tips for Working from Home as a Freelancer" class="img-cover">
+                      alt="" class="img-cover">
                   </figure>
 
                   <div class="card-content">
@@ -263,9 +286,8 @@
                 <li>
                   <div class="popular-card">
 
-                    <figure class="card-banner img-holder" style="--width: 64; --height: 64;">
-                      <img src="{{ post.photo.url }}" width="64" height="64" loading="lazy"
-                        alt="Creating is a privilege but it’s also a gift" class="img-cover">
+                    <figure class="card-banner card-banner2 img-holder">
+                      <img src="{{ post.photo.url }}" width="64" height="64" alt="">
                     </figure>
 
                     <div class="card-content">

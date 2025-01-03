@@ -118,9 +118,12 @@ def edit(request):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        default_title = Title.objects.get(id=1)
-        default_role = Role.objects.get(id=1)  # Remplacez 1 par un ID valide
-        Profile.objects.create(user=instance, title=default_role)
+        try:
+            default_title = Title.objects.first()
+            default_role = Role.objects.first()
+            Profile.objects.create(user=instance, title=default_title, role=default_role)
+        except Exception as e:
+            print(f"Erreur lors de la création du profil : {e}")
 
 
 

@@ -242,16 +242,23 @@
           </div>
          <br>
           <div class="btn-group">
-            <a href="{{ member.google_scholar }}" class="btn-icon" aria-label="facebook">
-                <ion-icon name="logo-facebook"></ion-icon>
-              </a>
-            <a href="{{ member.linkedin }}" class="btn-icon" aria-label="linkedin">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-            <a href="{{ member.twitter }}" class="btn-icon" aria-label="twitter">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-
+            {% if member.google_scholar %}
+                <a href="{{ member.google_scholar }}" class="btn-icon" aria-label="Google Scholar">
+                    <ion-icon name="logo-google-scholar"></ion-icon>
+                </a>
+            {% endif %}
+            
+            {% if member.linkedin %}
+                <a href="{{ member.linkedin }}" class="btn-icon" aria-label="LinkedIn">
+                    <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+            {% endif %}
+            
+            {% if member.twitter %}
+                <a href="{{ member.twitter }}" class="btn-icon" aria-label="Twitter">
+                    <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+            {% endif %}
           </div>
         </p>
     </div>

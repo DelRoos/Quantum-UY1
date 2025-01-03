@@ -99,10 +99,15 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         # Convertir le contenu Markdown en HTML avant de sauvegarder
-        self.body_html = markdown.markdown(self.body, extensions=["fenced_code", "tables"])
+        extensions=["fenced_code", "tables","extra"]
+        
+        self.body_html = markdown.markdown(self.body, extensions=extensions, extension_configs={
+            'markdown.extensions.extra': {
+                'breaks': True 
+            }
+        })
         super().save(*args, **kwargs)
-
-
+ 
 
         
 

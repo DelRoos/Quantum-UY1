@@ -29,6 +29,9 @@ def main():
             for title_choice in Title.TITLE_CHOICES:
                 Title.objects.get_or_create(name=title_choice[0])
 
+        create_titles()  
+        
+
         # Fonction pour créer des rôles
         def create_roles():
             for role_choice in Role.ROLE_CHOICES:
@@ -39,6 +42,9 @@ def main():
                 ExpertiseField.objects.create(
                     name=fake.word(),
                 )
+
+        create_roles()
+
 
         def create_education(user, max=3):  # Ajoutez une fonction pour créer des données d'éducation
             for _ in range(random.randint(1, max)):  # Créez entre 1 et max enregistrements
@@ -54,6 +60,9 @@ def main():
         def create_categories():
             for categorie_choice in Categorie.CATEGORIE_CHOICES:
                 Categorie.objects.get_or_create(name=categorie_choice[0])
+        
+        create_categories()
+
 
         def create_users_with_profiles(max=50):
             for _ in range(max):
@@ -169,17 +178,15 @@ def main():
                     body=body_content,
                     resumé=fake.text(),
                 )
-                members = random.sample(list(Profile.objects.all()), 10)
+                members = random.sample(list(Profile.objects.all()), 5)
                 for member in members:
                     projet_recherche.members.add(member.id)
 
-        create_titles()  
-        create_roles()
-        create_expertises(10)
-        create_categories()
-        create_users_with_profiles(50)
-        create_posts(70)
-        create_projet_recherche(55)
+
+        # create_expertises(10)
+        # create_users_with_profiles(50)
+        # create_posts(70)
+        create_projet_recherche(9)
 
     except Exception as err:
         print("Error : " + str(err))

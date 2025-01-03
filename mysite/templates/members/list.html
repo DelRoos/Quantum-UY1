@@ -56,12 +56,15 @@
     font-size: 0.9rem; 
     color: #666; 
     margin: 0.5rem 0; 
+    width: 100%; 
+    box-sizing: border-box; 
 }
 
 .btn-group {
     display: flex; 
     justify-content: space-between; 
     margin-top: 1rem; 
+    grid-template-columns: repeat(1, 1fr); 
 }
 
 
@@ -108,20 +111,32 @@
                         <h3 class="headline-3">
                             <a href="{% url 'dashboard:membre' member.slug %}" class="card-title">{{ member.title.name }}. {{ member.user.first_name }} {{ member.user.last_name }}</a>
                         </h3>
-                        <p class="card-text">{{ member.profession }}</p>
-                        <p class="card-text">{{ member.biographie }}</p>
-
                         <div class="btn-group">
-                            <a href="{{ member.google_scholar }}" class="btn-icon" aria-label="google scholar">
-                                <ion-icon name="logo-google"></ion-icon>
-                            </a>
-                            <a href="{{ member.linkedin }}" class="btn-icon" aria-label="linkedin">
-                                <ion-icon name="logo-linkedin"></ion-icon>
-                            </a>
-                            <a href="{{ member.twitter }}" class="btn-icon" aria-label="twitter">
-                                <ion-icon name="logo-twitter"></ion-icon>
-                            </a>
+                            {% if member.google_scholar %}
+                                <a href="{{ member.google_scholar }}" class="btn-icon" aria-label="Google Scholar">
+                                    <ion-icon name="logo-google-scholar"></ion-icon>
+                                </a>
+                            {% endif %}
+                            
+                            {% if member.linkedin %}
+                                <a href="{{ member.linkedin }}" class="btn-icon" aria-label="LinkedIn">
+                                    <ion-icon name="logo-linkedin"></ion-icon>
+                                </a>
+                            {% endif %}
+                            
+                            {% if member.twitter %}
+                                <a href="{{ member.twitter }}" class="btn-icon" aria-label="Twitter">
+                                    <ion-icon name="logo-twitter"></ion-icon>
+                                </a>
+                            {% endif %}
                         </div>
+                        <div>
+                            <!-- <p class="card-text">{{ member.profession }}</p> -->
+                            <p class="card-text">{{ member.biographie }}</p>
+                        </div>
+                        
+
+                        
                     </div>
                     {% endfor %}
                 </div>
@@ -132,3 +147,8 @@
     </section>
 </main>
 {% endblock %}
+
+
+
+
+

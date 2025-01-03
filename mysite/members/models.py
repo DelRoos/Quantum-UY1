@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser 
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
@@ -18,7 +19,7 @@ class Title(models.Model):
     name = models.CharField(
         max_length=100,
         choices=TITLE_CHOICES,
-        default='monsieur'  
+        default='Mr'  
     )
     
 
@@ -43,7 +44,7 @@ class Role(models.Model):
     name = models.CharField(
         max_length=100,
         choices=ROLE_CHOICES,
-        default='etudiant_chercheur'  # Optionnel : définir une valeur par défaut
+        default='administrateur'  # Optionnel : définir une valeur par défaut
     )
 
     def __str__(self):
@@ -60,8 +61,7 @@ class ExpertiseField(models.Model):
     def __str__(self):
         return self.name
 
-
-        
+      
 class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -87,12 +87,12 @@ class Profile(models.Model):
         upload_to='users/%Y/%m/%d/',
         blank=True
     )
-    website = models.URLField(max_length=100)
-    google_scholar = models.URLField(max_length=100)
-    researchgate = models.URLField(max_length=100)
-    orcid = models.CharField(max_length=100)
-    linkedin = models.URLField(max_length=100)
-    twitter = models.URLField(max_length=100)
+    website = models.URLField(max_length=100, blank=True, null=True)
+    google_scholar = models.URLField(max_length=100, blank=True, null=True)
+    researchgate = models.URLField(max_length=100, blank=True, null=True)
+    orcid = models.CharField(max_length=100, blank=True, null=True)
+    linkedin = models.URLField(max_length=100, blank=True, null=True)
+    twitter = models.URLField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return f'Profile of {self.user.first_name} {self.user.last_name}'

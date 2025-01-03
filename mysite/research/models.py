@@ -20,11 +20,18 @@ class ProjetRecherche(models.Model):
     body = models.TextField()
     body_html = models.TextField(editable=False, blank=True)
     resumé = models.TextField()
-    # resumé_html = models.TextField(editable=False, blank=True)
 
     def save(self, *args, **kwargs):
-        self.body_html = markdown.markdown(self.body, extensions=["fenced_code", "tables"])
+        extensions=["fenced_code", "tables","extra",]
+        
+        self.body_html = markdown.markdown(self.body, extensions=extensions, extension_configs={
+            'markdown.extensions.extra': {
+                'breaks': True  # Gérer les sauts de ligne
+            }
+        })
         super().save(*args, **kwargs)
+
+    
 
 class FAQ(models.Model):
     projet = models.ForeignKey(
