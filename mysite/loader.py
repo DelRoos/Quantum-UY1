@@ -183,9 +183,9 @@ def main():
                     projet_recherche.members.add(member.id)
 
 
-        # create_expertises(10)
-        # create_users_with_profiles(50)
-        # create_posts(70)
+        create_expertises(10)
+        create_users_with_profiles(50)
+        create_posts(70)
         create_projet_recherche(9)
 
     except Exception as err:

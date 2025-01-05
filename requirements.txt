@@ -5,7 +5,7 @@ python-decouple==3.8
 django-autoslug==1.9.9
 django-crispy-forms==2.3
 faker
-django-taggit-6.1.0
-markdown-3.7
-postgres:16.2
-psycopg-3.1.18
+django-taggit==6.1.0
+markdown==3.7
+postgres==16.2
+psycopg==3.1.18
