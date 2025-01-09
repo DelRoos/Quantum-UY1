@@ -1,12 +1,30 @@
 {% extends "bases.html" %}
 {% load static %}
 
-{% block title %}Accueil - {{ site_name }}{% endblock %}
+{% block title %}{{ site_name }}-Recherches{% endblock %}
 
 {% block content %}
 
 
 <style>
+  .resume {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    max-height: 3em;
+  }
+  .titre {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    max-height: 3em;
+  }
   /* Styles spécifiques pour la page des travaux */
   .hero {
     padding-block-start: calc(var(--section-padding));
@@ -586,17 +604,17 @@
                 <article class="secondary-project-card">
                 <figure class="secondary-project-banner">
                     <img class="img_projet" src="{{ recherche.photo.url }}" alt="" loading="lazy">
-                    <!-- <span class="secondary-badge">En cours</span> -->
+                    <span class="secondary-badge">{{ recherche.start|date:"Y" }}-{{ recherche.end|date:"Y" }}</span>
                 </figure>
                 
                 <div class="project-content">
                 
 
                     <h3 class="project-title">
-                    <a href="#">{{ recherche.titre }}</a>
+                    <a href="{% url 'research:detail' recherche.slug %}" class="titre">{{ recherche.titre }}</a>
                     </h3>
 
-                    <p class="project-description">
+                    <p class="project-description resume">
                       {{ recherche.resumé }}
                     </p>
 

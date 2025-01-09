@@ -174,6 +174,8 @@ def main():
                 # Créer un projet de recherche avec l'image
                 projet_recherche = ProjetRecherche.objects.create(
                     titre=titre,
+                    start=fake.date_between(start_date='-1y', end_date='today'),  # Date de début aléatoire
+                    end=fake.date_between(start_date='today', end_date='+1y'),    # Date de fin aléatoire
                     photo=os.path.join('research', today.strftime('%Y'), today.strftime('%m'), today.strftime('%d'), image_file),
                     body=body_content,
                     resumé=fake.text(),
@@ -186,7 +188,7 @@ def main():
         create_expertises(10)
         create_users_with_profiles(50)
         create_posts(70)
-        create_projet_recherche(9)
+        create_projet_recherche(90)
 
     except Exception as err:
         print("Error : " + str(err))

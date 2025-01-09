@@ -1,7 +1,7 @@
 {% extends "bases.html" %}
 {% load static %}
 
-{% block title %}Accueil - {{ site_name }}{% endblock %}
+{% block title %}{{ site_name }}-Publications{% endblock %}
 
 {% block content %}
 <style>
@@ -586,7 +586,7 @@
               <span class="author-role">
                 <span class="info-item">
                   <ion-icon name="calendar-outline"></ion-icon>
-                  <span>{{ post.publish }}</span>
+                  <span>{{ post.publish|date:"d M Y" }}</span>
                 </span>
             </div>
           </div>
@@ -712,9 +712,10 @@
       <div class="author-profile">
         <img src="{{ author_profile.photo.url }}" alt=" " class="author-avatar">
         <h4 class="author-name">{{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</h4>
-        <p class="author-role">Spécialisé en {% for expertise in author_profile.expertise.all %}
-          {{ expertise.name }}{% if not forloop.last %}, {% endif %}
-      {% endfor %}</p>
+        <p class="author-role">Spécialisé en 
+          {% for expertise in author_profile.expertise.all %}
+            {{ expertise.name }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}</p>
         
         <!-- <div class="author-stats">
           <div class="stat-item">
@@ -763,7 +764,7 @@
           <div class="similar-post-meta">
             <span>
               <ion-icon name="calendar-outline"></ion-icon>
-              {{ post.publish }}
+              {{ post.publish|date:"d M Y" }}
             </span>
           </div>
         </div>
@@ -791,7 +792,7 @@
           <div class="similar-post-meta">
             <span>
               <ion-icon name="calendar-outline"></ion-icon>
-              {{ post.publish }}
+              {{ post.publish|date:"d M Y" }}
             </span>
           </div>
         </div>

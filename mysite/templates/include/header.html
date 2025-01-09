@@ -1,35 +1,57 @@
 {% load static %}
+<style>
+    .navbar-link.active {
+        color: var(--text-carolina-blue);
+        font-weight: bold; 
+        background-color: rgba(0, 123, 255, 0.1); 
+        border-radius: 20px; 
+    }
+    .navbar {
+        display: flex; 
+        align-items: center; 
+    }
+    .app-name {
+        margin-left: 10px; 
+        font-size: 1.5em; 
+        font-weight: bold; 
+        color: var(--text-carolina-blue); 
+    }
+</style>
 <header class="header" data-header>
     <div class="container">
-        <a href="{% url 'dashboard:acceuil' %}" class="logo">
-            <img src="{% static '/assets/images/logo.webp' %}" width="50" height="30" alt="{{ site_name }}">
-        </a>
+        <div class="navbar">
+            <a href="{% url 'dashboard:acceuil' %}" class="logo">
+                <img src="{% static '/assets/images/logo.webp' %}" width="50" height="30" alt="{{ site_name }}">
+               
+            </a>
+            <span class="app-name">Quantum UY1</span>
+        </div>
 
         <nav class="navbar" data-navbar>
             <div class="navbar-top">
                 <a href="{% url 'dashboard:acceuil' %}" class="logo">
                     <img src="{% static '/assets/images/logo.webp' %}" width="119" height="37" alt="{{ site_name }}">
                 </a>
+                <span class="app-name">Quantum UY1</span>
                 <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
                     <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
                 </button>
             </div>
-
+        
             <ul class="navbar-list">
                 <li>
-                  <a href="{% url 'dashboard:acceuil' %}" class="navbar-link hover-1" data-nav-toggler>Accueil</a>
+                    <a href="{% url 'dashboard:acceuil' %}" class="navbar-link hover-1 {% if request.path == '/' %}active{% endif %}" data-nav-toggler>Accueil</a>
                 </li> 
                 <li>
-                    <a href="{% url 'dashboard:membre_list' %}" class="navbar-link hover-1" data-nav-toggler>Notre equipe</a>
+                    <a href="{% url 'dashboard:membre_list' %}" class="navbar-link hover-1 {% if request.path == '/members' %}active{% endif %}" data-nav-toggler>Notre équipe</a>
                 </li>         
                 <li>
-                  <a href="{% url 'research:list' %}" class="navbar-link hover-1" data-nav-toggler>Nos travaux</a>
+                    <a href="{% url 'research:list' %}" class="navbar-link hover-1 {% if request.path == '/research/' %}active{% endif %}" data-nav-toggler>Nos travaux</a>
                 </li>     
                 <li>
-                  <a href="{% url 'blog:post_list' %}" class="navbar-link hover-1" data-nav-toggler>Blog</a>
+                    <a href="{% url 'blog:post_list' %}" class="navbar-link hover-1 {% if request.path == '/blog/' %}active{% endif %}" data-nav-toggler>Blog</a>
                 </li>
             </ul>
-      
         </nav>
 
         <a href="#newsletter" class="btn btn-primary">Rejoignez-nous</a>

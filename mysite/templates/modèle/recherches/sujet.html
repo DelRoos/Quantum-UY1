@@ -1,7 +1,7 @@
 {% extends "bases.html" %}
 {% load static %}
 
-{% block title %}Accueil - {{ site_name }}{% endblock %}
+{% block title %}{{ site_name }}-Recherches{% endblock %}
 
 {% block content %}
 <style>
@@ -393,7 +393,7 @@
         <div class="research-meta">
           <div class="meta-item">
             <ion-icon name="time-outline"></ion-icon>
-            <span>2022-2025</span>
+            <span>{{ recherche_list.start|date:"Y" }}-{{ recherche_list.end|date:"Y" }}</span>
           </div>
           <div class="meta-item">
             <ion-icon name="people-outline"></ion-icon>
@@ -493,7 +493,7 @@
             <div class="sidebar-card">
               <h3 class="section-title">Équipe de Recherche</h3>
               {% for membre in membres %}
-              <a href="{% url 'dashboard:membre' membre.id %}" class="link hover-2">
+              <a href="{% url 'dashboard:membre' membre.slug %}" class="link hover-2">
                 <div class="team-member">
                   <img src="{{ membre.photo.url }}" alt=" " class="member-avatar">
                   <div class="member-info">

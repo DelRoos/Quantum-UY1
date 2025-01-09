@@ -1,7 +1,7 @@
 {% extends "bases.html" %}
 {% load static %}
 
-{% block title %}Accueil - {{ site_name }}{% endblock %}
+{% block title %}{{ site_name }}-Accueil{% endblock %}
 
 {% block content %}
 <style>
@@ -26,6 +26,25 @@
     height: auto; /* Garder le ratio d'aspect */
     max-height: 100%; /* Limiter la hauteur à 100% de la figure */
     object-fit: cover; /* Couvrir l'élément sans déformer l'image */
+  }
+
+  .resume {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    max-height: 3em;
+  }
+  .titre {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    max-height: 3em;
   }
 </style>
   <main>
@@ -185,15 +204,16 @@
                     <div class="wrapper">
                       <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
 
-                      <span class="span">{{ recherche.publish }}</span>
+                      <span class="span">{{ recherche.created_at|date:"d M Y" }}</span>
                     </div>
                   </div>
 
-                  <h3 class="headline headline-3">
+                  <h3 class="titre headline headline-3">
                     <a href="{% url 'research:detail' recherche.slug %}" class="card-title hover-2">
                       {{ recherche.titre }}
                     </a>
                   </h3>
+                  <div class="resume">{{ recherche.resumé }}</div>
 
                   <div class="card-wrapper">
 
@@ -234,9 +254,9 @@
               <span class="span">Recent posts</span>
             </h2>
 
-            <!-- <p class="section-text">
-              Don't miss the latest trends
-            </p> -->
+            <p class="section-text">
+              
+            </p>
 
             <ul class="grid-list">
               {% for post in list_article %}
@@ -250,17 +270,18 @@
 
                   <div class="card-content">
 
-                    <a href="#" class="card-badge">New</a>
+                    <div class="card-badge">New</div>
 
                     <h3 class="headline headline-3 card-title">
                       <a href="{% url 'blog:post_detail' post.slug %}" class="link hover-2">{{post.title}}</a>
                     </h3>
+                    <div class="resume"></div>
 
                     <div class="card-wrapper">
                       <div class="wrapper">
                         <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
 
-                        <span class="span">{{post.publish}}</span>
+                        <span class="span">{{post.publish|date:"d M Y"}}</span>
                       </div>
                     </div>
 
@@ -298,7 +319,7 @@
 
                       <div class="warpper">
 
-                        <time class="publish-date" datetime="2022-04-15">{{post.publish}}</time>
+                        <time class="publish-date" datetime="2022-04-15">{{post.publish|date:"d M Y"}}</time>
                       </div>
 
                     </div>

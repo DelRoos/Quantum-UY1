@@ -46,7 +46,7 @@ def post_list(request, name=None):
     return render(
         request,
         'modèle/blog/affichage_articles.html',
-        {'posts': posts, 'all_categories': all_categories, 'comments_dict': comments_dict, 'paginator': paginator}
+        {'posts': posts, 'selected_category_name': name, 'all_categories': all_categories, 'comments_dict': comments_dict, 'paginator': paginator}
     )
 
 def post_detail(request, slug):

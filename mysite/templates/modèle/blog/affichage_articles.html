@@ -1,10 +1,47 @@
 {% extends "bases.html" %}
 {% load static %}
 
-{% block title %}Accueil - {{ site_name }}{% endblock %}
+{% block title %}{{ site_name }}-Publications{% endblock %}
 
 {% block content %}
 <style>
+
+  .category-btn {
+    background-color: #f0f0f0; /* Couleur de fond par défaut */
+    border: 1px solid #ccc; /* Bordure par défaut */
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+  .category-btn.active {
+    background-color: #007bff; /* Couleur de fond pour le bouton actif */
+    color: white; /* Couleur du texte pour le bouton actif */
+  }
+
+  .category-btn a {
+    text-decoration: none; /* Pas de soulignement */
+    color: inherit; /* Couleur du texte héritée */
+  }
+  .titre {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    max-height: 3em;
+  }
+
+  .resume {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    max-height: 3em;
+  }
 
   /* Styles spécifiques pour le blog */
   .blog-hero {
@@ -84,7 +121,7 @@
     border-radius: var(--radius-16);
     border: 1px solid var(--border-prussian-blue);
     width: 400px;  /* Largeur fixe */
-    height: 350px; /* Hauteur fixe */
+    height: 400px; /* Hauteur fixe */
   }
   
   .featured-banner {
@@ -95,7 +132,7 @@
     border-radius: var(--radius-16);
     overflow: hidden;
     width: 200px;  /* Largeur fixe */
-    height: 100px; /* Hauteur fixe */
+    height: 200px; /* Hauteur fixe */
     /* object-fit: cover;  */
   }
 
@@ -138,7 +175,16 @@
     transition: color var(--transition-1);
   }
 
+  .featured-name {
+    font-size: var(--fontSize-7);
+    transition: color var(--transition-1);
+  }
+
   .featured-title:hover {
+    color: var(--text-carolina-blue);
+  }
+
+  .featured-name:hover {
     color: var(--text-carolina-blue);
   }
 
@@ -285,8 +331,8 @@
 
   .popular-banner {
     width: 80px;
-    height: 80px;
-    border-radius: var(--radius-8);
+    height: 50px;
+    border-radius: 50%;
     overflow: hidden;
   }
 
@@ -417,13 +463,14 @@
         </div> -->
 
         <div class="blog-categories">
-          <button class="category-btn">
-            <a href="{% url 'blog:post_list' %}" class="tag-link">All</a>
+          <button class="category-btn {% if not selected_category_name %}active{% endif %}">
+              <a href="{% url 'blog:post_list' %}" class="tag-link">All</a>
           </button>
           {% for category in all_categories %}
-          <button class="category-btn"><a href="{% url 'blog:post_list_by_categorie' category.name %}" class="tag-link">{{ category.name }}</a></button>
+          <button class="category-btn {% if category.name == selected_category_name %}active{% endif %}">
+              <a href="{% url 'blog:post_list_by_categorie' category.name %}" class="tag-link">{{ category.name }}</a>
+          </button>
           {% endfor %}
-
         </div>
       </div>
     </section>
@@ -448,11 +495,12 @@
               <div class="post-meta">
                 <span class="meta-item">
                   <ion-icon name="calendar-outline"></ion-icon>
-                  <span>{{post.publish}}</span>
+                  <span>{{post.publish|date:"d M Y"}}</span>
                 </span>
                 <span class="meta-item">
                   <ion-icon name="person-outline"></ion-icon>
-                  <span>{{ post.author.first_name }} {{ post.author.last_name }}</span>
+                  <a href="{{ author_profile.photo.url }}" class="featured-name"><span>{{ post.author.first_name }} {{ post.author.last_name }}</span></a>
+                  
                 </span>
                 <!-- <span class="meta-item">
                   <ion-icon name="chatbubble-outline"></ion-icon>
@@ -461,7 +509,7 @@
               </div>
 
               <h2>
-                <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title">
+                <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
                   {{post.title}}
                 </a>
               </h2>
@@ -479,10 +527,10 @@
               <h3 class="sidebar-title">Articles Populaires</h3>
                   <article class="popular-post">
                     <figure class="popular-banner">
-                      <img src="{% static '/assets/images/logo.webp' %}" alt="Article populaire 1" loading="lazy">
+                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
                     </figure>
                     <div class="popular-content">
-                      <a href="#" class="popular-title">Le Futur des Ordinateurs Quantiques</a>
+                      <a href="#" class="popular-title resume">Le Futur des Ordinateurs Quantiques</a>
                       <span class="meta-item">
                         <ion-icon name="calendar-outline"></ion-icon>
                         <span>15 Nov 2024</span>
@@ -492,10 +540,10 @@
 
                   <article class="popular-post">
                     <figure class="popular-banner">
-                      <img src="{% static '/assets/images/logo.webp' %}" alt="Article populaire 2" loading="lazy">
+                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
                     </figure>
                     <div class="popular-content">
-                      <a href="#" class="popular-title">Les Avancées de la Physique Quantique</a>
+                      <a href="#" class="popular-title resume">Les Avancées de la Physique Quantique</a>
                       <span class="meta-item">
                         <ion-icon name="calendar-outline"></ion-icon>
                         <span>20 Nov 2024</span>
@@ -503,18 +551,7 @@
                     </div>
                   </article>
 
-                  <article class="popular-post">
-                    <figure class="popular-banner">
-                      <img src="{% static '/assets/images/logo.webp' %}" alt="Article populaire 3" loading="lazy">
-                    </figure>
-                    <div class="popular-content">
-                      <a href="#" class="popular-title">Les Mystères de l'Univers</a>
-                      <span class="meta-item">
-                        <ion-icon name="calendar-outline"></ion-icon>
-                        <span>25 Nov 2024</span>
-                      </span>
-                    </div>
-                  </article>
+                 
 
                   <!-- Ajoutez plus d'articles populaires ici -->
             </div>
@@ -526,11 +563,11 @@
 
               <article class="popular-post">
                 <figure class="popular-banner">
-                  <img src="{% static '/assets/images/logo.webp' %}" alt="Article populaire 1" loading="lazy">
+                  <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire 1" loading="lazy">
                 </figure>
 
                 <div class="popular-content">
-                  <a href="" class="popular-title">
+                  <a href="" class="popular-title resume">
                     Le Futur des Ordinateurs Quantiques
                   </a>
                   <span class="meta-item">

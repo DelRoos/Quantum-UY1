@@ -3,12 +3,8 @@
 \*-----------------------------------*/
 
 /**
- * copyright 2022 codewithsadee
+ * copyright 2024 codelysht
  */
-
-
-
-
 
 /*-----------------------------------*\
   #CUSTOM PROPERTY
@@ -235,7 +231,7 @@ body.nav-active { overflow: hidden; }
   font-size: var(--fontSize-2);
   line-height: var(--lineHeight-2);
 }
-card
+.card
 .section-title { margin-block-end: 10px; }
 
 .headline .span {

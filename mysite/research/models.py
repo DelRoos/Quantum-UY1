@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
 from members.models import Profile
 from autoslug import AutoSlugField
@@ -15,18 +16,24 @@ class ProjetRecherche(models.Model):
     slug = AutoSlugField(
         populate_from='titre',
     ) 
-      
+    start = models.DateField()
+    end = models.DateField()
     members = models.ManyToManyField('members.Profile')  
     body = models.TextField()
     body_html = models.TextField(editable=False, blank=True)
     resumé = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if self.end and self.start and self.end < self.start:
+            raise ValidationError("La date de fin doit être postérieure à la date de début.")
 
     def save(self, *args, **kwargs):
         extensions=["fenced_code", "tables","extra",]
         
         self.body_html = markdown.markdown(self.body, extensions=extensions, extension_configs={
             'markdown.extensions.extra': {
-                'breaks': True  # Gérer les sauts de ligne
+                'breaks': True  
             }
         })
         super().save(*args, **kwargs)
