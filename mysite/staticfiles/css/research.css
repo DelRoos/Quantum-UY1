@@ -1,0 +1,32 @@
+.research-list {
+    list-style: none;
+    padding: 0;
+}
+
+.research-list li {
+    margin: 10px 0;
+}
+
+.research-list a {
+    text-decoration: none;
+    color: #3aafa9;
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-block;
+    margin: 10px 5px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
