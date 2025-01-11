@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-el(=tp37^52u1p=s2bl=r^2cgf5f9d$h5e1w8cnfxe07g4vd5i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['Lysht.pythonanywhere.com','127.0.0.1:8000']
+ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
