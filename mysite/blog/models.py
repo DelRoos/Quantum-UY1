@@ -53,6 +53,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
 
     )
+    description = models.TextField()
     tags = TaggableManager()
     title = models.CharField(max_length=250)
     slug = AutoSlugField(
@@ -63,6 +64,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='blog_posts'
     )
+    source = models.URLField(max_length=100, blank=True, null=True)
     body = models.TextField()
     body_html = models.TextField(editable=False, blank=True)
     publish = models.DateTimeField(default=timezone.now)
@@ -101,11 +103,7 @@ class Post(models.Model):
         # Convertir le contenu Markdown en HTML avant de sauvegarder
         extensions=["fenced_code", "tables","extra"]
         
-        self.body_html = markdown.markdown(self.body, extensions=extensions, extension_configs={
-            'markdown.extensions.extra': {
-                'breaks': True 
-            }
-        })
+        self.body_html = markdown.markdown(self.body, extensions=extensions)
         super().save(*args, **kwargs)
  
 

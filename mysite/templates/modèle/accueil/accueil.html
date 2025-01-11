@@ -62,7 +62,7 @@
             <p class="hero-subtitle">Bienvenue dans l'univers de la recherche quantique</p>
 
             <h1 class="headline headline-1 section-title">
-              Team <span class="span">Quantum UY1</span>
+              Equipe <span class="span">Quantum UY1</span>
             </h1>
 
             <p class="hero-text">
@@ -275,7 +275,7 @@
                     <h3 class="headline headline-3 card-title">
                       <a href="{% url 'blog:post_detail' post.slug %}" class="link hover-2">{{post.title}}</a>
                     </h3>
-                    <div class="resume"></div>
+                    <div class="resume">{{ post.description }}</div>
 
                     <div class="card-wrapper">
                       <div class="wrapper">
@@ -316,6 +316,8 @@
                       <h4 class="headline headline-4 card-title">
                         <a href="{% url 'blog:post_detail' post.slug %}" class="link hover-2">{{post.title}}</a>
                       </h4>
+
+                      <div class="resume">{{ post.description }}</div>
 
                       <div class="warpper">
 

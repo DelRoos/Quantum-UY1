@@ -16,6 +16,7 @@ class ProjetRecherche(models.Model):
     slug = AutoSlugField(
         populate_from='titre',
     ) 
+    source = models.URLField(max_length=100, blank=True, null=True)
     start = models.DateField()
     end = models.DateField()
     members = models.ManyToManyField('members.Profile')  
@@ -31,11 +32,7 @@ class ProjetRecherche(models.Model):
     def save(self, *args, **kwargs):
         extensions=["fenced_code", "tables","extra",]
         
-        self.body_html = markdown.markdown(self.body, extensions=extensions, extension_configs={
-            'markdown.extensions.extra': {
-                'breaks': True  
-            }
-        })
+        self.body_html = markdown.markdown(self.body, extensions=extensions)
         super().save(*args, **kwargs)
 
     

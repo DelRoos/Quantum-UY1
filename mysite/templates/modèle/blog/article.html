@@ -582,7 +582,7 @@
           <div class="author-card">
             <img src="{{ author_profile.photo.url }}" alt=" " class="author-avatar">
             <div class="author-info">
-              <span class="author-name">by {{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</span>
+              <span class="author-name"> {{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</span>
               <span class="author-role">
                 <span class="info-item">
                   <ion-icon name="calendar-outline"></ion-icon>
@@ -634,16 +634,11 @@
 
             <!-- Share Section -->
             <div class="share-section">
-              <span class="share-title">Partager l'article :</span>
               <div class="share-buttons">
-                <a href="#" class="share-btn" aria-label="Share on Twitter">
-                  <ion-icon name="logo-twitter"></ion-icon>
+                <a href="{{ post.source }}" class="tag-link" aria-label="source">
+                  Source de l'article
                 </a>
-                <a href="#" class="share-btn" aria-label="Share on LinkedIn">
-                  <ion-icon name="logo-linkedin"></ion-icon>
-                </a>
-                <a href="#" class="share-btn" aria-label="Share on Facebook">
-                  <ion-icon name="logo-facebook"></ion-icon>
+                
                 </a>
               </div>
             </div>
@@ -798,7 +793,7 @@
         </div>
       </article>
       {% empty %}
-        There are no similar posts yet.
+        Pas de publication similaire trouvée.
       {% endfor %}
     </div>
   </aside>

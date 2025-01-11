@@ -143,6 +143,8 @@ def main():
                     photo=os.path.join('blog', today.strftime('%Y'), today.strftime('%m'), today.strftime('%d'), image_file),
                     author=User .objects.order_by('?').first(),
                     body=body_content,
+                    description=fake.sentence(),
+                    source=fake.url(), 
                     publish=fake.date_time(),
                     status=random.choice(['DF', 'PB']),
                     categorie=categorie 
@@ -179,6 +181,7 @@ def main():
                     photo=os.path.join('research', today.strftime('%Y'), today.strftime('%m'), today.strftime('%d'), image_file),
                     body=body_content,
                     resumé=fake.text(),
+                    source=fake.url(), 
                 )
                 members = random.sample(list(Profile.objects.all()), 5)
                 for member in members:

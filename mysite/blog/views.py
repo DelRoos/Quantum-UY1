@@ -9,6 +9,8 @@ from django.contrib.auth import get_user_model
 from members.models import Profile
 from taggit.models import Tag
 from django.db.models import Count
+import markdown
+from django.utils.html import mark_safe
 
 
 class PostListView(ListView):
@@ -81,6 +83,15 @@ def post_detail(request, slug):
     similar_posts = similar_posts.annotate(
         same_tags=Count('tags')
     ).order_by('-same_tags', '-publish')[:4]
+
+     # Convertir le Markdown en HTML
+    html_content = markdown.markdown(post.body, extensions=["extra"])
+    
+    # Remplacer les sauts de ligne par des <br>
+    html_content = html_content.replace('\n', '<br>')
+    
+    # Marquer le contenu comme sûr
+    post.body_html = mark_safe(html_content)
 
 
     context = {

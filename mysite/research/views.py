@@ -4,6 +4,9 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import ProjetRecherche
 from .forms import ProjetRechercheForm, CommentForm
 from django.views.generic import ListView
+import markdown
+from django.utils.html import mark_safe
+
 
 
 
@@ -55,13 +58,21 @@ def vue_projet(request, slug):
     FAQ = recherche_list.FAQ.filter(active=True)[:3]
 
     form = CommentForm(request.POST if request.method == 'POST' else None)
-
     
     if request.method == 'POST' and form.is_valid():
         comment = form.save(commit=False)
         comment.projet = recherche_list
         comment.save()
         form = CommentForm() 
+
+     # Convertir le Markdown en HTML
+    html_content = markdown.markdown(recherche_list.body, extensions=["extra"])
+    
+    # Remplacer les sauts de ligne par des <br>
+    html_content = html_content.replace('\n', '<br>')
+    
+    # Marquer le contenu comme sûr
+    recherche_list.body_html = mark_safe(html_content)
 
     context = {
         'recherche_list': recherche_list, 

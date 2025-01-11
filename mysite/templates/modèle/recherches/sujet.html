@@ -11,6 +11,35 @@
     margin-block: 3rem;
   }
 
+  .tag-link {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-prussian-blue);
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-7);
+    border-radius: var(--radius-pill);
+    transition: all var(--transition-1);
+  }
+
+  .tag-link:hover {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+  }
+
+  .share-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-block: 3rem;
+    padding: 1.5rem;
+    background-color: var(--bg-prussian-blue);
+    border-radius: var(--radius-8);
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
   .comment-card {
     display: flex;
     gap: 1.5rem;
@@ -427,7 +456,16 @@
 
             </div>
 
-
+            <!-- Share Section -->
+            <div class="share-section">
+              <div class="share-buttons">
+                <a href="{{ recherche_list.source }}" class="tag-link" aria-label="source">
+                  Source de l'article
+                </a>
+                
+                </a>
+              </div>
+            </div>
 
 
             <section class="comments-section">

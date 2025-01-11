@@ -131,8 +131,8 @@
     margin-left: 9rem;
     border-radius: var(--radius-16);
     overflow: hidden;
-    width: 200px;  /* Largeur fixe */
-    height: 200px; /* Hauteur fixe */
+    width: 180px;  /* Largeur fixe */
+    height: 160px; /* Hauteur fixe */
     /* object-fit: cover;  */
   }
 
@@ -513,6 +513,8 @@
                   {{post.title}}
                 </a>
               </h2>
+
+              <div class="resume">{{ post.description }}</div>
 
               <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-primary">Lire l'article</a>
             </article>
