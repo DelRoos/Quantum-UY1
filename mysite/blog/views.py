@@ -23,13 +23,14 @@ class PostListView(ListView):
     template_name = 'modèle/blog/affichage_articles.html'
 
 
-def post_list(request, name=None):
-    posts = Post.published.all()
-    categorie = None
 
-    if name:
-        categorie = get_object_or_404(Categorie, name=name)
-        posts = posts.filter(categorie=categorie)  # Assurez-vous que le champ est correct
+def post_list(request):
+    posts = Post.published.all()
+    selected_categories = request.GET.get('categories', '')  # Récupérer les catégories sélectionnées
+    selected_categories_list = selected_categories.split(',') if selected_categories else []
+
+    if selected_categories_list:
+        posts = posts.filter(categorie__name__in=selected_categories_list).distinct()
 
     paginator = Paginator(posts, 4)
     page_number = request.GET.get('page', 1)
@@ -40,16 +41,20 @@ def post_list(request, name=None):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
-    comments_dict = {}
-    for post in posts:
-        comments_dict[post.id] = post.comments.filter(active=True)
-
     all_categories = Categorie.objects.all()
     return render(
         request,
         'modèle/blog/affichage_articles.html',
-        {'posts': posts, 'selected_category_name': name, 'all_categories': all_categories, 'comments_dict': comments_dict, 'paginator': paginator}
+        {
+            'posts': posts,
+            'selected_categories': selected_categories_list,
+            'all_categories': all_categories,
+            'paginator': paginator,
+        }
     )
+
+
+
 
 def post_detail(request, slug):
     post = get_object_or_404(

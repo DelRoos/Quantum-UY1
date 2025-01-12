@@ -89,10 +89,6 @@
         </div>
       </section>
 
-
-
-
-
       <!-- 
         - #TEAM
       -->
@@ -166,10 +162,6 @@
 
         </div>
       </section>
-
-
-
-
 
       <!-- 
         - #RESEARCH TOPIC
@@ -294,7 +286,7 @@
             
           </div>
 
-          <div class="post-aside grid-list">
+          <!-- <div class="post-aside grid-list">
 
             <div class="card aside-card">
 
@@ -331,16 +323,16 @@
                 {% endfor %}
               </ul>
 
-            </div>
+            </div> -->
 
-
+            <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">
+              <span class="span">Voir plus d'article</span>
+    
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
           </div>
 
-          <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">
-            <span class="span">Voir plus d'article</span>
-  
-            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-          </a>
+         
         </div>
 
       </section>

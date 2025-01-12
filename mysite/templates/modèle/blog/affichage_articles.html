@@ -6,6 +6,14 @@
 {% block content %}
 <style>
 
+  .container1 {
+    max-width: 5050px;
+    margin-left: 250px;
+    margin-right: -250px;
+  }
+
+
+
   .category-btn {
     background-color: #f0f0f0; /* Couleur de fond par défaut */
     border: 1px solid #ccc; /* Bordure par défaut */
@@ -101,39 +109,67 @@
 
   .blog-layout {
     display: grid;
-    grid-template-columns: 2.5fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 3rem;
     align-items: start;
-    margin-top: 2rem;
   }
 
   .blog-contain{
-    display: grid; /* Utilisation de la grille CSS */
-    grid-template-columns: repeat(2, 1fr); /* 2 colonnes de largeur égale */
-    gap: 2rem; /* Espacement entre les articles */
-    margin-top: 2rem; /* Espacement au-dessus de la section */
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem; 
+    margin-bottom: 1rem; 
   }
   
   .featured-post {
-    margin-bottom: 4rem;
     background-color: var(--bg-oxford-blue);
-    padding: 2rem;
+    padding: 20px;
     border-radius: var(--radius-16);
     border: 1px solid var(--border-prussian-blue);
-    width: 400px;  /* Largeur fixe */
-    height: 400px; /* Hauteur fixe */
+    transition: transform var(--transition-1);
   }
+
+  .first-post {
+    grid-column: span 3;
+    background: var(--bg-highlight); 
+    padding: 2rem;
+  }
+
+  .first-post .featured-banner img {
+    aspect-ratio: 10/6; /* Ratio différent pour l'image */
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+
+  .first-post .featured-title {
+    font-size: 1.8rem; 
+    font-weight: bold;
+  }
+
+  .first-post .resume {
+    font-size: 1rem;
+    line-height: 3;
+  }
+
+  /* Autres posts */
+  .featured-post:not(.first-post) {
+    grid-column: span 1; 
+  }
+
+  .featured-post .featured-banner img {
+    aspect-ratio: 4/3; 
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+
+
+  .featured-post:is(:hover, :focus-within) { transform: translateY(-8px); }
   
   .featured-banner {
-    border-radius: var(--radius-16);
-    overflow: hidden;
-    margin-bottom: 1rem;
-    margin-left: 9rem;
-    border-radius: var(--radius-16);
-    overflow: hidden;
-    width: 180px;  /* Largeur fixe */
-    height: 160px; /* Hauteur fixe */
-    /* object-fit: cover;  */
+    position: relative;
+    aspect-ratio: 16/9;
   }
 
   .featured-banner img {
@@ -146,7 +182,7 @@
   }
 
   .featured-banner:hover img {
-    transform: scale(1.05);
+    transform: scale(1);
   }
 
   .post-meta {
@@ -247,17 +283,16 @@
     color: var(--text-carolina-blue);
   }
 
+
   .sidebar {
     position: sticky;
-    top: 2rem;
   }
 
   .sidebar-card {
     background-color: var(--bg-oxford-blue);
-    padding: 2rem;
-    border-radius: var(--radius-16);
+    padding: 1.5rem;
+    border-radius: var(--radius-8);
     border: 1px solid var(--border-prussian-blue);
-    margin-bottom: 2rem;
   }
 
   .sidebar-title {
@@ -450,148 +485,178 @@
         </p>
 
 
-        <!-- <div class="blog-categories">
-          {% if categorie %}
-              {% if posts %}
-                <h2>Articles pour la catégorie : {{ categorie.name }}</h2>
-              {% else %}
-                  <p>Aucun article trouvé pour la catégorie : {{ categorie.name }}</p>
-              {% endif %}
-          {% else %}
-              <h2>Aucune catégorie spécifiée.</h2>
-          {% endif %}
-        </div> -->
-
         <div class="blog-categories">
-          <button class="category-btn {% if not selected_category_name %}active{% endif %}">
-              <a href="{% url 'blog:post_list' %}" class="tag-link">All</a>
+          <button class="category-btn {% if not selected_categories %}active{% endif %}" data-category="">
+            <a href="#" class="tag-link">All</a>
           </button>
           {% for category in all_categories %}
-          <button class="category-btn {% if category.name == selected_category_name %}active{% endif %}">
-              <a href="{% url 'blog:post_list_by_categorie' category.name %}" class="tag-link">{{ category.name }}</a>
+          <button class="category-btn {% if category.name in selected_categories %}active{% endif %}" 
+                  data-category="{{ category.name }}">
+            <span class="tag-link">{{ category.name }}</span>
           </button>
           {% endfor %}
         </div>
+        
       </div>
     </section>
 
     <!-- Blog Content -->
     <section class="section">
-      <div class="container">
+      <div class="container1">
         <div class="blog-layout">
           <!-- Articles Column -->
           <div class="blog-contain">
-            <!-- Featured Post -->
             {% for post in posts %}
-            <article class="featured-post">
-              <!-- <figure class="featured-banner"> -->
-                <img class="featured-banner" src="{{ post.photo.url }}" alt="" loading="lazy">
-              <!-- </figure> -->
-              <div class="article-tags">
-                <a href="#" class="tag-link">{{ post.categorie }}</a>
-              </div>
-                
-
-              <div class="post-meta">
-                <span class="meta-item">
-                  <ion-icon name="calendar-outline"></ion-icon>
-                  <span>{{post.publish|date:"d M Y"}}</span>
-                </span>
-                <span class="meta-item">
-                  <ion-icon name="person-outline"></ion-icon>
-                  <a href="{{ author_profile.photo.url }}" class="featured-name"><span>{{ post.author.first_name }} {{ post.author.last_name }}</span></a>
-                  
-                </span>
-                <!-- <span class="meta-item">
-                  <ion-icon name="chatbubble-outline"></ion-icon>
-                  <span>8 Commentaires</span>
-                </span> -->
-              </div>
-
-              <h2>
-                <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
-                  {{post.title}}
-                </a>
-              </h2>
-
-              <div class="resume">{{ post.description }}</div>
-
-              <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-primary">Lire l'article</a>
-            </article>
+              <article class="featured-post {% if forloop.first %}first-post{% endif %}">
+                <figure class="featured-banner">
+                  <img class="featured-banner" src="{{ post.photo.url }}" alt="" loading="lazy">
+                </figure>
+                <div class="article-tags">
+                  <a href="#" class="tag-link">{{ post.categorie }}</a>
+                </div>
+          
+                <div class="post-meta">
+                  <span class="meta-item">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    <span>{{ post.publish|date:"d M Y" }}</span>
+                  </span>
+                  <span class="meta-item">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <a href="{{ author_profile.photo.url }}" class="featured-name">
+                      <span>{{ post.author.first_name }} {{ post.author.last_name }}</span>
+                    </a>
+                  </span>
+                </div>
+          
+                <h2>
+                  <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
+                    {{ post.title }}
+                  </a>
+                </h2>
+          
+                <div class="resume">{{ post.description }}</div>
+          
+                <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-primary">Lire l'article</a>
+              </article>
             {% endfor %}
-
           </div>
+          
+        </div>
+      </div>
+    </section>
+    
 
-          <!-- Sidebar -->
-          <aside class="sidebar">
-            <!-- Articles Populaires -->
-            <div class="sidebar-card">
-              <h3 class="sidebar-title">Articles Populaires</h3>
+
+        <!-- Blog Metrics -->
+        <section class="section">
+          <div class="container">
+            <div class="blog-layout">
+              <!-- Articles Column -->
+              <div class="blog-contain">
+                <!-- Articles Populaires -->
+                <div class="sidebar-card">
+                  <h3 class="sidebar-title">Articles Populaires</h3>
+                      <article class="popular-post">
+                        <figure class="popular-banner">
+                          <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
+                        </figure>
+                        <div class="popular-content">
+                          <a href="#" class="popular-title resume">Le Futur des Ordinateurs Quantiques</a>
+                          <span class="meta-item">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                            <span>15 Nov 2024</span>
+                          </span>
+                        </div>
+                      </article>
+    
+                      <article class="popular-post">
+                        <figure class="popular-banner">
+                          <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
+                        </figure>
+                        <div class="popular-content">
+                          <a href="#" class="popular-title resume">Les Avancées de la Physique Quantique</a>
+                          <span class="meta-item">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                            <span>20 Nov 2024</span>
+                          </span>
+                        </div>
+                      </article>
+                      <!-- Ajoutez plus d'articles populaires ici -->
+                </div>
+              </div>
+    
+              <!-- Sidebar -->
+              <aside class="sidebar">
+                <!-- Recommandation -->
+                <div class="sidebar-card">
+                  <h3 class="sidebar-title">Recommandation</h3>
+    
                   <article class="popular-post">
                     <figure class="popular-banner">
-                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
+                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire 1" loading="lazy">
                     </figure>
+    
                     <div class="popular-content">
-                      <a href="#" class="popular-title resume">Le Futur des Ordinateurs Quantiques</a>
+                      <a href="" class="popular-title resume">
+                        Le Futur des Ordinateurs Quantiques
+                      </a>
                       <span class="meta-item">
                         <ion-icon name="calendar-outline"></ion-icon>
                         <span>15 Nov 2024</span>
                       </span>
                     </div>
                   </article>
-
-                  <article class="popular-post">
-                    <figure class="popular-banner">
-                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
-                    </figure>
-                    <div class="popular-content">
-                      <a href="#" class="popular-title resume">Les Avancées de la Physique Quantique</a>
-                      <span class="meta-item">
-                        <ion-icon name="calendar-outline"></ion-icon>
-                        <span>20 Nov 2024</span>
-                      </span>
-                    </div>
-                  </article>
-
-                 
-
-                  <!-- Ajoutez plus d'articles populaires ici -->
-            </div>
-
-
-            <!-- Recommandation -->
-            <div class="sidebar-card">
-              <h3 class="sidebar-title">Recommandation</h3>
-
-              <article class="popular-post">
-                <figure class="popular-banner">
-                  <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire 1" loading="lazy">
-                </figure>
-
-                <div class="popular-content">
-                  <a href="" class="popular-title resume">
-                    Le Futur des Ordinateurs Quantiques
-                  </a>
-                  <span class="meta-item">
-                    <ion-icon name="calendar-outline"></ion-icon>
-                    <span>15 Nov 2024</span>
-                  </span>
-                </div>
-              </article>
-
-              <!-- Ajoutez plus d'Recommandation -->
-            </div>
-          </aside>
-        </div>
-      </div>
-      {% include "include/pagination.html" with page=posts %}
-    </section>
     
+                  <!-- Ajoutez plus d'Recommandation -->
+                </div>
+              </aside>
+            </div>
+          </div>
+          {% include "include/pagination.html" with page=posts %}
+        </section>
 
   </main>
 
 
-
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const categoryButtons = document.querySelectorAll('.category-btn');
+      const queryParams = new URLSearchParams(window.location.search);
+  
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const category = button.dataset.category;
+  
+          // Gérer la sélection/désélection
+          let selectedCategories = queryParams.get('categories') 
+                                    ? queryParams.get('categories').split(',') 
+                                    : [];
+  
+          if (category === "") {
+            // Si "All" est cliqué, réinitialiser
+            queryParams.delete('categories');
+          } else if (selectedCategories.includes(category)) {
+            // Retirer la catégorie si elle est déjà sélectionnée
+            selectedCategories = selectedCategories.filter(c => c !== category);
+          } else {
+            // Ajouter la catégorie si elle n'est pas sélectionnée
+            selectedCategories.push(category);
+          }
+  
+          if (selectedCategories.length > 0) {
+            queryParams.set('categories', selectedCategories.join(','));
+          } else {
+            queryParams.delete('categories');
+          }
+  
+          // Recharger la page avec les nouvelles catégories
+          window.location.search = queryParams.toString();
+        });
+      });
+    });
+  </script>
+  
 
 
 {% endblock %}

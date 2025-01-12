@@ -1252,7 +1252,6 @@ body.nav-active { overflow: hidden; }
    */
 
   .recent-post .container {
-    grid-template-columns: 1fr 0.6fr;
     align-items: flex-start;
   }
 
