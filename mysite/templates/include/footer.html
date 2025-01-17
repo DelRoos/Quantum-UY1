@@ -51,7 +51,7 @@
                           <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
                         </button>
                     </form>
-
+                    <div id="confirmation-message" style="display:none;"></div>
                 </div>
             </div>
 
@@ -83,4 +83,33 @@
             </div>
         </div>
     </div>
+
+
+
 </footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#newsletter-form').on('submit', function(event) {
+            event.preventDefault(); // Empêche la soumission normale du formulaire
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'), // Utilise l'URL du formulaire
+                data: $(this).serialize(), // Sérialise les données du formulaire
+                success: function(response) {
+                    if (response.success) {
+                        $('#confirmation-message').text(response.message).show();
+                        $('#newsletter-form')[0].reset(); // Réinitialise le formulaire
+                    } else {
+                        $('#confirmation-message').text(response.message).show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#confirmation-message').text('Une erreur est survenue.').show();
+                }
+            });
+        });
+    });
+</script>
+

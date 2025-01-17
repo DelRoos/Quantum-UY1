@@ -167,4 +167,4 @@ def newsletter_signup(request):
             'success': False,
             'message': "Méthode non autorisée"
         })
-    return redirect(request.META.get('HTTP_REFERER', 'include/footer'))
+    return redirect(request.META.get('HTTP_REFERER', 'base'))

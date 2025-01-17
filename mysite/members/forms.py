@@ -73,6 +73,7 @@ class NewsletterForm(forms.ModelForm):
     class Meta:
         model = Newsletter
         fields = ['name', 'email']
+    
         widgets = {
             'name': forms.TextInput(
                 attrs={
@@ -87,3 +88,8 @@ class NewsletterForm(forms.ModelForm):
                 }
             )
         }
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Newsletter.objects.filter(email=email).exists():
+            raise forms.ValidationError("Cette adresse email est déjà inscrite à notre newsletter.")
+        return email
