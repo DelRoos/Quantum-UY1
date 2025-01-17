@@ -1,0 +1,60 @@
+from django import forms
+from .models import ProjetRecherche, FAQ
+from members.models import Profile  
+
+class ProjetRechercheForm(forms.ModelForm):
+    members = forms.ModelMultipleChoiceField(
+        queryset=Profile.objects.all(),
+        widget=forms.CheckboxSelectMultiple(attrs={
+            'class': 'form-check-input'
+        }),  
+        required=True
+    )
+
+    class Meta:
+        model = ProjetRecherche
+        fields = ['titre', 'photo', 'members', 'body', 'resumé']
+        widgets = {
+            'titre': forms.TextInput(attrs={
+                'class': 'block w-full p-2 mb-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-purple-500 text-black',
+                'placeholder': 'Titre du projet'
+            }),
+            'photo': forms.ClearableFileInput(attrs={
+                'class': 'block w-full mb-3'
+            }),
+            'body': forms.Textarea(attrs={
+                'class': 'block w-full p-2 mb-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-purple-500 text-black',
+                'placeholder': 'Contenu du post',
+                'rows': 6
+            }),
+            'resumé': forms.Textarea(attrs={
+                'class': 'block w-full p-2 mb-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-purple-500 text-black',
+                'placeholder': 'Résumé',
+                'rows': 4
+            }),
+        }
+
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = FAQ
+        fields = ['name', 'email', 'question']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-input',  # Utilisez 'form-input' pour correspondre à votre style
+                'placeholder': 'Votre nom',
+                'required': 'required'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-input',  # Utilisez 'form-input' pour correspondre à votre style
+                'placeholder': 'Votre email',
+                'required': 'required'
+            }),
+            'question': forms.Textarea(attrs={
+                'class': 'form-textarea',  # Utilisez 'form-textarea' pour correspondre à votre style
+                'placeholder': 'Votre question',
+                'rows': 4,
+                'required': 'required'
+            }),
+        }
