@@ -6,92 +6,136 @@
 {% block content %}
 
 <style>
-.section.team {
-    padding: 4rem 0; 
-}
-
-.resume {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.5;
-    max-height: 6em;
-}
-
-.grid-list {
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 3rem; 
-}
-
-.team-card {
-    background-color: var(--bg-oxford-blue); 
-    border: 1px solid var(--bg-carolina-blue);
-    border-radius: 8px; 
-    overflow: hidden; 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s; 
-}
-
-.team-card:hover {
-    transform: translateY(-5px); 
-}
-
-.card-banner {
-    width: 100%; 
-    height: 100px; 
-    position:sticky;
-}
-
-
-.img-cover {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-}
-
-
-.card-content {
-    padding: 1.5rem; 
-}
-
-.card-title {
-    font-size: 2rem; 
-    color: #dfd7d7; 
-}
-
-.card-title:hover {
-    font-size: 2rem; 
-    color: var(--bg-carolina-blue)
-}
-
-.card-text {
-    font-size: 0.9rem; 
-    color: #666; 
-    margin: 0.5rem 0; 
-    width: 100%; 
-    box-sizing: border-box; 
-}
-
-.btn-group {
-    display: flex; 
-    justify-content: space-between; 
-    margin-top: 1rem; 
-    grid-template-columns: repeat(1, 1fr); 
-}
-
-
-.btn-icon {
-    color: #007bff; 
-    font-size: 1.5rem; 
-    transition: color 0.3s;
-}
-
-.btn-icon:hover {
-    color: #0056b3; 
-}
+  .hero {
+    padding-block-start: calc(var(--section-padding));
+    padding-block-end: 1rem;
+    margin-bottom: 3rem;
+  }
+    .section.team {
+      padding: 4rem 0;
+    }
+  
+    .resume {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.5;
+      max-height: 6em;
+    }
+  
+    .grid-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  
+    .team-card {
+      background-color: var(--bg-oxford-blue);
+      border: 1px solid var(--bg-carolina-blue);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+  
+    .team-card:hover {
+      transform: translateY(-5px);
+    }
+  
+    .card-banner {
+      width: 100%;
+      height: 100px;
+      position: sticky;
+    }
+  
+    .img-cover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  
+    .card-content {
+      padding: 1rem; /* Diminuer le padding */
+    }
+  
+    .card-title {
+      font-size: 1.8rem; /* Diminuer la taille de la police */
+      color: #dfd7d7;
+    }
+  
+    .card-title:hover {
+      color: var(--bg-carolina-blue);
+    }
+  
+    .card-text {
+      font-size: 0.8rem; /* Diminuer la taille de la police */
+      color: #666;
+      margin: 0.5rem 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+  
+    .btn-icon {
+      color: #007bff;
+      font-size: 1.2rem; /* Diminuer la taille de l'icône */
+      transition: color 0.3s;
+    }
+  
+    .btn-icon:hover {
+      color: #0056b3;
+    }
+  
+    /* Media Queries for Responsiveness */
+    @media (max-width: 1200px) {
+      .grid-list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+  
+      .card-title {
+        font-size: 1.6rem; /* Ajuster la taille de la police */
+      }
+    }
+  
+    @media (max-width: 768px) {
+      .grid-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+  
+      .card-title {
+        font-size: 1.4rem; /* Ajuster la taille de la police */
+      }
+  
+      .card-text {
+        font-size: 0.75rem; /* Ajuster la taille de la police */
+      }
+  
+      .btn-icon {
+        font-size: 1rem; /* Ajuster la taille de l'icône */
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .card-title {
+        font-size: 1.2rem; /* Ajuster la taille de la police */
+      }
+  
+      .card-text {
+        font-size: 0.7rem; /* Ajuster la taille de la police */
+      }
+  
+      .btn-icon {
+        font-size: 0.9rem; /* Ajuster la taille de l'icône */
+      }
+    }
 </style>
 
 <main>
@@ -100,7 +144,7 @@
     <section class="section hero">
         <div class="container">
             <h1 class="headline-1 section-title">
-                Notre <span class="span">Équipe</span>
+                Notre Équipe
             </h1>
             <p class="section-text">
                 Découvrez notre équipe de chercheurs passionnés, experts dans divers domaines de la physique quantique.

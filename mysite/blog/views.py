@@ -32,7 +32,7 @@ def post_list(request):
     if selected_categories_list:
         posts = posts.filter(categorie__name__in=selected_categories_list).distinct()
 
-    paginator = Paginator(posts, 4)
+    paginator = Paginator(posts, 6)
     page_number = request.GET.get('page', 1)
     try:
         posts = paginator.page(page_number)

@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import get_user_model
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import ProjetRecherche
+from members.models import Profile
 from .forms import ProjetRechercheForm, CommentForm
 from django.views.generic import ListView
 import markdown
@@ -58,6 +59,13 @@ def vue_projet(request, slug):
     FAQ = recherche_list.FAQ.filter(active=True)[:3]
 
     form = CommentForm(request.POST if request.method == 'POST' else None)
+
+    author = recherche_list.author
+    posts_author = ProjetRecherche(author=author)
+    try:
+        author_profile = Profile.objects.get(user=author)
+    except Profile.DoesNotExist:
+        author_profile = None
     
     if request.method == 'POST' and form.is_valid():
         comment = form.save(commit=False)
@@ -76,6 +84,8 @@ def vue_projet(request, slug):
 
     context = {
         'recherche_list': recherche_list, 
+        'posts_author': posts_author, 
+        'author_profile': author_profile, 
         'form': form, 
         'FAQ': FAQ, 
         'membres': membres

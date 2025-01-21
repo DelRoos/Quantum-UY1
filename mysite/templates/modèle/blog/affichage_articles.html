@@ -5,14 +5,17 @@
 
 {% block content %}
 <style>
-
+  .blog-layout1 {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 3rem;
+    align-items: start;
+  }
   .container1 {
     max-width: 5050px;
     margin-left: 250px;
     margin-right: -250px;
   }
-
-
 
   .category-btn {
     background-color: #f0f0f0; /* Couleur de fond par défaut */
@@ -31,6 +34,7 @@
     text-decoration: none; /* Pas de soulignement */
     color: inherit; /* Couleur du texte héritée */
   }
+
   .titre {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -68,7 +72,6 @@
 
   .tag-link {
     padding: 0.5rem 1rem;
-    background-color: var(--bg-prussian-blue);
     color: var(--text-wild-blue-yonder);
     font-size: var(--fontSize-7);
     border-radius: var(--radius-pill);
@@ -90,16 +93,15 @@
     border-radius: var(--radius-8);
   }
 
-
   .category-btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--radius-pill);
-      background-color: var(--bg-prussian-blue);
-      color: var(--text-wild-blue-yonder);
-      font-size: var(--fontSize-6);
-      transition: all var(--transition-1);
-      border: 1px solid var(--border-prussian-blue);
-    }
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--bg-prussian-blue);
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    transition: all var(--transition-1);
+    border: 1px solid var(--border-prussian-blue);
+  }
 
   .category-btn:hover,
   .category-btn.active {
@@ -109,18 +111,23 @@
 
   .blog-layout {
     display: grid;
-    grid-template-columns: 2fr 1fr;
     gap: 3rem;
-    align-items: start;
   }
 
-  .blog-contain{
+  .blog-contain {
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem; 
     margin-bottom: 1rem; 
   }
-  
+
+  .blog-contain1 {
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem; 
+    margin-bottom: 1rem; 
+  }
+
   .featured-post {
     background-color: var(--bg-oxford-blue);
     padding: 20px;
@@ -132,15 +139,8 @@
   .first-post {
     grid-column: span 3;
     background: var(--bg-highlight); 
-    padding: 2rem;
   }
 
-  .first-post .featured-banner img {
-    aspect-ratio: 10/6; /* Ratio différent pour l'image */
-    object-fit: cover;
-    width: 100%;
-    height: auto;
-  }
 
   .first-post .featured-title {
     font-size: 1.8rem; 
@@ -164,7 +164,6 @@
     height: auto;
   }
 
-
   .featured-post:is(:hover, :focus-within) { transform: translateY(-8px); }
   
   .featured-banner {
@@ -176,7 +175,6 @@
     width: 100%;
     height: 100%;
     height: auto;
-    /* aspect-ratio: 16/9; */
     object-fit: cover;
     transition: transform var(--transition-2);
   }
@@ -247,7 +245,6 @@
     transition: transform var(--transition-1);
     border: 1px solid var(--border-prussian-blue);
   }
-  
 
   .post-card:hover {
     transform: translateY(-5px);
@@ -283,7 +280,6 @@
     color: var(--text-carolina-blue);
   }
 
-
   .sidebar {
     position: sticky;
   }
@@ -303,54 +299,53 @@
     border-bottom: 1px solid var(--border-prussian-blue);
   }
 
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 3rem;
-  padding: 1.5rem;
-  background-color: var(--bg-oxford-blue);
-  border-radius: var(--radius-8);
-}
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: var(--bg-oxford-blue);
+    border-radius: var(--radius-8);
+  }
 
-.pagination-btn {
-  min-width: 40px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--bg-prussian-blue);
-  border-radius: var(--radius-circle);
-  color: var(--text-wild-blue-yonder);
-  font-size: var(--fontSize-6);
-  transition: all var(--transition-1);
-  border: 1px solid var(--border-prussian-blue);
-}
+  .pagination-btn {
+    min-width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-prussian-blue);
+    border-radius: var(--radius-circle);
+    color: var(--text-wild-blue-yonder);
+    font-size: var(--fontSize-6);
+    transition: all var(--transition-1);
+    border: 1px solid var(--border-prussian-blue);
+  }
 
-.pagination-btn:hover:not(.disabled) {
-  background-color: var(--bg-carolina-blue);
-  color: var(--text-white);
-  transform: translateY(-2px);
-}
+  .pagination-btn:hover:not(.disabled) {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+    transform: translateY(-2px);
+  }
 
-.pagination-btn.active {
-  background-color: var(--bg-carolina-blue);
-  color: var(--text-white);
-}
+  .pagination-btn.active {
+    background-color: var(--bg-carolina-blue);
+    color: var(--text-white);
+  }
 
-.pagination-btn.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+  .pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
-.pagination-ellipsis {
-  color: var(--text-wild-blue-yonder);
-  padding: 0 0.5rem;
-}
+  .pagination-ellipsis {
+    color: var(--text-wild-blue-yonder);
+    padding: 0 0.5rem;
+  }
 
   .popular-post {
-    display: flex;
     align-items: start;
     gap: 1rem;
     margin-bottom: 1rem;
@@ -365,7 +360,7 @@
   }
 
   .popular-banner {
-    width: 80px;
+    width: 50px;
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
@@ -446,30 +441,112 @@
     .post-banner {
       aspect-ratio: 16/9;
     }
+
+    .category-btn {
+      padding: 0.5rem 1rem;
+      font-size: var(--fontSize-7);
+    }
+
+    .pagination-container {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .pagination-btn {
+      min-width: 35px;
+      height: 35px;
+    }
+
+    .popular-post {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .popular-banner {
+      width: 60px;
+      height: 60px;
+    }
+
+    .popular-title {
+      font-size: var(--fontSize-7);
+    }
+
+    .blog-hero {
+      padding-block-end: 1rem;
+    }
+
+    .article-tags {
+      margin-block: 1rem;
+    }
+
+    .tag-link {
+      font-size: var(--fontSize-6);
+    }
+
+    .featured-post {
+      padding: 15px;
+    }
+
+    .post-content {
+      padding: 1rem;
+    }
   }
 
-@media (max-width: 768px) {
-  .blog-categories {
-    padding: 0.75rem;
-    gap: 0.75rem;
+  @media (max-width: 480px) {
+    .popular-banner {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    } 
+    
+    .featured-title {
+      font-size: var(--fontSize-5);
+    }
+
+    .post-title {
+      font-size: var(--fontSize-4);
+    }
+
+    .form-input {
+      font-size: var(--fontSize-5);
+    }
+
+    .post-excerpt {
+      font-size: var(--fontSize-5);
+      line-height: 1.5;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+    }
+
+    .pagination-container {
+      padding: 1rem;
+    }
+
+    .popular-title {
+      font-size: var(--fontSize-6);
+    }
   }
 
-  .category-btn {
-    padding: 0.5rem 1rem;
-    font-size: var(--fontSize-7);
+  @media (max-width: 1200px) {
+    .container1 {
+      margin-left: 100px;
+      margin-right: -100px;
+    }
+
+    .blog-layout {
+      gap: 2rem;
+    }
+
+    .category-btn {
+      padding: 0.5rem 1rem;
+      font-size: var(--fontSize-6);
+    }
   }
 
-  .pagination-container {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-  }
 
-  .pagination-btn {
-    min-width: 35px;
-    height: 35px;
-  }
-}
 </style>
 
   <main>
@@ -502,12 +579,12 @@
 
     <!-- Blog Content -->
     <section class="section">
-      <div class="container1">
+      <div class="container research-topic">
         <div class="blog-layout">
           <!-- Articles Column -->
           <div class="blog-contain">
             {% for post in posts %}
-              <article class="featured-post {% if forloop.first %}first-post{% endif %}">
+              <article class="featured-post">
                 <figure class="featured-banner">
                   <img class="featured-banner" src="{{ post.photo.url }}" alt="" loading="lazy">
                 </figure>
@@ -547,73 +624,73 @@
     
 
 
-        <!-- Blog Metrics -->
-        <section class="section">
-          <div class="container">
-            <div class="blog-layout">
-              <!-- Articles Column -->
-              <div class="blog-contain">
-                <!-- Articles Populaires -->
-                <div class="sidebar-card">
-                  <h3 class="sidebar-title">Articles Populaires</h3>
-                      <article class="popular-post">
-                        <figure class="popular-banner">
-                          <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
-                        </figure>
-                        <div class="popular-content">
-                          <a href="#" class="popular-title resume">Le Futur des Ordinateurs Quantiques</a>
-                          <span class="meta-item">
-                            <ion-icon name="calendar-outline"></ion-icon>
-                            <span>15 Nov 2024</span>
-                          </span>
-                        </div>
-                      </article>
-    
-                      <article class="popular-post">
-                        <figure class="popular-banner">
-                          <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
-                        </figure>
-                        <div class="popular-content">
-                          <a href="#" class="popular-title resume">Les Avancées de la Physique Quantique</a>
-                          <span class="meta-item">
-                            <ion-icon name="calendar-outline"></ion-icon>
-                            <span>20 Nov 2024</span>
-                          </span>
-                        </div>
-                      </article>
-                      <!-- Ajoutez plus d'articles populaires ici -->
-                </div>
-              </div>
-    
-              <!-- Sidebar -->
-              <aside class="sidebar">
-                <!-- Recommandation -->
-                <div class="sidebar-card">
-                  <h3 class="sidebar-title">Recommandation</h3>
-    
+    <!-- Blog Metrics -->
+    <section class="section">
+      <div class="container">
+        <div class="blog-layout1">
+          <!-- Articles Column -->
+          <div class="blog-contain1">
+            <!-- Articles Populaires -->
+            <div class="sidebar-card">
+              <h3 class="sidebar-title">Articles Populaires</h3>
                   <article class="popular-post">
                     <figure class="popular-banner">
-                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire 1" loading="lazy">
+                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
                     </figure>
-    
                     <div class="popular-content">
-                      <a href="" class="popular-title resume">
-                        Le Futur des Ordinateurs Quantiques
-                      </a>
+                      <a href="#" class="popular-title resume">Le Futur des Ordinateurs Quantiques</a>
                       <span class="meta-item">
                         <ion-icon name="calendar-outline"></ion-icon>
                         <span>15 Nov 2024</span>
                       </span>
                     </div>
                   </article>
-    
-                  <!-- Ajoutez plus d'Recommandation -->
-                </div>
-              </aside>
+
+                  <article class="popular-post">
+                    <figure class="popular-banner">
+                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
+                    </figure>
+                    <div class="popular-content">
+                      <a href="#" class="popular-title resume">Les Avancées de la Physique Quantique</a>
+                      <span class="meta-item">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <span>20 Nov 2024</span>
+                      </span>
+                    </div>
+                  </article>
+                  <!-- Ajoutez plus d'articles populaires ici -->
             </div>
           </div>
-          {% include "include/pagination.html" with page=posts %}
-        </section>
+
+          <!-- Sidebar -->
+          <aside class="sidebar">
+            <!-- Recommandation -->
+            <div class="sidebar-card">
+              <h3 class="sidebar-title">Recommandation</h3>
+
+              <article class="popular-post">
+                <figure class="popular-banner">
+                  <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire 1" loading="lazy">
+                </figure>
+
+                <div class="popular-content">
+                  <a href="" class="popular-title resume">
+                    Le Futur des Ordinateurs Quantiques
+                  </a>
+                  <span class="meta-item">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    <span>15 Nov 2024</span>
+                  </span>
+                </div>
+              </article>
+
+              <!-- Ajoutez plus d'Recommandation -->
+            </div>
+          </aside>
+        </div>
+      </div>
+      {% include "include/pagination.html" with page=posts %}
+    </section>
 
   </main>
 

@@ -175,6 +175,7 @@ def main():
 
                 # Créer un projet de recherche avec l'image
                 projet_recherche = ProjetRecherche.objects.create(
+                    author=User .objects.order_by('?').first(),
                     titre=titre,
                     start=fake.date_between(start_date='-1y', end_date='today'),  # Date de début aléatoire
                     end=fake.date_between(start_date='today', end_date='+1y'),    # Date de fin aléatoire

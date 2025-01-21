@@ -7,6 +7,11 @@
 
 
 <style>
+  .section-title {
+    font-size: var(--fontSize-2);
+    color: var(--text-alice-blue);
+    font-weight: var(--weight-extraBold);
+  }
   .resume {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -28,8 +33,9 @@
   /* Styles spécifiques pour la page des travaux */
   .hero {
     padding-block-start: calc(var(--section-padding));
+    padding-block-end: 0.005rem;
     background-color: var(--bg-prussian-blue);
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
 
   .img_projet {
@@ -567,7 +573,7 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="container">
-        <h1 class="headline-1 section-title">
+        <h1 class="section-title">
           Nos Travaux de Recherche
         </h1>
         <p class="section-text">
@@ -604,7 +610,14 @@
                 <article class="secondary-project-card">
                 <figure class="secondary-project-banner">
                     <img class="img_projet" src="{{ recherche.photo.url }}" alt="" loading="lazy">
-                    <span class="secondary-badge">{{ recherche.start|date:"Y" }}-{{ recherche.end|date:"Y" }}</span>
+                    <span class="secondary-badge">
+                      <div class="card-wrapper">
+                        <div class="wrapper">
+                          <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+                          <span class="span">{{ recherche.created_at|date:"d M Y" }}</span>
+                        </div>
+                      </div>
+                    </span>
                 </figure>
                 
                 <div class="project-content">

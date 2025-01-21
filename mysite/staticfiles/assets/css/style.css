@@ -187,14 +187,12 @@ body.nav-active { overflow: hidden; }
 }
 
 
-
-
+section-title
 
 /*-----------------------------------*\
   #REUSED STYLE
 \*-----------------------------------*/
 
-.container { padding-inline: 16px; }
 
 .hover-1,
 .hover-2 { transition: var(--transition-1); }
