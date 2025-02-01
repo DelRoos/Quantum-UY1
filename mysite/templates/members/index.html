@@ -124,6 +124,7 @@
       border-radius: var(--radius-8); /* Optionnel : arrondir les coins */
       text-decoration: none; /* Enlève le soulignement du lien */
       color: inherit; /* Hérite de la couleur du texte */
+      transition: transform 0.5s;
     }
 
     .project-item:hover {
@@ -268,7 +269,7 @@
             <h2 class="card-title">Parcours</h2>
             {% for education in parcours %}
             <div class="experience-item">
-                <div class="experience-date">{{ education.start_date }} - {{ education.end_date }}</div>
+                <div class="experience-date">{{ education.start_date|date:"j F Y" }} - {{ education.end_date|date:"j F Y" }}</div>
                 <h3 class="experience-title">{{ education.diplome }} en {{ education.filiere }}</h3>
                 <p class="experience-location">{{ education.institution }}</p>
             </div>

@@ -5,7 +5,7 @@ from .models import ProjetRecherche
 from members.models import Profile
 from .forms import ProjetRechercheForm, CommentForm
 from django.views.generic import ListView
-import markdown
+import markdown2
 from django.utils.html import mark_safe
 
 
@@ -73,13 +73,7 @@ def vue_projet(request, slug):
         comment.save()
         form = CommentForm() 
 
-     # Convertir le Markdown en HTML
-    html_content = markdown.markdown(recherche_list.body, extensions=["extra"])
-    
-    # Remplacer les sauts de ligne par des <br>
-    html_content = html_content.replace('\n', '<br>')
-    
-    # Marquer le contenu comme sûr
+    html_content = markdown2.markdown(recherche_list.body, extras=["tables", "fenced-code-blocks"])
     recherche_list.body_html = mark_safe(html_content)
 
     context = {

@@ -613,8 +613,8 @@
                     <span class="secondary-badge">
                       <div class="card-wrapper">
                         <div class="wrapper">
-                          <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
-                          <span class="span">{{ recherche.created_at|date:"d M Y" }}</span>
+                          <ion-icon name="icon ion-calendar" aria-hidden="true"></ion-icon>
+                          <span class="span">{{ recherche.created_at|date:"j F Y" }}</span>
                         </div>
                       </div>
                     </span>
@@ -639,9 +639,9 @@
             </div>
             
         </div>
-        
+        {% include "include/pagination.html" with page=posts %}
     </section>
-    {% include "include/pagination.html" with page=posts %}
+    
 
   </main>
 

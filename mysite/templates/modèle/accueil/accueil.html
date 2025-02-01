@@ -5,6 +5,10 @@
 
 {% block content %}
 <style>
+
+  .container1{
+    grid-template-columns: 2fr 1fr;
+  }
   .card-banner1 {
     height: 300px;
     overflow: hidden; /* Masquer les débordements */
@@ -194,9 +198,9 @@
 
 
                     <div class="wrapper">
-                      <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+                      <ion-icon name="icon ion-calendar" aria-hidden="true"></ion-icon>
 
-                      <span class="span">{{ recherche.created_at|date:"d M Y" }}</span>
+                      <span class="span">{{ recherche.created_at|date:"j F Y" }}</span>
                     </div>
                   </div>
 
@@ -234,7 +238,7 @@
       -->
 
       <section class="section recent-post" id="recent" aria-labelledby="recent-label">
-        <div class="container">
+        <div class="container container1">
 
           <div class="post-main">
 
@@ -267,9 +271,9 @@
 
                     <div class="card-wrapper">
                       <div class="wrapper">
-                        <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+                        <ion-icon name="icon ion-calendar" aria-hidden="true"></ion-icon>
 
-                        <span class="span">{{post.publish|date:"d M Y"}}</span>
+                        <span class="span">{{post.publish|date:"j F Y"}}</span>
                       </div>
                     </div>
 
@@ -282,7 +286,7 @@
             
           </div>
 
-          <!-- <div class="post-aside grid-list">
+          <div class="post-aside grid-list">
 
             <div class="card aside-card">
 
@@ -309,7 +313,7 @@
 
                       <div class="warpper">
 
-                        <time class="publish-date" datetime="2022-04-15">{{post.publish|date:"d M Y"}}</time>
+                        <time class="publish-date" datetime="2022-04-15">{{post.publish|date:"j F Y"}}</time>
                       </div>
 
                     </div>
@@ -319,7 +323,7 @@
                 {% endfor %}
               </ul>
 
-            </div> -->
+            </div>
 
             <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">
               <span class="span">Voir plus d'article</span>

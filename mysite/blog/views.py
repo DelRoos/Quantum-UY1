@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from members.models import Profile
 from taggit.models import Tag
 from django.db.models import Count
-import markdown
+import markdown2
 from django.utils.html import mark_safe
 
 
@@ -20,7 +20,7 @@ class PostListView(ListView):
     queryset = Post.published.all()
     context_object_name = 'posts'
     paginate_by = 1
-    template_name = 'modèle/blog/affichage_articles.html'
+    template_name = 'modèle/blog/listing.html'
 
 
 
@@ -44,7 +44,7 @@ def post_list(request):
     all_categories = Categorie.objects.all()
     return render(
         request,
-        'modèle/blog/affichage_articles.html',
+        'modèle/blog/listing.html',
         {
             'posts': posts,
             'selected_categories': selected_categories_list,
@@ -89,14 +89,12 @@ def post_detail(request, slug):
         same_tags=Count('tags')
     ).order_by('-same_tags', '-publish')[:4]
 
-     # Convertir le Markdown en HTML
-    html_content = markdown.markdown(post.body, extensions=["extra"])
+    html_content = markdown2.markdown(post.body, extras=["tables", "fenced-code-blocks"])
     
-    # Remplacer les sauts de ligne par des <br>
-    html_content = html_content.replace('\n', '<br>')
-    
-    # Marquer le contenu comme sûr
     post.body_html = mark_safe(html_content)
+    
+    
+
 
 
     context = {

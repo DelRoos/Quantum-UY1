@@ -1,0 +1,235 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}{{ site_name }} - Publications{% endblock %}
+
+{% block content %}
+{% load i18n %}
+<style>
+    .align-horizontal {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .align-horizontal span {
+        margin: 0 50px; /* Pour espacer les éléments */
+    }
+
+    .titre {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.5;
+        max-height: 3em;
+    }
+
+    .resume {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.5;
+        max-height: 3em;
+    }
+    .blob {
+        background-color: var(--bg-prussian-blue);
+    }
+
+    .title {
+        color: var(--bg-carolina-blue);
+    }
+
+    .card {
+        background-color: var(--bg-oxford-blue);
+        transition: transform var(--transition-1);
+        border: 1px solid var(--border-prussian-blue);
+    }
+    .card img {
+        width: 100%; /* Prend toute la largeur de la carte */
+        height: 200px; /* Hauteur fixe */
+        object-fit: cover; /* Couvre l'espace sans déformer l'image */
+    }
+    .featured-title {
+        font-size: var(--fontSize-4);
+        color: var(--text-alice-blue);
+        margin-bottom: 1rem;
+        transition: color var(--transition-1);
+    }
+    .featured-title:hover {
+        color: var(--text-carolina-blue);
+    }
+    .first-post .featured-title {
+    font-size: 1.8rem; 
+    font-weight: bold;
+  }
+</style>
+
+<main>
+    <section class="section">
+        <!-- Main News Slider Start -->
+        <div class="container-fluid py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="owl-carousel owl-carousel-2 carousel-item-1 position-relative mb-3 mb-lg-0">
+                            {% for post in posts %}
+                                <div class="position-relative overflow-hidden" style="height: 435px;">
+                                    <img class="img-fluid h-100" src="{{ post.photo.url }}" style="object-fit: cover;">
+                                    <div class="overlay">
+                                        <div class="mb-1">
+                                            <div class="text-white">{{ post.categorie.name }}</div>
+                                            <span class="px-2 text-white">_</span>
+                                            <div class="text-white">{{ post.publish|date:"j F Y" }}</div>
+                                        </div>
+                                        <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
+                                            {{ post.title }}
+                                          </a>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <p>No posts available.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blob d-flex align-items-center justify-content-between py-2 px-4 mb-3">
+                            <h3 class="title m-0">Categories</h3>
+                            <a class="text-secondary font-weight-medium text-decoration-none" href="">View All</a>
+                        </div>
+                        {% for category in all_categories %}
+                            <div class="position-relative overflow-hidden mb-3" style="height: 80px;">
+                                <a href="?categories={{ category.name }}" class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
+                                    {{ category.name }}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main News Slider End -->
+
+        <!-- News With Sidebar Start -->
+        <div class="container-fluid py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div class="d-flex align-items-center justify-content-between blob py-2 px-4 mb-3">
+                                    <h3 class="title m-0">Popular</h3>
+                                    <a class="text-secondary font-weight-medium text-decoration-none" href="">View All</a>
+                                </div>
+                            </div>
+                            {% for post in posts %}
+                                <div class="col-lg-6">
+                                    <div class="card position-relative mb-3">
+                                        <img class="img-fluid w-100" src="{{ post.photo.url }}" style="object-fit: cover;">
+                                        <div class="overlay position-relative card">
+                                            <div class="mb-2 align-horizontal">
+                                                <span>{{ post.publish|date:"j F Y" }}</span>
+                                                <dv>{{ post.categorie.name }}</dv>
+                                            </div>
+                                            <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
+                                                {{ post.title }}
+                                              </a>
+                                            <p class="resume m-0">{{ post.description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 pt-3 pt-lg-0">
+                        <!-- Social Follow Start -->
+                        <div class="pb-3">
+                            <div class="blob py-2 px-4 mb-3">
+                                <h3 class="title m-0">Follow Us</h3>
+                            </div>
+                            <div class ="d-flex mb-3">
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none mr-2" style="background: #39569E;">
+                                    <small class="fab fa-facebook-f mr-2"></small><small>12,345 Fans</small>
+                                </a>
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none ml-2" style="background: #52AAF4;">
+                                    <small class="fab fa-twitter mr-2"></small><small>12,345 Followers</small>
+                                </a>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none mr-2" style="background: #0185AE;">
+                                    <small class="fab fa-linkedin-in mr-2"></small><small>12,345 Connects</small>
+                                </a>
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none ml-2" style="background: #C8359D;">
+                                    <small class="fab fa-instagram mr-2"></small><small>12,345 Followers</small>
+                                </a>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none mr-2" style="background: #DC472E;">
+                                    <small class="fab fa-youtube mr-2"></small><small>12,345 Subscribers</small>
+                                </a>
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none ml-2" style="background: #1AB7EA;">
+                                    <small class="fab fa-vimeo-v mr-2"></small><small>12,345 Followers</small>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Social Follow End -->
+
+                        <!-- Newsletter Start -->
+                        <div class="pb-3">
+                            <div class="blob py-2 px-4 mb-3">
+                                <h3 class="title m-0">Newsletter</h3>
+                            </div>
+                            <div class="card text-center p-4 mb-3">
+                                <p>Aliqu justo et labore at eirmod justo sea erat diam dolor diam vero kasd</p>
+                                <div class="input-group" style="width: 100%;">
+                                    <input type="text" class="form-control form-control-lg" placeholder="Your Email">
+                                    <div class="input-group-append">
+                                        <button class="btn">Sign Up</button>
+                                    </div>
+                                </div>
+                                <small>Sit eirmod nonumy kasd eirmod</small>
+                            </div>
+                        </div>
+                        <!-- Newsletter End -->
+
+                        <!-- Ads Start -->
+                        <div class="mb-3 pb-3">
+                            <a href=""><img class="img-fluid" src="img/news-500x280-4.jpg" alt=""></a>
+                        </div>
+                        <!-- Ads End -->
+
+                        <!-- Trending News Start -->
+                        <div class="pb-3">
+                            <div class="blob py-2 px-4 mb-3">
+                                <h3 class="title m-0">Trending</h3>
+                            </div>
+                            {% for post in posts %}
+                                <div class="d-flex mb-3">
+                                    <img src="{{ post.photo.url }}" style="width: 100px; height: 100px; object-fit: cover;">
+                                    <div class="w-100 d-flex flex-column justify-content-center card px-3" style="height: 100px;">
+                                        <div class="mb-1" style="font-size: 13px;">
+                                            <a href="">{{ post.categorie.name }}</a>
+                                            <br>
+                                            <span>{{ post.publish|date:"j F Y" }}</span>
+                                        </div>
+                                        <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
+                                            {{ post.title }}
+                                          </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Trending News End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- News With Sidebar End -->
+    </section>
+</main>
+
+{% endblock %}

@@ -16,7 +16,7 @@ class PostListView(ListView):
     queryset = Post.published.all()
     context_object_name = 'posts'
     paginate_by = 1
-    template_name = 'modèle/blog/affichage_articles.html'
+    template_name = 'modèle/blog/listing.html'
 
 
 def dashboard(request):
@@ -70,7 +70,7 @@ def list_member(request):
 
     return render(
         request, 
-        'members/list.html', 
+        'members/listing.html', 
         {
             'list_member': list_member,
             'members_by_role': members_by_role,

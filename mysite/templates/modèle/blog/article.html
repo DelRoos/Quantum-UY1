@@ -5,7 +5,19 @@
 
 {% block content %}
 <style>
-  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0; /* Assurez-vous qu'il n'y a pas de marge */
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    margin: 0; /* Assurez-vous qu'il n'y a pas de marge */
+}
+
   .article-hero {
     padding-block-start: calc(var(--section-padding) + 60px);
     background-color: var(--bg-prussian-blue);
@@ -581,7 +593,7 @@
               <span class="author-role">
                 <span class="info-item">
                   <ion-icon name="calendar-outline"></ion-icon>
-                  <span>{{ post.publish|date:"d M Y" }}</span>
+                  <span>{{ post.publish|date:"j F Y" }}</span>
                 </span>
             </div>
           </div>
@@ -653,7 +665,7 @@
                         <div class="comment-header">
                           <div class="author-info">
                             <span class="author-name">{{ comment.name }}</span>
-                            <span class="author-role">{{ comment.created }}</span>
+                            <span class="author-role">{{ comment.created|date:"j F Y" }}</span>
                           </div>
                         </div>
                         <p class="comment-text">
@@ -754,7 +766,7 @@
           <div class="similar-post-meta">
             <span>
               <ion-icon name="calendar-outline"></ion-icon>
-              {{ post.publish|date:"d M Y" }}
+              {{ post.publish|date:"j F Y" }}
             </span>
           </div>
         </div>
@@ -782,7 +794,7 @@
           <div class="similar-post-meta">
             <span>
               <ion-icon name="calendar-outline"></ion-icon>
-              {{ post.publish|date:"d M Y" }}
+              {{ post.publish|date:"j F Y" }}
             </span>
           </div>
         </div>

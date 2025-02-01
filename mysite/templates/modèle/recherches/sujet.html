@@ -5,6 +5,29 @@
 
 {% block content %}
 <style>
+  .align-horizontal {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        margin: 0 400px;
+    }
+
+    .align-horizontal span {
+        margin: 0 3px; /* Pour espacer les éléments */
+        color: var(--text-carolina-blue);
+    }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0; /* Assurez-vous qu'il n'y a pas de marge */
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    margin: 0; /* Assurez-vous qu'il n'y a pas de marge */
+}
   /* Styles spécifiques pour la page de détail */
 
   .comments-section {
@@ -419,11 +442,11 @@
           {{ recherche_list.titre }}
         </h1>
 
-        <div class="research-meta">
+        <div class="research-meta ">
           <div class="meta-item">
             <span>{{ recherche_list.start|date:"Y" }}-{{ recherche_list.end|date:"Y" }}</span>
           </div>
-          <div class="meta-item">
+          <div class="meta-item align-horizontal">
             par <span>{{ author_profile.title.name }} {{ author_profile.user.first_name }} {{ author_profile.user.last_name }}</span>
           </div>
           <!-- <div class="meta-item">
@@ -485,7 +508,7 @@
                   <div class="comment-header">
                     <div class="author-info">
                       <span class="author-name">{{ comment.name }}</span>
-                      <span class="author-role">{{ comment.created }}</span>
+                      <span class="author-role">{{ comment.created|date:"j F Y" }}</span>
                     </div>
                   </div>
                   <p class="comment-text">
