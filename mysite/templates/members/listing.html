@@ -6,125 +6,117 @@
 {% block content %}
 
 <style>
+  .card-wrapper {
+    width: 300px;
+    height: 250px;
+    position: relative;
+  }
 
-
-.card-wrapper {
-  width: 300px;
-  height: 250px;
-  position: relative;
-}
-
-.card1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 300px;
-  height: 250px;
-  transform: translate(-50%, -50%);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-  transition: 0.5s;
-  
-  .card-image {
+  .card1 {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    background-color: #000;
-    transition: .5s;
-  }
-  
-  &:hover img {
-    opacity: 0.4;
-    transition: .5s;
-  }
-}
-
-.card1:hover .card-image {
-  transform: translateY(-50px);
-  transition: all .9s;
-}
-
-/**** Social Icons *****/
-
-.social-icons {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-  display: flex;
-  
-  li {
-    list-style: none;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 250px;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    transition: 0.5s;
     
-    a {
-      position: relative;
-      width: 50px;
-      height: 50px;
-      line-height: 50px;
-      text-align: center;
-      margin: 0 6px;
-      transition: .4s;
-      transform: translateY(200px);
-      opacity: 0;
-    } 
-  }
-}
-
-.card1:hover .social-icons li a {
-  transform: translateY(0px);
-  opacity: 1; 
-}
-
-
-.card1:hover li:nth-child(1) a {
-    transition-delay: 0.1s;
-}
-.card1:hover li:nth-child(2) a {
-  transition-delay: 0.2s;
-}
-.card1:hover li:nth-child(3) a {
-  transition-delay: 0.3s;
-}
-.card1:hover li:nth-child(4) a {
-  transition-delay: 0.4s;
-}
-
-/**** Personal Details ****/
-
-.details {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: var(--bg-oxford-blue);
-  width: 100%;
-  height: 120px;
-  z-index: 1;
-  padding: 3px;
-
-  h3 {
-    margin: 70px 20px;
-    padding: 0;
-    text-align: center;
-
-    .job-title {
-        font-size: 1rem;
-        line-height: 2.5rem;
+    .card-image {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background-color: #000;
+      transition: .5s;
     }
-
+    
+    &:hover img {
+      opacity: 0.4;
+      transition: .5s;
+    }
   }
-}
+
+  .card1:hover .card-image {
+    transform: translateY(-50px);
+    transition: all .9s;
+  }
+
+  /**** Social Icons *****/
+
+  .social-icons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    display: flex;
+    
+    li {
+      list-style: none;
+      
+      a {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        margin: 0 6px;
+        transition: .4s;
+        transform: translateY(200px);
+        opacity: 0;
+      } 
+    }
+  }
+
+  .card1:hover .social-icons li a {
+    transform: translateY(0px);
+    opacity: 1; 
+  }
 
 
+  .card1:hover li:nth-child(1) a {
+      transition-delay: 0.1s;
+  }
+  .card1:hover li:nth-child(2) a {
+    transition-delay: 0.2s;
+  }
+  .card1:hover li:nth-child(3) a {
+    transition-delay: 0.3s;
+  }
+  .card1:hover li:nth-child(4) a {
+    transition-delay: 0.4s;
+  }
 
+  /**** Personal Details ****/
 
+  .details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--bg-oxford-blue);
+    width: 100%;
+    height: 120px;
+    z-index: 1;
+    padding: 3px;
 
+    h3 {
+      margin: 70px 20px;
+      padding: 0;
+      text-align: center;
 
+      .job-title {
+          font-size: 1rem;
+          line-height: 2.5rem;
+      }
+
+    }
+  }
 
   .hero {
     padding-block-start: calc(var(--section-padding));

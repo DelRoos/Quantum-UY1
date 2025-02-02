@@ -51,24 +51,6 @@ h6,
     z-index: 99;
 }
 
-.navbar-light .navbar-nav .nav-link {
-    padding: 15px;
-    color: $secondary;
-    font-weight: 400;
-    outline: none;
-}
-
-.navbar-light .navbar-nav .nav-link:hover,
-.navbar-light .navbar-nav .nav-link.active {
-    color: $light;
-    background: $primary;
-}
-
-@media (max-width: 991.98px) {
-    .navbar-light .navbar-nav .nav-link {
-        padding: 8px 15px;
-    }
-}
 
 .owl-carousel .owl-nav {
     position: absolute;
