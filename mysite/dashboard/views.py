@@ -70,7 +70,7 @@ def list_member(request):
 
     return render(
         request, 
-        'members/listing.html', 
+        'members/list.html', 
         {
             'list_member': list_member,
             'members_by_role': members_by_role,

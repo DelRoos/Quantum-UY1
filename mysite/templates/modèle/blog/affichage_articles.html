@@ -561,7 +561,7 @@
           Découvrez nos dernières actualités, analyses et réflexions sur la physique quantique 
           et les avancées scientifiques.
         </p>
-
+<!-- 
 
         <div class="blog-categories">
           <button class="category-btn {% if not selected_categories %}active{% endif %}" data-category="">
@@ -573,7 +573,7 @@
             <span class="tag-link">{{ category.name }}</span>
           </button>
           {% endfor %}
-        </div>
+        </div> -->
         
       </div>
     </section>
@@ -623,75 +623,8 @@
       </div>
     </section>
     
-
-
-    <!-- Blog Metrics -->
-    <section class="section">
-      <div class="container">
-        <div class="blog-layout1">
-          <!-- Articles Column -->
-          <div class="blog-contain1">
-            <!-- Articles Populaires -->
-            <div class="sidebar-card">
-              <h3 class="sidebar-title">Articles Populaires</h3>
-                  <article class="popular-post">
-                    <figure class="popular-banner">
-                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
-                    </figure>
-                    <div class="popular-content">
-                      <a href="#" class="popular-title resume">Le Futur des Ordinateurs Quantiques</a>
-                      <span class="meta-item">
-                        <ion-icon name="calendar-outline"></ion-icon>
-                        <span>15 Nov 2024</span>
-                      </span>
-                    </div>
-                  </article>
-
-                  <article class="popular-post">
-                    <figure class="popular-banner">
-                      <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire" loading="lazy">
-                    </figure>
-                    <div class="popular-content">
-                      <a href="#" class="popular-title resume">Les Avancées de la Physique Quantique</a>
-                      <span class="meta-item">
-                        <ion-icon name="calendar-outline"></ion-icon>
-                        <span>20 Nov 2024</span>
-                      </span>
-                    </div>
-                  </article>
-                  <!-- Ajoutez plus d'articles populaires ici -->
-            </div>
-          </div>
-
-          <!-- Sidebar -->
-          <aside class="sidebar">
-            <!-- Recommandation -->
-            <div class="sidebar-card">
-              <h3 class="sidebar-title">Recommandation</h3>
-
-              <article class="popular-post">
-                <figure class="popular-banner">
-                  <img src="{% static '/assets/images/user2.jpg' %}" alt="Article populaire 1" loading="lazy">
-                </figure>
-
-                <div class="popular-content">
-                  <a href="" class="popular-title resume">
-                    Le Futur des Ordinateurs Quantiques
-                  </a>
-                  <span class="meta-item">
-                    <ion-icon name="calendar-outline"></ion-icon>
-                    <span>15 Nov 2024</span>
-                  </span>
-                </div>
-              </article>
-
-              <!-- Ajoutez plus d'Recommandation -->
-            </div>
-          </aside>
-        </div>
-      </div>
-      {% include "include/pagination.html" with page=posts %}
-    </section>
+    {% include "include/pagination.html" with page=posts %}
+    <br>
 
   </main>
 

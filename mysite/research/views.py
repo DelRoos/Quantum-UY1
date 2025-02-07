@@ -45,8 +45,22 @@ def recherche_list(request):
         posts = paginator.page(paginator.num_pages)
 
     recherche_list = ProjetRecherche.objects.all()
-    return render(request, 'modèle/recherches/affichage_sujets.html', {'recherche_list' : recherche_list, 'posts': posts, 'paginator': paginator}) 
+    return render(request, 'modèle/recherches/listing.html', {'recherche_list' : recherche_list, 'posts': posts, 'paginator': paginator}) 
 
+
+def listing(request):
+    posts = ProjetRecherche.objects.all()
+    paginator = Paginator(posts, 9)
+    page_number = request.GET.get('page', 1)
+    try:
+        posts = paginator.page(page_number)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    recherche_list = ProjetRecherche.objects.all()
+    return render(request, 'modèle/recherches/affichage_sujets.html', {'recherche_list' : recherche_list, 'posts': posts, 'paginator': paginator}) 
 
 
 def vue_projet(request, slug):

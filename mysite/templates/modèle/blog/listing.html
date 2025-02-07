@@ -6,6 +6,14 @@
 {% block content %}
 {% load i18n %}
 <style>
+
+    .card-banner2 {
+        height: 54px;
+        overflow: hidden; /* Masquer les débordements */
+        display: flex; /* Centrer le contenu */
+        justify-content: center; /* Centrer horizontalement */
+        align-items: center; /* Centrer verticalement */
+    }
     .align-horizontal {
         display: flex;
         align-items: center;
@@ -14,6 +22,21 @@
 
     .align-horizontal span {
         margin: 0 50px; /* Pour espacer les éléments */
+    }
+
+    .category-btn {
+        padding: 0.75rem 1.5rem;
+        background-color: var(--bg-prussian-blue);
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        transition: all var(--transition-1);
+        border: 1px solid var(--border-prussian-blue);
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+        background-color: var(--bg-carolina-blue);
+        color: var(--text-white);
     }
 
     .titre {
@@ -47,14 +70,22 @@
         background-color: var(--bg-oxford-blue);
         transition: transform var(--transition-1);
         border: 1px solid var(--border-prussian-blue);
+        border-radius: var(--radius-16);
     }
+
+    .card1 {
+        background-color: var(--bg-oxford-blue);
+        transition: transform var(--transition-1);
+        border: 1px solid var(--border-prussian-blue);
+    }
+    
     .card img {
         width: 100%; /* Prend toute la largeur de la carte */
         height: 200px; /* Hauteur fixe */
         object-fit: cover; /* Couvre l'espace sans déformer l'image */
     }
     .featured-title {
-        font-size: var(--fontSize-4);
+        font-size: var(--fontSize-3);
         color: var(--text-alice-blue);
         margin-bottom: 1rem;
         transition: color var(--transition-1);
@@ -62,10 +93,7 @@
     .featured-title:hover {
         color: var(--text-carolina-blue);
     }
-    .first-post .featured-title {
-    font-size: 1.8rem; 
-    font-weight: bold;
-  }
+
 </style>
 
 <main>
@@ -78,12 +106,12 @@
                         <div class="owl-carousel owl-carousel-2 carousel-item-1 position-relative mb-3 mb-lg-0">
                             {% for post in posts %}
                                 <div class="position-relative overflow-hidden" style="height: 435px;">
-                                    <img class="img-fluid h-100" src="{{ post.photo.url }}" style="object-fit: cover;">
+                                    <img class="img-fluid h-100" src="{{ post.photo.url }}" style="object-fit: cover; opacity: 0.4;">
                                     <div class="overlay">
                                         <div class="mb-1">
-                                            <div class="text-white">{{ post.categorie.name }}</div>
+                                            <div>{{ post.categorie.name }}</div>
                                             <span class="px-2 text-white">_</span>
-                                            <div class="text-white">{{ post.publish|date:"j F Y" }}</div>
+                                            <div>{{ post.publish|date:"j F Y" }}</div>
                                         </div>
                                         <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
                                             {{ post.title }}
@@ -98,10 +126,14 @@
                     <div class="col-lg-4">
                         <div class="blob d-flex align-items-center justify-content-between py-2 px-4 mb-3">
                             <h3 class="title m-0">Categories</h3>
-                            <a class="text-secondary font-weight-medium text-decoration-none" href="">View All</a>
                         </div>
+                        <!-- <div class="position-relative overflow-hidden category-btn {% if not selected_categories %}active{% endif %} mb-3" style="height: 80px;" data-category="">
+                            <a href="#" class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
+                                Tout
+                            </a>
+                        </div> -->
                         {% for category in all_categories %}
-                            <div class="position-relative overflow-hidden mb-3" style="height: 80px;">
+                            <div class="card1 position-relative overflow-hidden category-btn {% if category.name in selected_categories %}active{% endif %} mb-3" style="height: 80px;" data-category="{{ category.name }}">
                                 <a href="?categories={{ category.name }}" class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
                                     {{ category.name }}
                                 </a>
@@ -121,26 +153,47 @@
                         <div class="row mb-3">
                             <div class="col-12">
                                 <div class="d-flex align-items-center justify-content-between blob py-2 px-4 mb-3">
-                                    <h3 class="title m-0">Popular</h3>
-                                    <a class="text-secondary font-weight-medium text-decoration-none" href="">View All</a>
+                                    <h3 class="title m-0">Populaire</h3>
+                                    <a class="text-secondary font-weight-medium text-decoration-none" href="{% url 'blog:listing' %}">Tout</a>
                                 </div>
                             </div>
                             {% for post in posts %}
-                                <div class="col-lg-6">
-                                    <div class="card position-relative mb-3">
-                                        <img class="img-fluid w-100" src="{{ post.photo.url }}" style="object-fit: cover;">
-                                        <div class="overlay position-relative card">
-                                            <div class="mb-2 align-horizontal">
+                            <div class="col-lg-6">
+                                {% if forloop.counter <= 2 %}
+                                    <!-- Design spécifique pour les deux premiers posts -->
+                                    <div class="col-lg-13">
+                                        <div class="card position-relative mb-3 special-post">
+                                            <img class="img-fluid w-100" src="{{ post.photo.url }}" style="object-fit: cover; height: 200px;">
+                                            <div class="overlay position-relative card">
+                                                <div class="mb-2 align-horizontal">
+                                                    <span>{{ post.publish|date:"j F Y" }}</span>
+                                                    <dv>{{ post.categorie.name }}</dv>
+                                                </div>
+                                                <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
+                                                    {{ post.title }}
+                                                </a>
+                                                <p class="resume m-0">{{ post.description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                <br><br>
+                                    <div class="d-flex mb-3">
+                                        <img src="{{ post.photo.url }}" style="width: 100px; height: 100px; object-fit: cover;">
+                                        <div class="w-100 d-flex flex-column justify-content-center card1 px-3" style="height: 100px;">
+                                            <div class="mb-1" style="font-size: 13px;">
+                                                <a href="">{{ post.categorie.name }}</a>
+                                                <br>
                                                 <span>{{ post.publish|date:"j F Y" }}</span>
-                                                <dv>{{ post.categorie.name }}</dv>
                                             </div>
                                             <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
                                                 {{ post.title }}
                                               </a>
-                                            <p class="resume m-0">{{ post.description }}</p>
                                         </div>
                                     </div>
-                                </div>
+                                    
+                                {% endif %}
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -149,7 +202,7 @@
                         <!-- Social Follow Start -->
                         <div class="pb-3">
                             <div class="blob py-2 px-4 mb-3">
-                                <h3 class="title m-0">Follow Us</h3>
+                                <h3 class="title m-0">Suivez-nous</h3>
                             </div>
                             <div class ="d-flex mb-3">
                                 <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none mr-2" style="background: #39569E;">
@@ -178,24 +231,6 @@
                         </div>
                         <!-- Social Follow End -->
 
-                        <!-- Newsletter Start -->
-                        <div class="pb-3">
-                            <div class="blob py-2 px-4 mb-3">
-                                <h3 class="title m-0">Newsletter</h3>
-                            </div>
-                            <div class="card text-center p-4 mb-3">
-                                <p>Aliqu justo et labore at eirmod justo sea erat diam dolor diam vero kasd</p>
-                                <div class="input-group" style="width: 100%;">
-                                    <input type="text" class="form-control form-control-lg" placeholder="Your Email">
-                                    <div class="input-group-append">
-                                        <button class="btn">Sign Up</button>
-                                    </div>
-                                </div>
-                                <small>Sit eirmod nonumy kasd eirmod</small>
-                            </div>
-                        </div>
-                        <!-- Newsletter End -->
-
                         <!-- Ads Start -->
                         <div class="mb-3 pb-3">
                             <a href=""><img class="img-fluid" src="img/news-500x280-4.jpg" alt=""></a>
@@ -205,24 +240,45 @@
                         <!-- Trending News Start -->
                         <div class="pb-3">
                             <div class="blob py-2 px-4 mb-3">
-                                <h3 class="title m-0">Trending</h3>
+                                <h3 class="title m-0">Recents</h3>
                             </div>
-                            {% for post in posts %}
-                                <div class="d-flex mb-3">
-                                    <img src="{{ post.photo.url }}" style="width: 100px; height: 100px; object-fit: cover;">
-                                    <div class="w-100 d-flex flex-column justify-content-center card px-3" style="height: 100px;">
-                                        <div class="mb-1" style="font-size: 13px;">
-                                            <a href="">{{ post.categorie.name }}</a>
-                                            <br>
-                                            <span>{{ post.publish|date:"j F Y" }}</span>
-                                        </div>
-                                        <a href="{% url 'blog:post_detail' post.slug %}" class="featured-title titre">
-                                            {{ post.title }}
-                                          </a>
-                                    </div>
-                                </div>
-                            {% endfor %}
                         </div>
+
+                        <div class="post-aside grid-list">
+
+                            <div class="card aside-card">
+                
+                              <ul class="popular-list">
+                                {% for post in article %}
+                                <li>
+                                  <div class="popular-card">
+                
+                                    <figure class="card-banner card-banner2 img-holder">
+                                      <img src="{{ post.photo.url }}" width="64" height="64" alt="">
+                                    </figure>
+                
+                                    <div class="card-content">
+                
+                                      <h4 class="headline headline-4 card-title">
+                                        <a href="{% url 'blog:post_detail' post.slug %}" class="link hover-2">{{post.title}}</a>
+                                      </h4>
+                
+                                      <div class="resume">{{ post.description }}</div>
+                
+                                      <div class="warpper">
+                
+                                        <time class="publish-date" datetime="2022-04-15">{{post.publish|date:"j F Y"}}</time>
+                                      </div>
+                
+                                    </div>
+                
+                                  </div>
+                                </li>
+                                {% endfor %}
+                              </ul>
+                
+                            </div>
+                          </div>
                         <!-- Trending News End -->
                     </div>
                 </div>

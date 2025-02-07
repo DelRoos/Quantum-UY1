@@ -42,6 +42,7 @@ def post_list(request):
         posts = paginator.page(paginator.num_pages)
 
     all_categories = Categorie.objects.all()
+    article = Post.published.order_by('publish')[:3]
     return render(
         request,
         'modèle/blog/listing.html',
@@ -50,8 +51,41 @@ def post_list(request):
             'selected_categories': selected_categories_list,
             'all_categories': all_categories,
             'paginator': paginator,
+            'article': article,
         }
     )
+
+def listing(request):
+    posts = Post.published.all()
+    selected_categories = request.GET.get('categories', '')  # Récupérer les catégories sélectionnées
+    selected_categories_list = selected_categories.split(',') if selected_categories else []
+
+    if selected_categories_list:
+        posts = posts.filter(categorie__name__in=selected_categories_list).distinct()
+
+    paginator = Paginator(posts, 6)
+    page_number = request.GET.get('page', 1)
+    try:
+        posts = paginator.page(page_number)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    all_categories = Categorie.objects.all()
+    article = Post.published.order_by('publish')[:3]
+    return render(
+        request,
+        'modèle/blog/affichage_articles.html',
+        {
+            'posts': posts,
+            'selected_categories': selected_categories_list,
+            'all_categories': all_categories,
+            'paginator': paginator,
+            'article': article,
+        }
+    )
+
 
 
 

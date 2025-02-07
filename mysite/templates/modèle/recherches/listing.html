@@ -1,0 +1,225 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}{{ site_name }} - Publications{% endblock %}
+
+{% block content %}
+{% load i18n %}
+<style>
+    .align-horizontal {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .align-horizontal span {
+        margin: 0 50px; /* Pour espacer les éléments */
+    }
+
+    .bordure{
+        border: 1px solid var(--border-prussian-blue);
+    }
+    .category-btn {
+        padding: 0.75rem 1.5rem;
+        background-color: var(--bg-prussian-blue);
+        color: var(--text-wild-blue-yonder);
+        font-size: var(--fontSize-6);
+        transition: all var(--transition-1);
+        border: 1px solid var(--border-prussian-blue);
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+        background-color: var(--bg-carolina-blue);
+        color: var(--text-white);
+    }
+
+    .titre {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.5;
+        max-height: 3em;
+    }
+
+    .resume {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.5;
+        max-height: 3em;
+    }
+    .blob {
+        background-color: var(--bg-prussian-blue);
+    }
+
+    .title {
+        color: var(--bg-carolina-blue);
+    }
+
+    .card {
+        background-color: var(--bg-oxford-blue);
+        transition: transform var(--transition-1);
+        border: 1px solid var(--border-prussian-blue);
+    }
+    .card img {
+        width: 100%; /* Prend toute la largeur de la carte */
+        height: 200px; /* Hauteur fixe */
+        object-fit: cover; /* Couvre l'espace sans déformer l'image */
+    }
+    .featured-title {
+        font-size: var(--fontSize-3);
+        color: var(--text-alice-blue);
+        margin-bottom: 1rem;
+        transition: color var(--transition-1);
+    }
+    .featured-title:hover {
+        color: var(--text-carolina-blue);
+    }
+
+</style>
+
+<main>
+    <section class="section">
+        <!-- Featured News Slider Start -->
+        <div class="container-fluid pt-5 mb-3">
+            <div class="container">
+                <div class="col-12">
+                    <div class="d-flex align-items-center justify-content-between blob py-2 px-4 mb-3">
+                        <h3 class="title m-0">Recents</h3>
+                    </div>
+                </div>
+                <div class="owl-carousel news-carousel carousel-item-4 position-relative">
+                    {% for recherche in posts %}
+                    <div class="position-relative overflow-hidden" style="height: 300px;">
+                        <img class="img-fluid h-100" src="{{ recherche.photo.url }}" style="object-fit: cover;">
+                        <div class="overlay">
+                            <div class="mb-2">
+                                <!-- <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                                    href="">Business</a> -->
+                                <a class="text-white" href=""><small>{{ recherche.created_at|date:"j F Y" }}</small></a>
+                            </div>
+                            <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="{% url 'research:detail' recherche.slug %}">{{ recherche.titre }}</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Featured News Slider End -->
+
+
+            <!-- News With Sidebar Start -->
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-between blob py-2 px-4 mb-3">
+                                <h3 class="title m-0">Populaire</h3>
+                                <a class="text-secondary font-weight-medium text-decoration-none" href="{% url 'research:listing' %}">Tout</a>
+                            </div>
+                        </div>
+                
+                        {% for recherche in posts %}
+                            {% if forloop.first %}
+                                <!-- Premier post affiché seul en haut -->
+                                <div class="col-lg-12 mb-4">
+                                    <div class="bordure row news-lg mx-0">
+                                        <div class="col-md-6 h-100 px-0">
+                                            <img class="img-fluid" src="{{ recherche.photo.url }}" style="object-fit: cover; height: 200px; width: 200px;">
+                                        </div>
+                                        <div class="col-md-6 d-flex bordure flex-column h-100 px-0">
+                                            <div class="mt-auto p-4">
+                                                <div class="mb-2">
+                                                    <a class="text-body" href=""><small>{{ recherche.created_at|date:"j F Y" }}</small></a>
+                                                </div>
+                                                <a class="titre title featured-title" href="{% url 'research:detail' recherche.slug %}">{{ recherche.titre }}</a>
+                                                <p class="m-0 resume">{{ recherche.resumé }}</p>
+                                            </div>
+                                            <div class="d-flex justify-content-between bordure mt-auto p-4">
+                                                <div class="d-flex align-items-center">
+                                                    <img class="rounded-circle mr-2" src="img/user.jpg" width="25" height="25" alt="">
+                                                    <small>John Doe</small>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <small class="ml-3"><i class="far fa-eye mr-2"></i>12345</small>
+                                                    <small class="ml-3"><i class="far fa-comment mr-2"></i>123</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <div class="bordure d-flex align-items-center" style="height: 110px;">
+                                        <img class="img-fluid" src="{{ recherche.photo.url }}" style="width: 110px; height: 100%; object-fit: cover;">
+                                        <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center  ">
+                                            <div class="mb-2">
+                                                <a class="text-body" href=""><small>{{ recherche.created_at|date:"j F Y" }}</small></a>
+                                            </div>
+                                            <a class="titre title featured-title" href="{% url 'research:detail' recherche.slug %}">{{ recherche.titre }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                
+                
+                <div class="col-lg-4">
+                    <!-- Social Follow Start -->
+                    <div class="mb-3">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-between blob py-2 px-4 mb-3">
+                                <h3 class="title m-0">Suivez-nous</h3>
+                            </div>
+                        </div>
+                        <div class="bordure p-3">
+                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #39569E;">
+                                <i class="fab fa-facebook-f text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
+                                <span class="font-weight-medium">12,345 Fans</span>
+                            </a>
+                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #52AAF4;">
+                                <i class="fab fa-twitter text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
+                                <span class="font-weight-medium">12,345 Followers</span>
+                            </a>
+                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #0185AE;">
+                                <i class="fab fa-linkedin-in text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
+                                <span class="font-weight-medium">12,345 Connects</span>
+                            </a>
+                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #C8359D;">
+                                <i class="fab fa-instagram text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
+                                <span class="font-weight-medium">12,345 Followers</span>
+                            </a>
+                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #DC472E;">
+                                <i class="fab fa-youtube text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
+                                <span class="font-weight-medium">12,345 Subscribers</span>
+                            </a>
+                            <a href="" class="d-block w-100 text-white text-decoration-none" style="background: #055570;">
+                                <i class="fab fa-vimeo-v text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
+                                <span class="font-weight-medium">12,345 Followers</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Social Follow End -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- News With Sidebar End -->
+
+    </section>
+</main>
+
+{% endblock %}
